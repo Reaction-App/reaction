@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
-import "./Saved.css";
+import "./Playlist.css";
 
-class Saved extends Component {
+class Playlist extends Component {
   // Initial state
   state = {
-    savedArticles: [],
+    savedTracks: [],
     snippet: "",
     headline: "",
     pubDate: "",
@@ -15,30 +15,30 @@ class Saved extends Component {
 
   componentDidMount() {
 
-    // Load articles from DB on page load
-    this.loadArticles();
+    // Load tracks from DB on page load
+    this.loadTracks();
 
   }
 
 
-  loadArticles = () => {
+  loadTracks = () => {
 
-    // Load articles from DB
-    API.getArticles()
+    // Load tracks from DB
+    API.getTracks()
       .then(res =>
-        this.setState({ savedArticles: res.data, headline: "", snippet: "", pubDate: "", url: "" })
+        this.setState({ savedTracks: res.data, headline: "", snippet: "", pubDate: "", url: "" })
       )
       .catch(err => console.log(err));
   };
 
-  handleDeleteArticle = id => {
+  handleDeleteTrack = id => {
 
     // delete an article when delete button is clicked
     console.log("delete button clicked");
     console.log(id);
 
-    API.deleteArticle(id)
-      .then(res => this.loadArticles())
+    API.deleteTrack(id)
+      .then(res => this.loadTracks())
       .catch(err => console.log(err));
   }
 
@@ -47,12 +47,12 @@ class Saved extends Component {
       <div>
       	<div className="panel panel-default">
           <div className="panel-heading text-center">
-            <h2>Saved Articles</h2>
+            <h2>Playlist</h2>
           </div>
           <div className="panel-body">
-            {this.state.savedArticles.length ? (
+            {this.state.savedTracks.length ? (
               <ul className="list-group">
-                {this.state.savedArticles.map(article => {
+                {this.state.savedTracks.map(article => {
                   return (
                   <li className="list-group-item" key={article._id}>
                     <p><strong>{article.headline}</strong></p>
@@ -64,7 +64,7 @@ class Saved extends Component {
                   )
                 })}
               </ul>
-            ) : (<h1 className="text-center">No articles saved</h1>)}
+            ) : (<h1 className="text-center">No tracks in this playlist.</h1>)}
           </div>
         </div>
       </div>
@@ -72,4 +72,4 @@ class Saved extends Component {
   }
 }
 
-export default Saved;
+export default Playlist;

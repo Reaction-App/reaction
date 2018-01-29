@@ -1,6 +1,6 @@
 import React from "react";
 import Home from "./pages/Home";
-import Saved from "./pages/Saved";
+import Playlist from "./pages/Playlist";
 import { Container } from "./components/Grid";
 import Nav from "./components/Nav";
 import {
@@ -17,7 +17,7 @@ const App = () =>
     <Nav />
     <Router>
       <Switch>
-        <Route exact path="/saved" component={Saved} />
+        <Route exact path="/playlist" component={Playlist} />
         <Route path="/" component={Home}/>
       </Switch>
     </Router>
