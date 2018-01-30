@@ -12,8 +12,18 @@ import {
   Redirect
 } from 'react-router-dom'
 
-const App = () =>
+// Material-UI
+// MuiThemeProvider provides a couple of basic themes e.g. color scheme
+// MyAwesomeReactComponent is an example component
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import AppBar from 'material-ui/AppBar';
+
+const App = () => (
   
+  <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+
   <Container>
     <Nav />
     <Router>
@@ -24,6 +34,10 @@ const App = () =>
       </Switch>
     </Router>
   </Container>
+
+  </ MuiThemeProvider>
+
+);
 
 export default App;
 
