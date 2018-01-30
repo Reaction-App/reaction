@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
-import "./Playlist.css";
+
+// Material UI components
+import RaisedButton from 'material-ui/RaisedButton';
+import {List, ListItem} from 'material-ui/List';
+
+// Material UI styles
+const styles = {
+  deleteButtonStyle: {
+    marginLeft: 20
+  }
+};
 
 class Playlist extends Component {
+
   // Initial state
   state = {
     savedTracks: [],
@@ -45,26 +56,30 @@ class Playlist extends Component {
   render() {
     return (
       <div>
-      	<div className="panel panel-default">
-          <div className="panel-heading text-center">
+      	<div>
+          <div>
             <h2>Playlist</h2>
           </div>
-          <div className="panel-body">
+          <div>
             {this.state.savedTracks.length ? (
-              <ul className="list-group">
+              <List>
                 {this.state.savedTracks.map(article => {
                   return (
-                  <li className="list-group-item" key={article._id}>
+                  <ListItem key={article._id}>
                     <p><strong>{article.headline}</strong></p>
                     <p>{article.snippet}</p>
                     <p>Publication Date: {article.pubDate}</p>
                     <a rel="noreferrer noopener" href={article.url} target="_blank">Go to article</a>
-                    <button className="btn btn-danger" onClick={() => this.handleDeleteArticle(article._id)}>Delete</button>
-                  </li>
+                    <RaisedButton
+                      label="Delete"
+                      onClick={() => this.handleDeleteArticle(article._id)}
+                      style={styles.deleteButtonStyle}
+                    />
+                  </ ListItem>
                   )
                 })}
-              </ul>
-            ) : (<h1 className="text-center">No tracks in this playlist.</h1>)}
+              </ List>
+            ) : (<h1>No tracks in this playlist.</h1>)}
           </div>
         </div>
       </div>

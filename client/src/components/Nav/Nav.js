@@ -1,21 +1,23 @@
 import React from "react";
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 
-const Nav = () =>
-  <nav className="navbar navbar-default navbar-top">
-    <div className="container-fluid">
-      <div className="navbar-header">
-        <a href="/" className="navbar-brand">
-          Reaction
-        </a>
-      </div>
+const styles = {
+  title: {
+    cursor: 'pointer',
+  },
+};
 
+const Nav = () => (
+  <AppBar
+    title={<span style={styles.title}>Reaction</span>}
+    iconElementRight={
       <div>
-        <ul className="nav navbar-nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/playlist">Playlist</a></li>
-        </ul>
+        <FlatButton label="Home" href="/" />
+        <FlatButton label="Playlist" href="/playlist" />
       </div>
-    </div>
-  </nav>;
+    }
+  />
+);
 
 export default Nav;

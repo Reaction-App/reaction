@@ -1,12 +1,23 @@
 import React, { Component } from "react";
-import {Input, FormBtn} from "../../components/Form";
 import API from "../../utils/API";
-import "./Home.css";
 import querystring from 'querystring';
+
+// Material UI components
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import {List, ListItem} from 'material-ui/List';
+import {orange500, blue500} from 'material-ui/styles/colors';
+
+// Material UI styles
+const styles = {
+  saveButtonStyle: {
+    marginLeft: 20
+  }
+};
 
 class Home extends Component {
 
-  // // Initial state
+  // Initial state
   state = {
       userData: {},
       tracks: {},
@@ -110,50 +121,56 @@ class Home extends Component {
 
   render() {
     return (
+
       <div>
+
         {/*{this.state.userData.user.name ? ( */}
           <div>
           {/*<h2>Hello {this.state.userData.user.name}</h2>*/}
-          <div className="panel panel-default">
-            <div className="panel-heading text-center">
+          <div>
+            <div>
               <h2>Search for a song</h2>
             </div>
-            <div className="panel-body">
-              <form>        
-                {/*<Input
-                  name="artist"
-                  value={this.state.artist}
-                  onChange={this.handleInputChange}
-                  placeholder="Artist" />   */}
-                <Input
-                  name="query"
-                  value={this.state.query}
-                  onChange={this.handleInputChange}
-                  placeholder="Track Name" />
-                <FormBtn onClick={this.handleFormSubmit}>Search</FormBtn>
-              </form>
+            <div>
+              <TextField
+                hintText="Enter Artist, Track Name etc..."
+                name="query"
+                value={this.state.query}
+                onChange={this.handleInputChange}
+
+              />
+              <br />
+              <RaisedButton
+                label="Search"
+                onClick={this.handleFormSubmit}
+                primary={true}
+              />
             </div>
           </div>
-          <div className="panel panel-default">
-            <div className="panel-heading text-center">
+          <div>
+            <div>
               <h2>Results</h2>
             </div>
-            <div className="panel-body">
+            <div>
               {this.state.tracks.length ? (
-                <ul className="list-group">
+                <List>
                   {this.state.tracks.map(track => {
                     return (
-                    <li className="list-group-item">
+                    <ListItem>
                       <p><strong>{track.trackName}</strong></p>
                       <p>Artist: {track.artist}</p>
                       <p>Album: {track.album}</p>
                       <a rel="noreferrer noopener" href="track.trackURL" target="_blank">Go to track</a>
-                      <button className="btn btn-primary" onClick={() => this.handleSaveTrack(track)}>Add to Playlist</button>
-                    </li>
+                      <RaisedButton
+                        label="Add to Playlist"
+                        onClick={() => this.handleSaveTrack(track)}
+                        style={styles.saveButtonStyle}
+                        />
+                    </ ListItem>
                     )
                   })}
-                </ul>
-              ) : (<h1 className="text-center">No tracks, try a new search!</h1>)}
+                </ List>
+              ) : (<h1>No tracks, try a new search!</h1>)}
             </div>
           </div>
           </div>
