@@ -24,8 +24,8 @@ class Home extends Component {
   searchSpotify(query) {
 
     // Get Access Token
-    let parsed = querystring.parse(window.location.search);
-    let accessToken = parsed['?access_token'];
+    let parsed = querystring.parse(window.location.hash);
+    let accessToken = parsed['#access_token'];
 
     // URL constructor for searching
     const BASE_URL = 'https://api.spotify.com/v1/search';
