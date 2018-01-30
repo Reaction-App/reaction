@@ -1,6 +1,7 @@
 import React from "react";
 import Home from "./pages/Home";
 import Playlist from "./pages/Playlist";
+import LoginPage from "./pages/LoginPage";
 import { Container } from "./components/Grid";
 import Nav from "./components/Nav";
 import {
@@ -18,7 +19,8 @@ const App = () =>
     <Router>
       <Switch>
         <Route exact path="/playlist" component={Playlist} />
-        <Route path="/" component={Home}/>
+        <Route path="/home" component={Home}/>
+        <Route path="/" component={LoginPage}/>
       </Switch>
     </Router>
   </Container>
