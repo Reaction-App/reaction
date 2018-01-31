@@ -17,10 +17,14 @@ class Playlist extends Component {
   // Initial state
   state = {
     savedTracks: [],
-    snippet: "",
-    headline: "",
-    pubDate: "",
-    url: ""
+    trackName: { type: String, required: true },
+    artist: "",
+    album: "",
+    trackID: "",
+    trackURL: "",
+    trackURI: "",
+    energy: 0,
+    valence: 0
   };
 
 
@@ -37,7 +41,7 @@ class Playlist extends Component {
     // Load tracks from DB
     API.getTracks()
       .then(res =>
-        this.setState({ savedTracks: res.data, headline: "", snippet: "", pubDate: "", url: "" })
+        this.setState({ savedTracks: res.data })
       )
       .catch(err => console.log(err));
   };
@@ -63,16 +67,16 @@ class Playlist extends Component {
           <div>
             {this.state.savedTracks.length ? (
               <List>
-                {this.state.savedTracks.map(article => {
+                {this.state.savedTracks.map(track => {
                   return (
-                  <ListItem key={article._id}>
-                    <p><strong>{article.headline}</strong></p>
-                    <p>{article.snippet}</p>
-                    <p>Publication Date: {article.pubDate}</p>
-                    <a rel="noreferrer noopener" href={article.url} target="_blank">Go to article</a>
+                  <ListItem key={track._id}>
+                    <p><strong>{track.trackName}</strong></p>
+                    <p>Artist: {track.artist}</p>
+                    <p>Album: {track.album}</p>
+                    <a rel="noreferrer noopener" href={track.trackURL} target="_blank">Go to track</a>
                     <RaisedButton
                       label="Delete"
-                      onClick={() => this.handleDeleteArticle(article._id)}
+                      onClick={() => this.handleDeleteTrack(track._id)}
                       style={styles.deleteButtonStyle}
                     />
                   </ ListItem>

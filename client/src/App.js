@@ -7,9 +7,7 @@ import Nav from "./components/Nav";
 import {
   BrowserRouter as Router,
   Route,
-  Link,
-  Switch,
-  Redirect
+  Switch
 } from 'react-router-dom'
 
 // Material-UI
@@ -18,7 +16,6 @@ import {
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar';
 
 const App = () => (
   
