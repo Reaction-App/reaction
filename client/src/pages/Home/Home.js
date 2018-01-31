@@ -15,39 +15,42 @@ const styles = {
   }
 };
 
+// Get Access Token
+let parsed = querystring.parse(window.location.hash);
+let accessToken = parsed['#access_token'];
+let userObject = {};
+
 class Home extends Component {
 
   // Initial state
   state = {
-      userData: {},
-      tracks: {},
+      userData: {
+        userName: '',
+        email: '',
+        userID: '',
+        userImage: ''
+      },
+      tracks: {
+        trackID: '',
+        trackName: '',
+        artist: '',
+        album: '',
+        trackURL: '',
+        energy: 0,
+        valence: 0
+      },
       query: ''
   }
 
   componentDidMount() {
-    // loadSpotifyUserData();
+    this.loadSpotifyUserData();
   }
 
 
-  // loadSpotifyUserData() {  
-  // }
-
-  searchSpotify(query) {
-
-    // Get Access Token
-    let parsed = querystring.parse(window.location.hash);
-    let accessToken = parsed['#access_token'];
-
-    // URL constructor for searching
-    const BASE_URL = 'https://api.spotify.com/v1/search';
-    const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10`;
-    // const ALBUM_URL = ' https://api.spotify.com/v1/artists';
-
+  loadSpotifyUserData() {  
     // URL constructor for user data
-    // const BASE_URL = 'https://api.spotify.com/v1/me';
-    // const FETCH_URL = `${BASE_URL}`;
-
-    console.log(FETCH_URL);
+    const BASE_URL = 'https://api.spotify.com/v1/me';
+    const FETCH_URL = `${BASE_URL}`;
 
     const request_params = {
       method: 'GET',
@@ -58,9 +61,37 @@ class Home extends Component {
       cache: 'default'
     };
 
-    console.log(request_params);
-    
+    fetch(FETCH_URL, request_params)
+      .then(response => response.json())
+      // .then(data => console.log(data))
+      .then(data => this.setState({
+        userData: {
+            userName: data.display_name,
+            email: data.email,
+            userID: data.id,
+            userImage: data.images[0].url
+        }
+      }))
 
+  }
+
+  searchSpotify(query) {
+
+    // URL constructor for search
+    const BASE_URL = 'https://api.spotify.com/v1/search';
+
+    // Fetch URL for searching a song
+    const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10`;
+
+    const request_params = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      },
+      mode: 'cors',
+      cache: 'default'
+    };
+    
     fetch(FETCH_URL, request_params)
       .then(response => response.json())
       // .then(data => console.log(data.tracks.items))
@@ -76,7 +107,29 @@ class Home extends Component {
           }
         })
       }))
+      .then(this.findAudioFeatures(this.state.tracks.trackID))
+  }
 
+
+  findAudioFeatures(trackID) {
+     // URL constructor for search
+      const BASE_URL = 'https://api.spotify.com/v1/audio-features/';
+
+      // Fetch URL for searching a song
+      const FETCH_URL = `${BASE_URL}${trackID}`;
+
+      const request_params = {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        },
+        mode: 'cors',
+        cache: 'default'
+      };
+      
+      fetch(FETCH_URL, request_params)
+        .then(response => response.json())
+        .then(data => console.log(data))
   }
 
   handleInputChange = event => {
@@ -124,9 +177,7 @@ class Home extends Component {
 
       <div>
 
-        {/*{this.state.userData.user.name ? ( */}
           <div>
-          {/*<h2>Hello {this.state.userData.user.name}</h2>*/}
           <div>
             <div>
               <h2>Search for a song</h2>
