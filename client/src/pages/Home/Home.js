@@ -20,6 +20,7 @@ let parsed = querystring.parse(window.location.hash);
 let accessToken = parsed['#access_token'];
 let userObject = {};
 
+// Home Page
 class Home extends Component {
 
   // Initial state
@@ -43,15 +44,20 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.loadSpotifyUserData();
+    // If no access token, redirect to login page, else, get user data.
+    if (accessToken === undefined) {
+      document.location.href="/"
+    } else {
+      this.loadSpotifyUserData();
+    }
   }
 
-
+  // API call for user data
   loadSpotifyUserData() {  
+
     // URL constructor for user data
     const BASE_URL = 'https://api.spotify.com/v1/me';
     const FETCH_URL = `${BASE_URL}`;
-
     const request_params = {
       method: 'GET',
       headers: {
@@ -61,6 +67,7 @@ class Home extends Component {
       cache: 'default'
     };
 
+    // API call with header
     fetch(FETCH_URL, request_params)
       .then(response => response.json())
       // .then(data => console.log(data))
@@ -75,14 +82,12 @@ class Home extends Component {
 
   }
 
+  // API call for finding a track
   searchSpotify(query) {
 
     // URL constructor for search
     const BASE_URL = 'https://api.spotify.com/v1/search';
-
-    // Fetch URL for searching a song
     const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10`;
-
     const request_params = {
       method: 'GET',
       headers: {
@@ -92,12 +97,12 @@ class Home extends Component {
       cache: 'default'
     };
     
+    // API call with header
     fetch(FETCH_URL, request_params)
       .then(response => response.json())
       // .then(data => console.log(data.tracks.items))
       .then(data => this.setState({
         tracks: data.tracks.items.map(item => {
-          console.log(data.tracks.items)
           return {
             trackID: item.id,
             trackName: item.name,
@@ -107,7 +112,6 @@ class Home extends Component {
           }
         })
       }))
-      .then(this.findAudioFeatures(this.state.tracks.trackID))
   }
 
 
@@ -129,7 +133,12 @@ class Home extends Component {
       
       fetch(FETCH_URL, request_params)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+          return {
+            valence: data.valence,
+            energy: data.energy,
+          }
+        })
   }
 
   handleInputChange = event => {
@@ -145,12 +154,6 @@ class Home extends Component {
 
     event.preventDefault();
     this.searchSpotify(this.state.query);
-    //console.log(this.state);
-
-    // const searchTerms = {
-    //   artist: this.state.artist,
-    //   trackName: this.state.trackName
-    // }
 
   //   // get matching tracks and set state with results
   //   API.getNewTracks(searchTerms)
@@ -162,21 +165,30 @@ class Home extends Component {
   }
 
   handleSaveTrack = track => {
+    // Create new track object
+    let fullTrackDetails = track;
+
+    // Find audio features for the track 
+    // ############ TROUBLESHOOT: AUDIO FEATURES BEING SAVED AS UNDEFINED ############
+    fullTrackDetails.audioFeatures = this.findAudioFeatures(fullTrackDetails.trackID);
+    console.log(fullTrackDetails);
 
     // save a track when save button is clicked
-    API.saveTrack({
-        artist: track.artist,
-        name: track.trackName
-      })
-        .then(res => alert("track saved"))
-        .catch(err => console.log(err))
+    // API.saveTrack({
+    //     artist: track.artist,
+    //     name: track.trackName
+    //   })
+    //     .then(res => alert("track saved"))
+    //     .catch(err => console.log(err))
   }
 
   render() {
     return (
 
       <div>
-
+      {this.state.userData ? (
+        <h3>Hello {this.state.userData.userName}</h3>
+        ) : (<h3></h3>)}
           <div>
           <div>
             <div>
@@ -217,10 +229,10 @@ class Home extends Component {
                         onClick={() => this.handleSaveTrack(track)}
                         style={styles.saveButtonStyle}
                         />
-                    </ ListItem>
+                    </ListItem>
                     )
                   })}
-                </ List>
+                </List>
               ) : (<h1>No tracks, try a new search!</h1>)}
             </div>
           </div>
