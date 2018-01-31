@@ -6,7 +6,6 @@ import querystring from 'querystring';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {List, ListItem} from 'material-ui/List';
-import {orange500, blue500} from 'material-ui/styles/colors';
 
 // Material UI styles
 const styles = {
@@ -76,7 +75,8 @@ class Home extends Component {
             userName: data.display_name,
             email: data.email,
             userID: data.id,
-            userImage: data.images[0].url
+            // MARK: I don't have an image on my user account, so this was crashing the app
+            // userImage: data.images[0].url
         }
       }))
 
@@ -170,16 +170,22 @@ class Home extends Component {
 
     // Find audio features for the track 
     // ############ TROUBLESHOOT: AUDIO FEATURES BEING SAVED AS UNDEFINED ############
-    fullTrackDetails.audioFeatures = this.findAudioFeatures(fullTrackDetails.trackID);
+    // MARK: I think this is because the console.log is running before
+    // the findAudioFeatures is complete. Will need put saveTrack in a callback.  
+    //fullTrackDetails.audioFeatures = this.findAudioFeatures(fullTrackDetails.trackID);
     console.log(fullTrackDetails);
+    console.log(track);
 
     // save a track when save button is clicked
-    // API.saveTrack({
-    //     artist: track.artist,
-    //     name: track.trackName
-    //   })
-    //     .then(res => alert("track saved"))
-    //     .catch(err => console.log(err))
+    API.saveTrack({
+      trackName: track.trackName,
+      artist: track.artist,
+      album: track.album,
+      trackID: track.trackID,
+      trackURL: track.trackURL
+    })
+    .then(res => alert("track saved"))
+    .catch(err => console.log(err))
   }
 
   render() {
@@ -188,7 +194,7 @@ class Home extends Component {
       <div>
       {this.state.userData ? (
         <h3>Hello {this.state.userData.userName}</h3>
-        ) : (<h3></h3>)}
+        ) : (<h3>Hello</h3>)}
           <div>
           <div>
             <div>
@@ -219,7 +225,7 @@ class Home extends Component {
                 <List>
                   {this.state.tracks.map(track => {
                     return (
-                    <ListItem>
+                    <ListItem key={track.trackID}>
                       <p><strong>{track.trackName}</strong></p>
                       <p>Artist: {track.artist}</p>
                       <p>Album: {track.album}</p>
