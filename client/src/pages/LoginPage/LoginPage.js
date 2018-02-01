@@ -11,8 +11,12 @@ import React, { Component } from "react";
 
 	// Heroku: REDIRECT_URL set to 'https://desolate-caverns-55074.herokuapp.com/home/callback'
 
+
+	// Local Redirect
+	const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home/callback');
+
 	// Heroku Redirect
-	const REDIRECT_URI = encodeURIComponent('https://desolate-caverns-55074.herokuapp.com/home/callback');
+	// const REDIRECT_URI = encodeURIComponent('https://desolate-caverns-55074.herokuapp.com/home/callback');
 
 	// Spotify scopes: https://developer.spotify.com/web-api/using-scopes/
 
