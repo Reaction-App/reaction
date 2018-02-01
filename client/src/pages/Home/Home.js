@@ -17,7 +17,6 @@ const styles = {
 // Get Access Token
 let parsed = querystring.parse(window.location.hash);
 let accessToken = parsed['#access_token'];
-let userObject = {};
 
 // Home Page
 class Home extends Component {
@@ -27,8 +26,7 @@ class Home extends Component {
       userData: {
         userName: '',
         email: '',
-        userID: '',
-        userImage: ''
+        userID: ''
       },
       tracks: {
         trackID: '',
@@ -68,19 +66,24 @@ class Home extends Component {
 
     // API call with header
     fetch(FETCH_URL, request_params)
-      .then(response => response.json())
-      // .then(data => console.log(data))
-      .then(data => this.setState({
-        userData: {
-            userName: data.display_name,
-            email: data.email,
-            userID: data.id,
-            // MARK: I don't have an image on my user account, so this was crashing the app
-            // userImage: data.images[0].url
+      .then(response => {
+        switch (response.status) {
+          case 500: console.error('Some server error'); break;
+          case 401: console.error('Unauthorized'); document.location.href="/";
         }
-      }))
-
+        if (response.ok) {
+          response.json()
+          .then(data => this.setState({
+            userData: {
+                userName: data.display_name,
+                email: data.email,
+                userID: data.id
+            }
+          }))
+       }
+     })
   }
+
 
   // API call for finding a track
   searchSpotify(query) {
@@ -99,51 +102,50 @@ class Home extends Component {
     
     // API call with header
     fetch(FETCH_URL, request_params)
-      .then(response => response.json())
-      // .then(data => console.log(data.tracks.items))
-      .then(data => this.setState({
-        tracks: data.tracks.items.map(item => {
-          return {
-            trackID: item.id,
-            trackName: item.name,
-            artist: item.artists[0].name,
-            album: item.album.name,
-            trackURL: item.href
-          }
-        })
-      }))
+      .then(response => {
+        switch (response.status) {
+          case 500: console.error('Some server error'); break;
+          case 401: console.error('Unauthorized'); document.location.href="/";
+        }
+        if (response.ok) {
+          response.json()
+        .then(data => this.setState({
+          tracks: data.tracks.items.map(item => {
+            return {
+              trackID: item.id,
+              trackName: item.name,
+              artist: item.artists[0].name,
+              album: item.album.name,
+              trackURL: item.href
+            }
+          })
+        }))
+      }
+    })
   }
 
-
   findAudioFeatures(trackID) {
-     // URL constructor for search
-      const BASE_URL = 'https://api.spotify.com/v1/audio-features/';
 
-      // Fetch URL for searching a song
-      const FETCH_URL = `${BASE_URL}${trackID}`;
-
-      const request_params = {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        },
-        mode: 'cors',
-        cache: 'default'
-      };
+    // URL constructor for finding audio features
+    const BASE_URL = 'https://api.spotify.com/v1/audio-features/';
+    const FETCH_URL = `${BASE_URL}${trackID}`;
+    const request_params = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      },
+      mode: 'cors',
+      cache: 'default'
+    };
       
-      fetch(FETCH_URL, request_params)
-        .then(response => response.json())
-        .then(data => {
-          return {
-            valence: data.valence,
-            energy: data.energy,
-          }
-        })
+    // API call with header  
+    return fetch(FETCH_URL, request_params)
+      .then(response => response.json())
   }
 
   handleInputChange = event => {
-    // get the name and value from event.target
-    // set state with new value
+    // Get the name and value from event.target
+    // Set state with new value
     const { name, value } = event.target;
     this.setState({
       [name]: value
@@ -154,38 +156,32 @@ class Home extends Component {
 
     event.preventDefault();
     this.searchSpotify(this.state.query);
-
-  //   // get matching tracks and set state with results
-  //   API.getNewTracks(searchTerms)
-  //     .then(res => {this.setState({ tracks: res.data.docs })
-  //         console.log("new tracks obtained");
-  //         console.log(this.state.tracks);
-  //       })
-  //     .catch(err => console.log(err));
   }
 
   handleSaveTrack = track => {
+
     // Create new track object
     let fullTrackDetails = track;
 
-    // Find audio features for the track 
-    // ############ TROUBLESHOOT: AUDIO FEATURES BEING SAVED AS UNDEFINED ############
-    // MARK: I think this is because the console.log is running before
-    // the findAudioFeatures is complete. Will need put saveTrack in a callback.  
-    //fullTrackDetails.audioFeatures = this.findAudioFeatures(fullTrackDetails.trackID);
-    console.log(fullTrackDetails);
-    console.log(track);
-
-    // save a track when save button is clicked
-    API.saveTrack({
-      trackName: track.trackName,
-      artist: track.artist,
-      album: track.album,
-      trackID: track.trackID,
-      trackURL: track.trackURL
-    })
-    .then(res => alert("track saved"))
-    .catch(err => console.log(err))
+    // Find audio features for the track and add to new track objcet
+    this.findAudioFeatures(fullTrackDetails.trackID) 
+      .then(data=> {
+        fullTrackDetails.valence = data.valence
+        fullTrackDetails.energy = data.energy
+      })
+      .then(res =>
+        // Save tracks to database
+        API.saveTrack({
+          trackName: fullTrackDetails.trackName,
+          artist: fullTrackDetails.artist,
+          album: fullTrackDetails.album,
+          trackID: fullTrackDetails.trackID,
+          trackURL: fullTrackDetails.trackURL,
+          valence: fullTrackDetails.valence,
+          energy: fullTrackDetails.energy
+        }))
+      .then(res => alert("track saved"))
+      .catch(err => console.log(err))
   }
 
   render() {
