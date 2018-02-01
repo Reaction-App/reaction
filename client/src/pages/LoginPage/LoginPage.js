@@ -6,13 +6,13 @@ import React, { Component } from "react";
 	const REDIRECT_PARAM = '&redirect_uri=';
 
 	// Redirect
-	let REDIRECT_UNENCODED = process.env.REDIRECT_URL || 'http://localhost:3000/home/callback';
-	let REDIRECT_URI = encodeURIComponent(REDIRECT_UNENCODED);
+	// let REDIRECT_UNENCODED = process.env.REDIRECT_URL || 'http://localhost:3000/home/callback';
+	// let REDIRECT_URI = encodeURIComponent(REDIRECT_UNENCODED);
 
 	// Heroku: REDIRECT_URL set to 'https://desolate-caverns-55074.herokuapp.com/home/callback'
 
 	// Heroku Redirect
-	// const REDIRECT_URI = encodeURIComponent('https://desolate-caverns-55074.herokuapp.com/home/callback');
+	const REDIRECT_URI = encodeURIComponent('https://desolate-caverns-55074.herokuapp.com/home/callback');
 
 	// Spotify scopes: https://developer.spotify.com/web-api/using-scopes/
 
