@@ -21,40 +21,87 @@ const style = {
 
 };
 
+// Get Access Token
+let parsed = querystring.parse(window.location.hash);
+let accessToken = parsed['#access_token'];
+
+// Home Page
 class Home extends Component {
 
   // Initial state
   state = {
-      userData: {},
-      tracks: {},
+      userData: {
+        userName: '',
+        email: '',
+        userID: ''
+      },
+      tracks: {
+        trackID: '',
+        trackName: '',
+        artist: '',
+        album: '',
+        trackURL: '',
+        energy: 0,
+        valence: 0
+      },
       query: ''
   }
 
   componentDidMount() {
-    // loadSpotifyUserData();
+    // If no access token, redirect to login page, else, get user data.
+    if (accessToken === undefined) {
+      document.location.href="/"
+    } else {
+      this.loadSpotifyUserData();
+    }
   }
+
+  // API call for user data
+  loadSpotifyUserData() {
 
 
   // loadSpotifyUserData() {
   // }
 
+    // URL constructor for user data
+    const BASE_URL = 'https://api.spotify.com/v1/me';
+    const FETCH_URL = `${BASE_URL}`;
+    const request_params = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      },
+      mode: 'cors',
+      cache: 'default'
+    };
+
+    // API call with header
+    fetch(FETCH_URL, request_params)
+      .then(response => {
+        switch (response.status) {
+          case 500: console.error('Some server error'); break;
+          case 401: console.error('Unauthorized'); document.location.href="/";
+        }
+        if (response.ok) {
+          response.json()
+          .then(data => this.setState({
+            userData: {
+                userName: data.display_name,
+                email: data.email,
+                userID: data.id
+            }
+          }))
+       }
+     })
+  }
+
+
+  // API call for finding a track
   searchSpotify(query) {
 
-    // Get Access Token
-    let parsed = querystring.parse(window.location.hash);
-    let accessToken = parsed['#access_token'];
-
-    // URL constructor for searching
+    // URL constructor for search
     const BASE_URL = 'https://api.spotify.com/v1/search';
     const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10`;
-    // const ALBUM_URL = ' https://api.spotify.com/v1/artists';
-
-    // URL constructor for user data
-    // const BASE_URL = 'https://api.spotify.com/v1/me';
-    // const FETCH_URL = `${BASE_URL}`;
-
-    console.log(FETCH_URL);
-
     const request_params = {
       method: 'GET',
       headers: {
@@ -67,27 +114,52 @@ class Home extends Component {
     console.log(request_params);
 
 
+    // API call with header
     fetch(FETCH_URL, request_params)
-      .then(response => response.json())
-      // .then(data => console.log(data.tracks.items))
-      .then(data => this.setState({
-        tracks: data.tracks.items.map(item => {
-          console.log(data.tracks.items)
-          return {
-            trackID: item.id,
-            trackName: item.name,
-            artist: item.artists[0].name,
-            album: item.album.name,
-            trackURL: item.href
-          }
-        })
-      }))
+      .then(response => {
+        switch (response.status) {
+          case 500: console.error('Some server error'); break;
+          case 401: console.error('Unauthorized'); document.location.href="/";
+        }
+        if (response.ok) {
+          response.json()
+        .then(data => this.setState({
+          tracks: data.tracks.items.map(item => {
+            return {
+              trackID: item.id,
+              trackName: item.name,
+              artist: item.artists[0].name,
+              album: item.album.name,
+              trackURL: item.href
+            }
+          })
+        }))
+      }
+    })
+  }
 
+  findAudioFeatures(trackID) {
+
+    // URL constructor for finding audio features
+    const BASE_URL = 'https://api.spotify.com/v1/audio-features/';
+    const FETCH_URL = `${BASE_URL}${trackID}`;
+    const request_params = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      },
+      mode: 'cors',
+      cache: 'default'
+    };
+
+    // API call with header
+    return fetch(FETCH_URL, request_params)
+      .then(response => response.json())
   }
 
   handleInputChange = event => {
-    // get the name and value from event.target
-    // set state with new value
+    // Get the name and value from event.target
+    // Set state with new value
     const { name, value } = event.target;
     this.setState({
       [name]: value
@@ -98,41 +170,42 @@ class Home extends Component {
 
     event.preventDefault();
     this.searchSpotify(this.state.query);
-    //console.log(this.state);
-
-    // const searchTerms = {
-    //   artist: this.state.artist,
-    //   trackName: this.state.trackName
-    // }
-
-  //   // get matching tracks and set state with results
-  //   API.getNewTracks(searchTerms)
-  //     .then(res => {this.setState({ tracks: res.data.docs })
-  //         console.log("new tracks obtained");
-  //         console.log(this.state.tracks);
-  //       })
-  //     .catch(err => console.log(err));
   }
 
   handleSaveTrack = track => {
 
-    // save a track when save button is clicked
-    API.saveTrack({
-        artist: track.artist,
-        name: track.trackName
+    // Create new track object
+    let fullTrackDetails = track;
+
+    // Find audio features for the track and add to new track objcet
+    this.findAudioFeatures(fullTrackDetails.trackID)
+      .then(data=> {
+        fullTrackDetails.valence = data.valence
+        fullTrackDetails.energy = data.energy
       })
-        .then(res => alert("track saved"))
-        .catch(err => console.log(err))
+      .then(res =>
+        // Save tracks to database
+        API.saveTrack({
+          trackName: fullTrackDetails.trackName,
+          artist: fullTrackDetails.artist,
+          album: fullTrackDetails.album,
+          trackID: fullTrackDetails.trackID,
+          trackURL: fullTrackDetails.trackURL,
+          valence: fullTrackDetails.valence,
+          energy: fullTrackDetails.energy
+        }))
+      .then(res => alert("track saved"))
+      .catch(err => console.log(err))
   }
 
   render() {
     return (
 
       <div>
-
-        {/*{this.state.userData.user.name ? ( */}
+      {this.state.userData ? (
+        <h3>Hello {this.state.userData.userName}</h3>
+        ) : (<h3>Hello</h3>)}
           <div>
-          {/*<h2>Hello {this.state.userData.user.name}</h2>*/}
           <div>
             <div>
             <div><img src={'https://s10.postimg.org/hvq64sq1l/search-background.jpg'} alt="search" style={{ height: '200', width: '100%' }}/></div>

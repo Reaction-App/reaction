@@ -1,0 +1,3 @@
+mongoimport --db songInfo --collection tracks --type csv --headerline --file Top100Songs.csv
+
+https://docs.mongodb.com/manual/reference/program/mongoimport/index.html
