@@ -5,8 +5,11 @@ import React, { Component } from "react";
 	const CLIENT_ID = '6f49983391014a5a99a289c59c92d0af';
 	const REDIRECT_PARAM = '&redirect_uri=';
 
-	// Local Redirect
-	const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home/callback');
+	// Redirect
+	let REDIRECT_UNENCODED = process.env.REDIRECT_URL || 'http://localhost:3000/home/callback';
+	let REDIRECT_URI = encodeURIComponent(REDIRECT_UNENCODED);
+
+	// Heroku: REDIRECT_URL set to 'https://desolate-caverns-55074.herokuapp.com/home/callback'
 
 	// Heroku Redirect
 	// const REDIRECT_URI = encodeURIComponent('https://desolate-caverns-55074.herokuapp.com/home/callback');
