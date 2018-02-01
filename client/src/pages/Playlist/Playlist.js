@@ -73,6 +73,8 @@ class Playlist extends Component {
                     <p><strong>{track.trackName}</strong></p>
                     <p>Artist: {track.artist}</p>
                     <p>Album: {track.album}</p>
+                    <p>Positivity: {track.valence}</p>
+                    <p>Energy: {track.energy}</p>
                     <a rel="noreferrer noopener" href={track.trackURL} target="_blank">Go to track</a>
                     <RaisedButton
                       label="Delete"

@@ -21,7 +21,7 @@ export default {
   },
 
   // Saves a track to the database
-  saveTrack: function(articleData) {
-    return axios.post("/api/tracks", articleData);
+  saveTrack: function(trackData) {
+    return axios.post("/api/tracks", trackData);
   }
 };

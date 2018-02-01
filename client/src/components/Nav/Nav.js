@@ -13,7 +13,7 @@ const Nav = () => (
     title={<span style={styles.title}>Reaction</span>}
     iconElementRight={
       <div>
-        <FlatButton label="Home" href="/" />
+        <FlatButton label="Home" href="/home" />
         <FlatButton label="Playlist" href="/playlist" />
       </div>
     }
