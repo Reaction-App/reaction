@@ -1,0 +1,11 @@
+Run in terminal from the folder you want to import from or export to.
+
+
+mongoimport --db songInfo --collection tracks --type csv --headerline --file Top100Songs.csv
+
+mongoexport --db reaction --collection tracks --type=csv --fields trackName,artist,album,trackID,trackURL,valence,energy --out marksTracks.csv
+
+
+
+https://docs.mongodb.com/manual/reference/program/mongoimport/
+https://docs.mongodb.com/manual/reference/program/mongoexport/
