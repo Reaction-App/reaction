@@ -5,8 +5,6 @@ import querystring from 'querystring';
 // Material UI components
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import {List, ListItem} from 'material-ui/List';
-import {orange500, blue500} from 'material-ui/styles/colors';
 import {
   Table,
   TableBody,
@@ -202,80 +200,71 @@ class Home extends Component {
     return (
 
       <div>
-      {this.state.userData ? (
-        <h3>Hello {this.state.userData.userName}</h3>
-        ) : (<h3>Hello</h3>)}
-          <div>
-          <div>
-            <div>
-            <div><img src={'https://s10.postimg.org/hvq64sq1l/search-background.jpg'} alt="search" style={{ height: '200', width: '100%' }}/></div>
 
-              <div style={{margin: '0 auto', display: 'block', textAlign: 'center', marginTop: -112, marginBottom: 120}}>
-                <TextField
-                  hintText="Enter Artist, Track Name etc..."
-                  name="query"
-                  value={this.state.query}
-                  onChange={this.handleInputChange}
-                  style={{backgroundColor: '#FFFFFF', display: 'inline-block', width: 600}}
-                />
+        <div>
+          {this.state.userData ? (
+            <h3>Hello {this.state.userData.userName}</h3>
+          ) 
+          : (<h3>Hello</h3>)}
+        </div>
 
-                <RaisedButton
-                  label="Search"
-                  onClick={this.handleFormSubmit}
-                  primary={true}
-                  style={{backgroundColor: '#5A66E3', borderRadius: 0, border: 0, height: 48, padding: '0 30px', display: 'inline-block',}}
-                />
-              </div>
-
-            </div>
+        <div>
+          <img src={'https://s10.postimg.org/hvq64sq1l/search-background.jpg'} alt="search" style={{ height: '200', width: '100%' }}/>
+          <div style={{margin: '0 auto', display: 'block', textAlign: 'center', marginTop: -112, marginBottom: 120}}>
+            <TextField
+              hintText="Enter Artist, Track Name etc..."
+              name="query"
+              value={this.state.query}
+              onChange={this.handleInputChange}
+              style={{backgroundColor: '#FFFFFF', display: 'inline-block', width: 600}}
+            />
+            <RaisedButton
+              label="Search"
+              onClick={this.handleFormSubmit}
+              primary={true}
+              style={{backgroundColor: '#5A66E3', borderRadius: 0, border: 0, height: 48, padding: '0 30px', display: 'inline-block',}}
+            />
           </div>
-          <div>
-            <div>
+        </div>
 
-            </div>
-            <div>
-              {this.state.tracks.length ? (
-                <List>
-                  {this.state.tracks.map(track => {
-                    return (
-                    <Table style={{ maxWidth: 1000, margin: '0 auto', backgroundColor: '#F7F9FF', padding: 20}}>
-                      <TableHeader>
-    {/*                    <TableRow>
-                          <TableHeaderColumn>Song</TableHeaderColumn>
-                          <TableHeaderColumn>Artist</TableHeaderColumn>
-                          <TableHeaderColumn>Album</TableHeaderColumn>
-                        </TableRow>*/}
-                      </TableHeader>
-                      <TableBody style={{padding: 10, display: 'inlineBlock', fontFamily: 'Montserrat'}}>
-                        <TableRow>
-                          <TableRowColumn>{track.trackName}</TableRowColumn>
-                          <TableRowColumn>{track.artist}</TableRowColumn>
-                          <TableRowColumn>{track.album}</TableRowColumn>
-                          <TableRowColumn><a rel="noreferrer noopener" href="track.trackURL" target="_blank"></a>
-                            <RaisedButton
-                              label="Add"
-                              onClick={() => this.handleSaveTrack(track)}
-                              style={{textTransform: 'uppercase', border: '1px solid #5A66E3', borderRadius: 0, boxShadow: 'none', height: 'initial', padding: '10px', backgroundColor: 'transaprent'}}
-                              />
-                          </TableRowColumn>
-                        </TableRow>
-                      </TableBody>
-                    </ Table>
-                    )
-                  })}
-                </ List>
-              ) : (<div style={{ margin: '0 auto', maxWidth: 500, textAlign: 'center', marginTop: 120}}>
+        <div>
+          {this.state.tracks.length ? (
+            <Table style={{ maxWidth: 1000, margin: '0 auto', backgroundColor: '#F7F9FF', padding: 20}}>
+              <TableHeader>
+                <TableRow>
+                  <TableHeaderColumn>Title</TableHeaderColumn>
+                  <TableHeaderColumn>Artist</TableHeaderColumn>
+                  <TableHeaderColumn>Album</TableHeaderColumn>
+                  <TableHeaderColumn></TableHeaderColumn>
+                </TableRow>
+              </TableHeader>        
+              <TableBody style={{padding: 10, display: 'inlineBlock', fontFamily: 'Montserrat'}}>
+                {this.state.tracks.map(track => {
+                  return (
+                    <TableRow>
+                      <TableRowColumn>{track.trackName}</TableRowColumn>
+                      <TableRowColumn>{track.artist}</TableRowColumn>
+                      <TableRowColumn>{track.album}</TableRowColumn>
+                      <TableRowColumn>
+                        <a rel="noreferrer noopener" href="track.trackURL" target="_blank"></a>
+                        <RaisedButton
+                          label="Add"
+                          onClick={() => this.handleSaveTrack(track)}
+                          style={{textTransform: 'uppercase', border: '1px solid #5A66E3', borderRadius: 0, boxShadow: 'none', height: 'initial', padding: '10px', backgroundColor: 'transaprent'}}
+                        />
+                      </TableRowColumn>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </ Table>
+          ) 
+          : ( <div style={{ margin: '0 auto', maxWidth: 500, textAlign: 'center', marginTop: 120}}>
                 <img style={{width: 150, marginTop: 50}} src='https://s17.postimg.org/vobidfu3z/start-searaching.png' alt="Start Searching" />
                 <h2 style={{ fontWeignt: 100, fontFamily: 'Montserrat'}}>Start by searching for a song. Then click “Add” to begin curating your playlist.</h2>
-              </div>)}
-            </div>
-          </div>
-          </div>
-        {/*}) : (
-          <button onClick={ () => window.location='https://accounts.spotify.com/authorize?client_id=6f49983391014a5a99a289c59c92d0af&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=user-read-private%20user-read-email&response_type=token&state=3125606776'} style={{padding:'20px', 'font-size':'50px', 'margin-top':'20px'}}>Click here to login to Spotify</button>
-        )*/}
-
-
+              </div>
+          )}
+        </div>
       </div>
     )
   }
