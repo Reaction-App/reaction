@@ -202,8 +202,9 @@ class Home extends Component {
       <div>
 
         <div>
+
           {this.state.userData ? (
-            <h3>Hello {this.state.userData.userName}</h3>
+            <h3 style={{position: 'absolute', left: 20, color: 'white', textAlign: 'center'}}>Hello {this.state.userData.userName}</h3>
           ) 
           : (<h3>Hello</h3>)}
         </div>
@@ -216,13 +217,13 @@ class Home extends Component {
               name="query"
               value={this.state.query}
               onChange={this.handleInputChange}
-              style={{backgroundColor: '#FFFFFF', display: 'inline-block', width: 600}}
+              style={{backgroundColor: '#FFFFFF', display: 'inline-block', width: 600, paddingLeft: 10, height: 46, border: 0, fontSize: 14}}
             />
             <RaisedButton
               label="Search"
               onClick={this.handleFormSubmit}
               primary={true}
-              style={{backgroundColor: '#5A66E3', borderRadius: 0, border: 0, height: 48, padding: '0 30px', display: 'inline-block',}}
+              style={{textTransform: 'uppercase', border: '1px solid #5A66E3', borderRadius: 0, boxShadow: 'none', height: 'initial', padding: '10px', backgroundColor: 'transaprent', backgroundColor: '#5A66E3'}}
             />
           </div>
         </div>
