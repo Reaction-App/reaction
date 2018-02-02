@@ -42,7 +42,9 @@ class Home extends Component {
         energy: 0,
         valence: 0
       },
-      query: ''
+      query: '',
+      selected: []
+
   }
 
   componentDidMount() {
@@ -170,6 +172,17 @@ class Home extends Component {
     this.searchSpotify(this.state.query);
   }
 
+  // Row selection
+  isSelected = (index) => {
+      return this.state.selected.indexOf(index) !== -1;
+    };
+
+  handleRowSelection = (selectedRows) => {
+    this.setState({
+      selected: selectedRows,
+    });
+  };
+
   handleSaveTrack = track => {
 
     // Create new track object
@@ -205,7 +218,7 @@ class Home extends Component {
 
           {this.state.userData ? (
             <h3 style={{position: 'absolute', left: 20, color: 'white', textAlign: 'center'}}>Hello {this.state.userData.userName}</h3>
-          ) 
+          )
           : (<h3>Hello</h3>)}
         </div>
 
@@ -230,19 +243,19 @@ class Home extends Component {
 
         <div>
           {this.state.tracks.length ? (
-            <Table style={{ maxWidth: 1000, margin: '0 auto', backgroundColor: '#F7F9FF', padding: 20}}>
-              <TableHeader>
+            <Table onRowSelection={this.handleRowSelection} style={{ maxWidth: 1000, margin: '0 auto', backgroundColor: '#F7F9FF', padding: 20}}>
+              <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableRow>
                   <TableHeaderColumn>Title</TableHeaderColumn>
                   <TableHeaderColumn>Artist</TableHeaderColumn>
                   <TableHeaderColumn>Album</TableHeaderColumn>
                   <TableHeaderColumn></TableHeaderColumn>
                 </TableRow>
-              </TableHeader>        
-              <TableBody style={{padding: 10, display: 'inlineBlock', fontFamily: 'Montserrat'}}>
-                {this.state.tracks.map(track => {
+              </TableHeader>
+              <TableBody displayRowCheckbox={false} style={{padding: 10, display: 'inlineBlock', fontFamily: 'Montserrat'}}>
+                {this.state.tracks.map((track, index) => {
                   return (
-                    <TableRow>
+                    <TableRow key={track.trackID} selected={this.isSelected(index)}>
                       <TableRowColumn>{track.trackName}</TableRowColumn>
                       <TableRowColumn>{track.artist}</TableRowColumn>
                       <TableRowColumn>{track.album}</TableRowColumn>
@@ -259,7 +272,7 @@ class Home extends Component {
                 })}
               </TableBody>
             </ Table>
-          ) 
+          )
           : ( <div style={{ margin: '0 auto', maxWidth: 500, textAlign: 'center', marginTop: 120}}>
                 <img style={{width: 150, marginTop: 50}} src='https://s17.postimg.org/vobidfu3z/start-searaching.png' alt="Start Searching" />
                 <h2 style={{ fontWeignt: 100, fontFamily: 'Montserrat'}}>Start by searching for a song. Then click “Add” to begin curating your playlist.</h2>
