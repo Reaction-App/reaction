@@ -80,7 +80,7 @@ class Playlist extends Component {
       <div>
       	<div>
           <div>
-            <h2>Playlist</h2>
+            <h2>My Playlist</h2>
           </div>
           <div>
             {this.state.savedTracks.length ? (
