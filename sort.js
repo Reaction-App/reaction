@@ -89,8 +89,11 @@ function compareValues(key, order='asc') {
   };
 }
 
+// create a new object
+var newTracks = state.tracks.slice(); 
+
 //sort tracks by valence in descending order
-const newTracks = state.tracks.sort(compareValues('valence', 'desc')); 
+newTracks = newTracks.sort(compareValues('valence', 'desc')); 
 
 console.log("initial state");
 console.log(state);

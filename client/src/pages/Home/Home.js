@@ -235,7 +235,6 @@ class Home extends Component {
             <RaisedButton
               label="Search"
               onClick={this.handleFormSubmit}
-              primary={true}
               style={{textTransform: 'uppercase', border: '1px solid #5A66E3', borderRadius: 0, boxShadow: 'none', height: 'initial', padding: '10px', backgroundColor: 'transaprent', backgroundColor: '#5A66E3'}}
             />
           </div>
