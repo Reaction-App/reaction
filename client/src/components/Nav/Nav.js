@@ -3,15 +3,6 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 
 const styles = {
-  AppBar: {
-    color: 'red',
-  },
-
-  FlatButton: {
-    color: 'red',
-    fontWeight: '600',
-    letterSpacing: 5,
-  },
 };
 
 const Nav = () => (
@@ -25,12 +16,12 @@ const Nav = () => (
     />}
     iconElementRight={
       <div>
-        <FlatButton label="Playlist" href="/playlist" style={styles.FlatButton} />
-        <FlatButton label="Log Out" href="/" />
+        <FlatButton label="Playlist" href="/playlist" style={{marginTop: 14}} />
+        <FlatButton label="Log Out" href="/" style={{marginTop: 14}} />
       </div>
     }
     style={{
-      backgroundColor: 'white',
+      backgroundColor: 'none',
       height: '80px'
     }}
   />
