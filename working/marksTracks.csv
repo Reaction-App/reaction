@@ -3,3 +3,5 @@ trackName,artist,album,trackID,trackURL,valence,energy
 Never Gonna Give You Up,Rick Astley,Platinum & Gold Collection,0FutrWIUM5Mg3434asiwkp,https://api.spotify.com/v1/tracks/0FutrWIUM5Mg3434asiwkp,0.937,0.976
 Hurt,Johnny Cash,Unearthed,5rpRzNcJZqKQXk9PIjreB6,https://api.spotify.com/v1/tracks/5rpRzNcJZqKQXk9PIjreB6,0.169,0.376
 Shellshock,New Order,Pretty In Pink,3VcjzN7bW4TwCG8bfzExfS,https://api.spotify.com/v1/tracks/3VcjzN7bW4TwCG8bfzExfS,0.696,0.793
+I Predict A Riot,Kaiser Chiefs,Employment,6q0HeADAxsP27jDJQSKaCB,https://api.spotify.com/v1/tracks/6q0HeADAxsP27jDJQSKaCB,0.397,0.982
+What A Wonderful World - Single Version,Louis Armstrong,What A Wonderful World,29U7stRjqHU6rMiS8BfaI9,https://api.spotify.com/v1/tracks/29U7stRjqHU6rMiS8BfaI9,0.209,0.169
