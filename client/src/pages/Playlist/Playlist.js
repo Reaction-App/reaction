@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
+import TrackChart from "../../components/TrackChart";
 
 // Material UI components
 import RaisedButton from 'material-ui/RaisedButton';
@@ -37,7 +38,18 @@ class Playlist extends Component {
     trackURL: "",
     trackURI: "",
     valence: 0,
-    energy: 0
+    energy: 0,
+    chartData: [{
+        showInLegend: false,
+        colorByPoint: true,
+        name: 'American Pie',
+        data: [.3, .5]
+        }, {
+        showInLegend: false,
+        colorByPoint: true,
+        name: 'Roar',
+        data: [.9, .8]
+        }]
   }
 
 
@@ -310,14 +322,15 @@ class Playlist extends Component {
                           style={styles.deleteButtonStyle}
                         />
                       </TableRowColumn>
-                    </ TableRow>
+                    </TableRow>
                     )
                   })}
                 </TableBody>
-              </ Table>
+              </Table>
             ) : (<h1>No tracks in this playlist.</h1>)}
           </div>
         </div>
+        <TrackChart chartData={this.state.chartData}/>
       </div>
     );
   }
