@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
 import querystring from 'querystring';
+//import "/home.css";
 
 // Material UI components
 import TextField from 'material-ui/TextField';
@@ -14,9 +15,18 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-// Material UI styles
-const style = {
+import {
+  cyan500, cyan700,
+  pinkA200,
+  grey100, grey300, grey400, grey500,
+  white, darkBlack, fullBlack,
+} from 'material-ui/styles/colors';
 
+// Material UI styles
+const styles = {
+  // tr:nth-child(even): {
+  //   backgroundColor: '#dddddd',
+  // }
 };
 
 // Get Access Token
@@ -226,24 +236,35 @@ class Home extends Component {
           <img src={'https://s10.postimg.org/hvq64sq1l/search-background.jpg'} alt="search" style={{ height: '200', width: '100%' }}/>
           <div style={{margin: '0 auto', display: 'block', textAlign: 'center', marginTop: -112, marginBottom: 120}}>
             <TextField
+              underlineShow={false}
               hintText="Enter Artist, Track Name etc..."
               name="query"
               value={this.state.query}
               onChange={this.handleInputChange}
-              style={{backgroundColor: '#FFFFFF', display: 'inline-block', width: 600, paddingLeft: 10, height: 46, border: 0, fontSize: 14}}
+              style={{backgroundColor: '#FFFFFF', display: 'inline-block', width: 600, paddingLeft: 10, height: 48, border: 0, fontSize: 14, fontFamily: 'Montserrat', marginTop: 1}}
             />
             <RaisedButton
-              label="Search"
+              backgroundColor={'#5A66E3'}
               onClick={this.handleFormSubmit}
-              primary={true}
-              style={{textTransform: 'uppercase', border: '1px solid #5A66E3', borderRadius: 0, boxShadow: 'none', height: 'initial', padding: '10px', backgroundColor: 'transaprent', backgroundColor: '#5A66E3'}}
+              label={"Search"}
+              labelColor={"#FFFFFF"}
+              style={{
+                textTransform: 'uppercase',
+                border: '1px solid #5A66E3',
+                borderRadius: 0,
+                boxShadow: 'none',
+                height: 'initial',
+                padding: '13px 10px',
+                backgroundColor: '#5A66E3',
+                fontFamily: 'Montserrat'
+              }}
             />
           </div>
         </div>
 
         <div>
           {this.state.tracks.length ? (
-            <Table onRowSelection={this.handleRowSelection} style={{ maxWidth: 1000, margin: '0 auto', backgroundColor: '#F7F9FF', padding: 20}}>
+            <Table onRowSelection={this.handleRowSelection} style={{ maxWidth: 1000, margin: '0 auto', backgroundColor: '#F7F9FF', padding: 20, fontFamily: 'Montserrat'}}>
               <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableRow>
                   <TableHeaderColumn>Title</TableHeaderColumn>
@@ -262,9 +283,11 @@ class Home extends Component {
                       <TableRowColumn>
                         <a rel="noreferrer noopener" href="track.trackURL" target="_blank"></a>
                         <RaisedButton
+                          backgroundColor={'#5A66E3'}
+                          labelColor={"#FFFFFF"}
                           label="Add"
                           onClick={() => this.handleSaveTrack(track)}
-                          style={{textTransform: 'uppercase', border: '1px solid #5A66E3', borderRadius: 0, boxShadow: 'none', height: 'initial', padding: '10px', backgroundColor: 'transaprent'}}
+                          style={{textTransform: 'uppercase', border: '1px solid #5A66E3', borderRadius: 0, boxShadow: 'none', height: 'initial', padding: '10px', backgroundColor: '#5A66E3', fontFamily: 'Montserrat', float: 'right'}}
                         />
                       </TableRowColumn>
                     </TableRow>
