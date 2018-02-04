@@ -1,33 +1,50 @@
 import React, { Component } from 'react';
 const ReactHighcharts = require('react-highcharts');
 
-class TrackChart extends Component {
+class Chart extends Component {
+
   render() {
-    const {chartData} = this.props;
+
+    const {chartData} = this.props
+    console.log(chartData);
+    let data = [{data: chartData}]
+    console.log(data)
+
+    // [{
+    //   name: "",
+    //   x: 0.1,
+    //   y: 0.2
+    // }]
 
     const config = {
+      credits: {
+        enabled: false
+      },
       chart: {
-        width: 1000,
+        width: 909,
         height: 500,
         type: 'scatter',
         zoomType: 'xy'
       },
       title: {
-        text: 'Your Playlist'
+        text: ''
       },
       xAxis: {
         title: {
           enabled: true,
           text: 'Positivity'
-        },
-          startOnTick: true,
-          endOnTick: true,
-          showLastLabel: true
+          },
+        startOnTick: true,
+        endOnTick: true,
+        showLastLabel: true,
       },
       yAxis: {
         title: {
           text: 'Energy'
-        }
+        },
+      },
+      legend: {
+        enabled: false
       },
       plotOptions: {
         scatter: {
@@ -48,26 +65,19 @@ class TrackChart extends Component {
             }
           },
           tooltip: {
-            useHTML: true,
+            allowHTML: true,
+            headerFormat: '<b>{point.key}</b><br>',
             pointFormat: 'Positivity: {point.x}, Energy: {point.y}'
           }
         }
       },
-      series: [{
-        showInLegend: false,
-        colorByPoint: true,
-        name: 'American Pie',
-        data: [.3, .5]
-        }, {
-        showInLegend: false,
-        colorByPoint: true,
-        name: 'Roar',
-        data: [.9, .8]
-        }]
+      series: data
     };
+
+    console.log(config);
 
     return <ReactHighcharts config={config} neverReflow />
   }
 }
 
-export default TrackChart;
+export default Chart;

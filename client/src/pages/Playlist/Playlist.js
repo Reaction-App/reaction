@@ -39,17 +39,7 @@ class Playlist extends Component {
     trackURI: "",
     valence: 0,
     energy: 0,
-    chartData: [{
-        showInLegend: false,
-        colorByPoint: true,
-        name: 'American Pie',
-        data: [.3, .5]
-        }, {
-        showInLegend: false,
-        colorByPoint: true,
-        name: 'Roar',
-        data: [.9, .8]
-        }]
+    chartData: []
   }
 
 
@@ -57,6 +47,7 @@ class Playlist extends Component {
 
     // Load tracks from DB on page load
     this.loadTracks();
+    this.getGraphData();
 
   }
 
@@ -67,12 +58,33 @@ class Playlist extends Component {
     API.getTracks()
       .then(res => {
         let newTracks = res.data;
-        console.log(res.data);
+        // console.log(res.data);
         newTracks = newTracks.sort(this.compareValues('_id','desc'));
         this.setState({ savedTracks: newTracks });
       })
       .catch(err => console.log(err));
   }
+
+  getGraphData = () => {
+
+    // Load tracks from DB
+    API.getTracks()
+      .then(res => {
+        let tracks = res.data;
+        let chartTracks = [];
+        console.log(res.data);
+        tracks.map((tracks) => {
+          let nameString = '"' + tracks.trackName + '" by ' + tracks.artist;
+          chartTracks.push({name: nameString, x: tracks.valence, y: tracks.energy})
+          this.setState({chartData: chartTracks})
+          console.log(chartTracks);
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
+
+
 
   // Row selection
   isSelected = (index) => {
@@ -330,7 +342,9 @@ class Playlist extends Component {
             ) : (<h1>No tracks in this playlist.</h1>)}
           </div>
         </div>
-        <TrackChart chartData={this.state.chartData}/>
+        {this.state.chartData.length ? (
+          <TrackChart chartData={this.state.chartData}/>
+          ) : (<div></div>)}
       </div>
     );
   }
