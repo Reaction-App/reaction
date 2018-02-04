@@ -47,8 +47,6 @@ class Playlist extends Component {
 
     // Load tracks from DB on page load
     this.loadTracks();
-    this.getGraphData();
-
   }
 
 
@@ -61,6 +59,7 @@ class Playlist extends Component {
         // console.log(res.data);
         newTracks = newTracks.sort(this.compareValues('_id','desc'));
         this.setState({ savedTracks: newTracks });
+        this.getGraphData();
       })
       .catch(err => console.log(err));
   }
@@ -76,9 +75,10 @@ class Playlist extends Component {
         tracks.map((tracks) => {
           let nameString = '"' + tracks.trackName + '" by ' + tracks.artist;
           chartTracks.push({name: nameString, x: tracks.valence, y: tracks.energy})
-          this.setState({chartData: chartTracks})
           console.log(chartTracks);
         });
+        console.log(chartTracks);
+        this.setState({chartData: chartTracks});
       })
       .catch(err => console.log(err));
   }

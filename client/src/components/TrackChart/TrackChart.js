@@ -5,16 +5,8 @@ class Chart extends Component {
 
   render() {
 
-    const {chartData} = this.props
-    console.log(chartData);
-    let data = [{data: chartData}]
-    console.log(data)
-
-    // [{
-    //   name: "",
-    //   x: 0.1,
-    //   y: 0.2
-    // }]
+    let {chartData} = this.props
+    let data = [{colorByPoint: true, data: chartData}]
 
     const config = {
       credits: {
@@ -37,11 +29,25 @@ class Chart extends Component {
         startOnTick: true,
         endOnTick: true,
         showLastLabel: true,
+        min: 0,
+        max: 1,
+        // plotBands: [{ 
+        //     color: '#b3d1ff',
+        //     from: 0,
+        //     to: .5
+        // }],
       },
       yAxis: {
         title: {
           text: 'Energy'
         },
+        min: 0,
+        max: 1,
+        // plotBands: [{ 
+        //     color: '#ffb3b3',
+        //     from: 0,
+        //     to: .5
+        // }],
       },
       legend: {
         enabled: false
