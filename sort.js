@@ -89,14 +89,31 @@ function compareValues(key, order='asc') {
   };
 }
 
+// function for calculating the distance between two tracks
+// distance is the square root of the sum of the squares of valence and energy
+// returns a new array of track objects
+// with distance added to each track as a new property
+calcDistance = (tracks, targetValence, targetEnergy) => {
+
+	let newTracks = tracks.slice();
+	let distance = 0;
+
+	if (targetValence >= 0 && targetEnergy >= 0) {
+		newTracks.map((track, index) => {
+			if (track.valence && track.energy) {
+				track.distance = Math.sqrt(Math.pow((targetValence - track.valence),2) + Math.pow((targetEnergy - track.energy),2));
+			};
+		});
+	}; 
+
+	return(newTracks);  
+}
+
+// create a new object
+//var newTracks = state.tracks.slice(); 
+
 //sort tracks by valence in descending order
-const newTracks = state.tracks.sort(compareValues('valence', 'desc')); 
+//newTracks = newTracks.sort(compareValues('valence', 'desc')); 
 
-console.log("initial state");
-console.log(state);
-console.log("==========================");
 
-console.log("sort tracks by valence in descending order");
-console.log(newTracks);
-console.log("==========================");
-
+console.log(calcDistance(state.tracks, 0,0));
