@@ -274,7 +274,7 @@ class Playlist extends Component {
     return (
       <div>
       	<div>
-          <div>
+          <div style={{maxWidth: 1000, margin: '0 auto'}}>
             <h2>My Playlist</h2>
           </div>
           <div>
@@ -301,7 +301,7 @@ class Playlist extends Component {
 
           <div>
             {this.state.savedTracks.length ? (
-              <Table onRowSelection={this.handleRowSelection}>
+              <Table onRowSelection={this.handleRowSelection} style={{ maxWidth: 1000, margin: '0 auto', backgroundColor: '#F7F9FF', padding: 20}}>
                <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                   <TableRow>
                     <TableHeaderColumn>Title</TableHeaderColumn>
