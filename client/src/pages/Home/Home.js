@@ -26,45 +26,6 @@ import {
 let parsed = querystring.parse(window.location.hash);
 let accessToken = parsed['#access_token'];
 
-const styles = {
-  background: {
-    backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
-    width: "100%",
-    backgroundSize: 'cover',
-    marginBottom: 60
-  },
-  hello: {
-    marginTop: 0,
-    paddingTop: 20,
-    marginLeft: 20,
-    color: 'white'
-  },
-  textField: {
-    backgroundColor: '#FFFFFF',
-    display: 'inline-block',
-    marginTop: 24,
-    marginBottom: 60,
-    width: "50%",
-    paddingLeft: 10,
-    height: 48,
-    border: 0,
-    fontSize: 14,
-    fontFamily: 'Montserrat',
-    marginTop: 11
-  },
-  table: {
-    maxWidth: '80%',
-    margin: '0 auto',
-    backgroundColor: '#F7F9FF',
-    padding: 20,
-    fontFamily: 'Montserrat'
-  },
-  tableBody: {
-    padding: 10,
-    fontFamily: 'Montserrat'
-  }
-}
-
 // Home Page
 class Home extends Component {
 
@@ -257,12 +218,29 @@ class Home extends Component {
     return (
 
       <div>
-        <div style={styles.background}>
+        <div style={{
+          backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
+          width: "100%",
+          backgroundSize: 'cover',
+          marginBottom: 60
+        }}>
 
             {this.state.userData ? (
-              <h3 style={styles.hello}>Hello {this.state.userData.userName}</h3>
+              <h3 style={{
+                marginTop: 0,
+                paddingTop: 20,
+                marginLeft: 20,
+                color: 'white'
+              }}>
+              Hello {this.state.userData.userName}</h3>
             )
-            : (<h3 style={styles.hello}>Hello</h3>)}
+            : (<h3 style={{
+                marginTop: 0,
+                paddingTop: 20,
+                marginLeft: 20,
+                color: 'white'
+              }}>
+              Hello</h3>)}
 
             <div style={{margin: '0 auto', display: 'block', textAlign: 'center'}}>
               <TextField
@@ -271,7 +249,19 @@ class Home extends Component {
                 name="query"
                 value={this.state.query}
                 onChange={this.handleInputChange}
-                style={styles.textField}
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  display: 'inline-block',
+                  marginTop: 24,
+                  marginBottom: 60,
+                  width: "50%",
+                  paddingLeft: 10,
+                  height: 48,
+                  border: 0,
+                  fontSize: 14,
+                  fontFamily: 'Montserrat',
+                  marginTop: 11
+                }}
               />
 
               <RaisedButton
@@ -279,7 +269,6 @@ class Home extends Component {
                 onClick={this.handleFormSubmit}
                 label="Search"
                 labelColor="#FFFFFF"
-                style={styles.raisedButton}
                 buttonStyle={{'height': '49px'}}
               />
             </div>
@@ -288,7 +277,15 @@ class Home extends Component {
 
         <div>
           {this.state.tracks.length ? (
-            <Table onRowSelection={this.handleRowSelection} style={styles.table}>
+            <Table
+              onRowSelection={this.handleRowSelection}
+              style={{
+                maxWidth: '80%',
+                margin: '0 auto',
+                backgroundColor: '#F7F9FF',
+                padding: 20,
+                fontFamily: 'Montserrat'
+              }}>
               <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableRow>
                   <TableHeaderColumn>Title</TableHeaderColumn>
@@ -297,7 +294,12 @@ class Home extends Component {
                   <TableHeaderColumn></TableHeaderColumn>
                 </TableRow>
               </TableHeader>
-              <TableBody displayRowCheckbox={false} style={styles.tableBody}>
+              <TableBody
+                displayRowCheckbox={false}
+                style={{
+                  padding: 10,
+                  fontFamily: 'Montserrat'
+              }}>
                 {this.state.tracks.map((track, index) => {
                   return (
                     <TableRow key={track.trackID} selected={this.isSelected(index)}>
@@ -311,7 +313,7 @@ class Home extends Component {
                           labelColor={"#FFFFFF"}
                           label="Add"
                           onClick={() => this.handleSaveTrack(track)}
-                          style={{textTransform: 'uppercase', border: '1px solid #5A66E3', borderRadius: 0, boxShadow: 'none', height: 'initial', padding: '10px', backgroundColor: '#5A66E3', fontFamily: 'Montserrat', float: 'right'}}
+                          style={{ float: 'right' }}
                         />
                       </TableRowColumn>
                     </TableRow>
