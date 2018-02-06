@@ -18,7 +18,7 @@ Reaction Music App allows you create a playlist of songs, see how they fall on a
 
 ### Installing
 
-After downloading the distribution, you will need to download the app dependecies:
+After downloading the distribution, you will need to download the app dependencies:
 
 ```
 $ cd reaction
