@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
+import TrackChart from "../../components/TrackChart";
 
 // Material UI components
 import RaisedButton from 'material-ui/RaisedButton';
@@ -37,7 +38,8 @@ class Playlist extends Component {
     trackURL: "",
     trackURI: "",
     valence: 0,
-    energy: 0
+    energy: 0,
+    chartData: []
   }
 
 
@@ -45,7 +47,6 @@ class Playlist extends Component {
 
     // Load tracks from DB on page load
     this.loadTracks();
-
   }
 
 
@@ -55,12 +56,35 @@ class Playlist extends Component {
     API.getTracks()
       .then(res => {
         let newTracks = res.data;
-        console.log(res.data);
+        // console.log(res.data);
         newTracks = newTracks.sort(this.compareValues('_id','desc'));
         this.setState({ savedTracks: newTracks });
+        this.getGraphData();
       })
       .catch(err => console.log(err));
   }
+
+  getGraphData = () => {
+
+    // Load tracks from DB
+    API.getTracks()
+      .then(res => {
+        let tracks = res.data;
+        let chartTracks = [];
+        console.log(res.data);
+        tracks.map((tracks) => {
+          let nameString = '"' + tracks.trackName + '" by ' + tracks.artist;
+          chartTracks.push({name: nameString, x: tracks.valence, y: tracks.energy})
+          console.log(chartTracks);
+        });
+        console.log(chartTracks);
+        this.setState({chartData: chartTracks});
+      })
+      .catch(err => console.log(err));
+  }
+
+
+
 
   // Row selection
   isSelected = (index) => {
@@ -310,14 +334,17 @@ class Playlist extends Component {
                           style={styles.deleteButtonStyle}
                         />
                       </TableRowColumn>
-                    </ TableRow>
+                    </TableRow>
                     )
                   })}
                 </TableBody>
-              </ Table>
+              </Table>
             ) : (<h1>No tracks in this playlist.</h1>)}
           </div>
         </div>
+        {this.state.chartData.length ? (
+          <TrackChart chartData={this.state.chartData}/>
+          ) : (<div></div>)}
       </div>
     );
   }
