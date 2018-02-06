@@ -22,16 +22,48 @@ import {
   white, darkBlack, fullBlack,
 } from 'material-ui/styles/colors';
 
-// Material UI styles
-const styles = {
-  // tr:nth-child(even): {
-  //   backgroundColor: '#dddddd',
-  // }
-};
-
 // Get Access Token
 let parsed = querystring.parse(window.location.hash);
 let accessToken = parsed['#access_token'];
+
+const styles = {
+  background: {
+    backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
+    width: "100%",
+    backgroundSize: 'cover',
+    marginBottom: 60
+  },
+  hello: {
+    marginTop: 0,
+    paddingTop: 20,
+    marginLeft: 20,
+    color: 'white'
+  },
+  textField: {
+    backgroundColor: '#FFFFFF',
+    display: 'inline-block',
+    marginTop: 24,
+    marginBottom: 60,
+    width: "50%",
+    paddingLeft: 10,
+    height: 48,
+    border: 0,
+    fontSize: 14,
+    fontFamily: 'Montserrat',
+    marginTop: 11
+  },
+  table: {
+    maxWidth: '80%',
+    margin: '0 auto',
+    backgroundColor: '#F7F9FF',
+    padding: 20,
+    fontFamily: 'Montserrat'
+  },
+  tableBody: {
+    padding: 10,
+    fontFamily: 'Montserrat'
+  }
+}
 
 // Home Page
 class Home extends Component {
@@ -219,52 +251,44 @@ class Home extends Component {
       .catch(err => console.log(err))
   }
 
+
+
   render() {
     return (
 
       <div>
+        <div style={styles.background}>
 
-        <div>
+            {this.state.userData ? (
+              <h3 style={styles.hello}>Hello {this.state.userData.userName}</h3>
+            )
+            : (<h3 style={styles.hello}>Hello</h3>)}
 
-          {this.state.userData ? (
-            <h3 style={{position: 'absolute', left: 20, color: 'white', textAlign: 'center'}}>Hello {this.state.userData.userName}</h3>
-          )
-          : (<h3>Hello</h3>)}
-        </div>
+            <div style={{margin: '0 auto', display: 'block', textAlign: 'center'}}>
+              <TextField
+                underlineShow={false}
+                hintText="Enter Artist, Track Name etc..."
+                name="query"
+                value={this.state.query}
+                onChange={this.handleInputChange}
+                style={styles.textField}
+              />
 
-        <div>
-          <img src={'https://s10.postimg.org/hvq64sq1l/search-background.jpg'} alt="search" style={{ height: '200', width: '100%' }}/>
-          <div style={{margin: '0 auto', display: 'block', textAlign: 'center', marginTop: -112, marginBottom: 120}}>
-            <TextField
-              underlineShow={false}
-              hintText="Enter Artist, Track Name etc..."
-              name="query"
-              value={this.state.query}
-              onChange={this.handleInputChange}
-              style={{backgroundColor: '#FFFFFF', display: 'inline-block', width: 600, paddingLeft: 10, height: 48, border: 0, fontSize: 14, fontFamily: 'Montserrat', marginTop: 1}}
-            />
-            <RaisedButton
-              backgroundColor={'#5A66E3'}
-              onClick={this.handleFormSubmit}
-              label={"Search"}
-              labelColor={"#FFFFFF"}
-              style={{
-                textTransform: 'uppercase',
-                border: '1px solid #5A66E3',
-                borderRadius: 0,
-                boxShadow: 'none',
-                height: 'initial',
-                padding: '13px 10px',
-                backgroundColor: '#5A66E3',
-                fontFamily: 'Montserrat'
-              }}
-            />
-          </div>
-        </div>
+              <RaisedButton
+                backgroundColor="#5A66E3"
+                onClick={this.handleFormSubmit}
+                label="Search"
+                labelColor="#FFFFFF"
+                style={styles.raisedButton}
+                buttonStyle={{'height': '49px'}}
+              />
+            </div>
+
+        </div>  
 
         <div>
           {this.state.tracks.length ? (
-            <Table onRowSelection={this.handleRowSelection} style={{ maxWidth: 1000, margin: '0 auto', backgroundColor: '#F7F9FF', padding: 20, fontFamily: 'Montserrat'}}>
+            <Table onRowSelection={this.handleRowSelection} style={styles.table}>
               <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableRow>
                   <TableHeaderColumn>Title</TableHeaderColumn>
@@ -273,7 +297,7 @@ class Home extends Component {
                   <TableHeaderColumn></TableHeaderColumn>
                 </TableRow>
               </TableHeader>
-              <TableBody displayRowCheckbox={false} style={{padding: 10, display: 'inlineBlock', fontFamily: 'Montserrat'}}>
+              <TableBody displayRowCheckbox={false} style={styles.tableBody}>
                 {this.state.tracks.map((track, index) => {
                   return (
                     <TableRow key={track.trackID} selected={this.isSelected(index)}>
@@ -281,7 +305,7 @@ class Home extends Component {
                       <TableRowColumn>{track.artist}</TableRowColumn>
                       <TableRowColumn>{track.album}</TableRowColumn>
                       <TableRowColumn>
-                        <a rel="noreferrer noopener" href="track.trackURL" target="_blank"></a>
+                        <a rel="noreferrer noopener" href="track.trackURL" target="_blank">Link</a>
                         <RaisedButton
                           backgroundColor={'#5A66E3'}
                           labelColor={"#FFFFFF"}
@@ -296,9 +320,9 @@ class Home extends Component {
               </TableBody>
             </ Table>
           )
-          : ( <div style={{ margin: '0 auto', maxWidth: 500, textAlign: 'center', marginTop: 120}}>
-                <img style={{width: 150, marginTop: 50}} src='https://s17.postimg.org/vobidfu3z/start-searaching.png' alt="Start Searching" />
-                <h2 style={{ fontWeignt: 100, fontFamily: 'Montserrat'}}>Start by searching for a song. Then click “Add” to begin curating your playlist.</h2>
+          : ( <div style={{ margin: '0 auto', marginTop: 80, display: 'block', textAlign: 'center', maxWidth: 500 }}>
+                <img style={{ width: 150 }} src='https://s17.postimg.org/vobidfu3z/start-searaching.png' alt="Start Searching" />
+                <h2 style={{ fontFamily: 'Montserrat' }}>Start by searching for a song. Then click “Add” to begin curating your playlist.</h2>
               </div>
           )}
         </div>
