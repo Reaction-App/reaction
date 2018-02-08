@@ -15,5 +15,11 @@ export default {
   // Saves a track to the database
   saveTrack: function(trackData) {
     return axios.post("/api/tracks", trackData);
+  },
+
+  // Checks if a user exists, if not creates a new one
+  // returns user record
+  upsertUser: function(userData) {
+    return axios.post("/api/users/upsert", userData);
   }
 };

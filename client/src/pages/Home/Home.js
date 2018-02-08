@@ -87,13 +87,23 @@ class Home extends Component {
         }
         if (response.ok) {
           response.json()
-          .then(data => this.setState({
-            userData: {
+          .then(data => {
+            this.setState({
+              userData: {
                 userName: data.display_name,
                 email: data.email,
                 userID: data.id
-            }
-          }))
+              }
+            });
+            
+            // check if user record exists in DB and update
+            // if not exist, crreate one
+            console.log(this.state);
+            API.upsertUser({
+              userName: data.display_name,
+              email: data.email,
+              userID: data.id});
+        })
        }
      })
   }

@@ -1,3 +1,4 @@
 module.exports = {
-  Track: require("./track")
+  Track: require("./track"),
+  User: require("./user")
 };
