@@ -6,7 +6,7 @@ const styles = {
 
 };
 
-const Nav = () => (
+const Nav = props => (
   <AppBar
 
     iconElementLeft = {<img src='https://s17.postimg.org/hsk8b0kpb/logo.png' alt="Logo"

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import NavClean from "../../components/NavClean";
 
 	// Creating Redirect URL
 	const BASE_URL = 'https://accounts.spotify.com/authorize?client_id=';
@@ -38,28 +39,30 @@ class LoginPage extends React.Component {
         			search music and curate your own playlist based on your mood
         		</h1>
 
-        		<button
-        			onClick={ () => window.location=REDIRECT_URL}
-        			style={{
-        				padding:'20px 50px',
-        				'font-size':'16px',
-        				margin:'0 auto',
-        				textAlign: 'center',
-        				display: 'block',
-        				textTransform: 'uppercase',
-        				backgroundColor: '#5A66E3',
-        				color: '#FFFFFF',
-        				fontWeight: 'bold',
-        				letterSpacing: 2,
-        				border: 0,
-        				cursor: 'pointer',
-        				marginTop: 20,
-        				marginBottom: 20
-        			}}>
-        			Sign Up
-        		</button>
+
+                		<button
+                			onClick={ () => window.location=REDIRECT_URL}
+                			style={{
+                				padding:'20px 50px',
+                				'font-size':'16px',
+                				margin:'0 auto',
+                				textAlign: 'center',
+                				display: 'block',
+                				textTransform: 'uppercase',
+                				backgroundColor: '#5A66E3',
+                				color: '#FFFFFF',
+                				fontWeight: 'bold',
+                				letterSpacing: 2,
+                				border: 0,
+                				cursor: 'pointer',
+                				marginTop: 20,
+                				marginBottom: 20
+                			}}>
+                			Log in to Spotify
+                		</button>
 
 			</div>
+                        </div>
 		)
 	};
 }
