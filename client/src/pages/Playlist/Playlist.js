@@ -7,6 +7,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Chip from 'material-ui/Chip';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
 import {
   Table,
   TableBody,
@@ -39,7 +41,10 @@ class Playlist extends Component {
     trackURI: "",
     valence: 0,
     energy: 0,
-    chartData: []
+    chartData: [],
+    songPlaying: false,
+    currentSongPlayingUrl: "",
+    currentSongPlayingAudio: null
   }
 
 
@@ -84,7 +89,33 @@ class Playlist extends Component {
   }
 
 
+  playTrack = (url) => {
+      let audioObject = new Audio(url);
 
+      if (!this.state.songPlaying) {
+        audioObject.play();
+        this.setState({
+          songPlaying: true,
+          currentSongPlayingUrl: url,
+          currentSongPlayingAudio: audioObject      
+        })        
+      } else {
+        if (this.state.currentSongPlayingUrl === url) {
+          this.state.currentSongPlayingAudio.pause();
+          this.setState({
+            songPlaying: false,
+          })
+        } else {
+          this.state.currentSongPlayingAudio.pause();
+          audioObject.play();
+          this.setState({
+            songPlaying: true,
+            currentSongPlayingUrl: url,
+            currentSongPlayingAudio: audioObject      
+          })  
+        }
+      }
+    }
 
   // Row selection
   isSelected = (index) => {
@@ -271,6 +302,7 @@ class Playlist extends Component {
   }
 
   render() {
+
     return (
       <div>
       	<div>
@@ -304,6 +336,7 @@ class Playlist extends Component {
               <Table onRowSelection={this.handleRowSelection} style={{ maxWidth: 1000, margin: '0 auto', backgroundColor: '#F7F9FF', padding: 20}}>
                <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                   <TableRow>
+                    <TableHeaderColumn>Audio</TableHeaderColumn>
                     <TableHeaderColumn>Title</TableHeaderColumn>
                     <TableHeaderColumn>Artist</TableHeaderColumn>
                     <TableHeaderColumn>Album</TableHeaderColumn>
@@ -317,6 +350,16 @@ class Playlist extends Component {
                   {this.state.savedTracks.map((track, index) => {
                     return (
                     <TableRow key={track._id}  selected={this.isSelected(index)}>
+                      <TableRowColumn>
+                        <IconButton 
+                          onClick={() => this.playTrack(track.trackURL)} 
+                          tooltip="Play Song"
+                        >
+                            <FontIcon className="material-icons">
+                              {this.state.currentSongPlayingUrl == track.trackURL && this.state.songPlaying == true ? "play_circle_filled" : "play_circle_outline"}
+                            </FontIcon>
+                        </IconButton>
+                      </TableRowColumn>
                       <TableRowColumn>{track.trackName}</TableRowColumn>
                       <TableRowColumn>{track.artist}</TableRowColumn>
                       <TableRowColumn>{track.album}</TableRowColumn>

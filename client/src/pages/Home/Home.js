@@ -133,7 +133,7 @@ class Home extends Component {
               trackName: item.name,
               artist: item.artists[0].name,
               album: item.album.name,
-              trackURL: item.href
+              trackURL: item.preview_url
             }
           })
         }))
