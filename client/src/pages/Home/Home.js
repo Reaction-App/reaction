@@ -133,7 +133,7 @@ class Home extends Component {
               trackName: item.name,
               artist: item.artists[0].name,
               album: item.album.name,
-              trackURL: item.href
+              trackURL: item.preview_url
             }
           })
         }))
@@ -221,8 +221,7 @@ class Home extends Component {
         <div style={{
           backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
           width: "100%",
-          backgroundSize: 'cover',
-          marginBottom: 60
+          backgroundSize: 'cover'
         }}>
 
             {this.state.userData ? (

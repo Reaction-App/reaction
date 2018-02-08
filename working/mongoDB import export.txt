@@ -1,10 +1,14 @@
 Run in terminal from the folder you want to import from or export to.
 
+Local DB ====================================================================================================
 
 mongoimport --db songInfo --collection tracks --type csv --headerline --file Top100Songs.csv
 
 mongoexport --db reaction --collection tracks --type=csv --fields trackName,artist,album,trackID,trackURL,valence,energy --out marksTracks.csv
 
+Heroku DB ===================================================================================================
+
+mongoexport -h ds117888.mlab.com:17888 -d heroku_vxr60q0g -c tracks -u heroku_vxr60q0g -p oaiitvpnf6d0508f534o63n74s -o herokuTracks.csv --type=csv -f trackName,artist,album,trackID,trackURL,valence,energy
 
 
 https://docs.mongodb.com/manual/reference/program/mongoimport/

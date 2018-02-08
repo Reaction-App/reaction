@@ -6,9 +6,9 @@ const styles = {
 
 };
 
-const Nav = () => (
+const Nav = props => (
   <AppBar
-
+    title="Reaction Radio"
     iconElementLeft = {<img src='https://s17.postimg.org/hsk8b0kpb/logo.png' alt="Logo"
       style={{
         width: '80px',
@@ -18,15 +18,20 @@ const Nav = () => (
     />}
     iconElementRight={
       <div>
-        <FlatButton label="Playlist" href="/playlist" style={{marginTop: 14, fontFamily: 'Montserrat', color: '#5A66E3' }} />
-        <FlatButton label="Log Out" href="/" style={{marginTop: 14, fontFamily: 'Montserrat', color: '#5A66E3'}} />
+        <FlatButton 
+          label="Search" 
+          onClick={() => props.handlePageChange("Home")} 
+          style={{marginTop: 14, fontFamily: 'Montserrat'}} />
+        <FlatButton 
+          label="Playlist" 
+          onClick={() => props.handlePageChange("Playlist")} 
+          style={{marginTop: 14, fontFamily: 'Montserrat'}} />
       </div>
     }
     style={{
-      backgroundColor: 'transparent',
+      backgroundColor: 'white',
       height: '80px',
-      color: 'black',
-      boxShadow: 'none'
+      color: 'black'
     }}
   />
 );
