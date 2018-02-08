@@ -8,7 +8,7 @@ const styles = {
 
 const Nav = () => (
   <AppBar
-    title="Reaction Radio"
+
     iconElementLeft = {<img src='https://s17.postimg.org/hsk8b0kpb/logo.png' alt="Logo"
       style={{
         width: '80px',
@@ -18,14 +18,15 @@ const Nav = () => (
     />}
     iconElementRight={
       <div>
-        <FlatButton label="Playlist" href="/playlist" style={{marginTop: 14, fontFamily: 'Montserrat'}} />
-        <FlatButton label="Log Out" href="/" style={{marginTop: 14, fontFamily: 'Montserrat'}} />
+        <FlatButton label="Playlist" href="/playlist" style={{marginTop: 14, fontFamily: 'Montserrat', color: '#5A66E3' }} />
+        <FlatButton label="Log Out" href="/" style={{marginTop: 14, fontFamily: 'Montserrat', color: '#5A66E3'}} />
       </div>
     }
     style={{
-      backgroundColor: 'white',
+      backgroundColor: 'transparent',
       height: '80px',
-      color: 'black'
+      color: 'black',
+      boxShadow: 'none'
     }}
   />
 );

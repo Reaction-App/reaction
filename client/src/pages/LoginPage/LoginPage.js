@@ -28,21 +28,13 @@ import React, { Component } from "react";
 class LoginPage extends React.Component {
 
 	render() {
-		return (
-			<div className="container" style={{ backgroundImage: 'url(https://s17.postimg.org/z057sw1lb/landing-background.jpg)', width: "100%", backgroundSize: 'cover' }}>
+    return (
+			<div style={{ backgroundImage: 'url(https://s17.postimg.org/z057sw1lb/landing-background.jpg)', width: "100%", backgroundSize: 'cover', backgroundPosition: 'center', display: 'block', height: 900, backgroundRepeat: 'no-repeat' }}>
 
-        		<h1 
-        			style={{
-        				padding:'20px 40px',
-        				'font-size':'50px',
-        				margin:'0 auto',
-        				maxWidth: 900,
-        				textAlign: 'center',
-        				display: 'block',
-        				color: '#FFFFFF',
-        				letterSpacing: 1,
-        				paddingTop: 300
-        			}}>
+        	<h1
+      			style={{
+      				padding:'20px 40px', 'fontSize':'50px', margin:'0 auto', maxWidth: 900, textAlign: 'center', display: 'block', color: '#FFFFFF', letterSpacing: 1, paddingTop: 300, marginTop: -80,
+        	}}>
         			search music and curate your own playlist based on your mood
         		</h1>
 
