@@ -13,10 +13,10 @@ import NavClean from "../../components/NavClean";
 	// Heroku: REDIRECT_URL set to 'https://desolate-caverns-55074.herokuapp.com/home/callback'
 
 	// Local Redirect
-	//const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home/callback');
+	const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home/callback');
 
 	// Heroku Redirect
-	const REDIRECT_URI = encodeURIComponent('https://reaction-music.herokuapp.com/home/callback');
+	//const REDIRECT_URI = encodeURIComponent('https://reaction-music.herokuapp.com/home/callback');
 
 	// Spotify scopes: https://developer.spotify.com/web-api/using-scopes/
 
@@ -29,16 +29,29 @@ import NavClean from "../../components/NavClean";
 class LoginPage extends React.Component {
 
 	render() {
-    return (
-			<div style={{ backgroundImage: 'url(https://s17.postimg.org/z057sw1lb/landing-background.jpg)', width: "100%", backgroundSize: 'cover', backgroundPosition: 'center', display: 'block', height: 900, backgroundRepeat: 'no-repeat' }}>
+		return (
+                        <div>
+                        <div>
+                                <NavClean />
+                        </div>
+			<div 
+                                className="container" 
+                                style={{ backgroundImage: 'url(https://s17.postimg.org/z057sw1lb/landing-background.jpg)', width: "100%", backgroundSize: 'cover' }}>
 
-        	<h1
-      			style={{
-      				padding:'20px 40px', 'fontSize':'50px', margin:'0 auto', maxWidth: 900, textAlign: 'center', display: 'block', color: '#FFFFFF', letterSpacing: 1, paddingTop: 300, marginTop: -80,
-        	}}>
-        			search music and curate your own playlist based on your mood
-        		</h1>
-
+                		<h1 
+                			style={{
+                				padding:'20px 40px',
+                				'font-size':'50px',
+                				margin:'0 auto',
+                				maxWidth: 900,
+                				textAlign: 'center',
+                				display: 'block',
+                				color: '#FFFFFF',
+                				letterSpacing: 1,
+                				paddingTop: 300
+                			}}>
+                			search music and curate your own playlist based on your mood
+                		</h1>
 
                 		<button
                 			onClick={ () => window.location=REDIRECT_URL}
