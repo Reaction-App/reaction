@@ -304,9 +304,19 @@ class Playlist extends Component {
   render() {
 
     return (
-      <div style={{margin: '0 auto', padding: 20}}>
+      <div style={{margin: '0 auto', padding: 20, maxWidth: 1200, position: 'relative'}}>
+
+      <div style={{position: 'absolute', left: 0, top: 130}}>
+          {this.state.chartData.length ? (
+          <TrackChart chartData={this.state.chartData}/>
+          ) : (<div></div>)}
+          <p style={{position: 'absolute', top: '12%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
+          <p style={{position: 'absolute', top: '12%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
+          <p style={{position: 'absolute', top: '56%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
+          <p style={{position: 'absolute', top: '56%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
+        </div>
+        <div style={{float: 'right'}}>
       	<div>
-            {/*<p>Current Sort: {this.state.currentSort}</p>*/}
           <div>
             <DropDownMenu value={this.state.sortDropDown} onChange={this.handlePlaylistSort} style={{marginLeft: -20, width: 243}}>
               <MenuItem value={0} primaryText="Sort by" />
@@ -337,35 +347,33 @@ class Playlist extends Component {
 
 
             <li key={track._id}  selected={this.isSelected(index)} style={{listStyleType: 'none', fontFamily: 'Montserrat'}}>
-
               <IconButton style={{padding: 0, width: 0, height: 0}} onClick={() => this.playTrack(track.trackURL)} tooltip="Play Song" >
                 <FontIcon className="material-icons">
                 {this.state.currentSongPlayingUrl == track.trackURL && this.state.songPlaying == true ? "play_circle_filled" : "play_circle_outline"}
                 </FontIcon>
               </IconButton>
-
               <div style={{display: 'inline-block', margin: '10px 0 0 35px', borderBottom: '1px solid grey', width: '90%'}}>
                 <p style={{margin: 0}}>{track.trackName}</p>
                 <p style={{marginTop: 0, fontSize: 12}}>{track.artist}  |  {track.album}</p>
               </div>
-
               <DropDownMenu style={{float: 'right', marginTop: -70}} >
                 <MenuItem value={0} primaryText="Sort Playlist by this Song" onClick={() => this.handleSortBySelected(index)} />
                 <MenuItem value={1} primaryText="Remove this song from Playlist" onClick={() => this.handleDeleteTrack(track._id)} style={styles.deleteButtonStyle} />
               </DropDownMenu>
-
             </li>
-
             )
             })}
           </ul>
 
+
+
           ) : (<h1>No tracks in this playlist.</h1>)}
           </div>
           </div>
-        {this.state.chartData.length ? (
-        <TrackChart chartData={this.state.chartData}/>
-        ) : (<div></div>)}
+          </div>
+
+
+
       </div>
     );
   }
