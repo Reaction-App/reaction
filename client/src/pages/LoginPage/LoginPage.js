@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import NavClean from "../../components/NavClean";
 
 	// Creating Redirect URL
@@ -13,10 +13,10 @@ import NavClean from "../../components/NavClean";
 	// Heroku: REDIRECT_URL set to 'https://desolate-caverns-55074.herokuapp.com/home/callback'
 
 	// Local Redirect
-	// const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home/callback');
+	const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home/callback');
 
 	// Heroku Redirect
-	const REDIRECT_URI = encodeURIComponent('https://reaction-music.herokuapp.com/home/callback');
+	// const REDIRECT_URI = encodeURIComponent('https://reaction-music.herokuapp.com/home/callback');
 
 	// Spotify scopes: https://developer.spotify.com/web-api/using-scopes/
 
@@ -39,7 +39,7 @@ return (
   <h1
   style={{
   padding:'20px 40px',
-  'font-size':'50px',
+  fontSize:'50px',
   margin:'0 auto',
   maxWidth: 900,
   textAlign: 'center',
@@ -55,7 +55,7 @@ return (
   onClick={ () => window.location=REDIRECT_URL}
   style={{
   padding:'20px 50px',
-  'font-size':'16px',
+  fontSize:'16px',
   margin:'0 auto',
   textAlign: 'center',
   display: 'block',
