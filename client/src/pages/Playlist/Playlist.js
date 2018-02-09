@@ -52,6 +52,7 @@ class Playlist extends Component {
 
     // Load tracks from DB on page load
     this.loadTracks();
+    console.log(this.state);
   }
 
 
@@ -97,8 +98,8 @@ class Playlist extends Component {
         this.setState({
           songPlaying: true,
           currentSongPlayingUrl: url,
-          currentSongPlayingAudio: audioObject      
-        })        
+          currentSongPlayingAudio: audioObject
+        })
       } else {
         if (this.state.currentSongPlayingUrl === url) {
           this.state.currentSongPlayingAudio.pause();
@@ -111,8 +112,8 @@ class Playlist extends Component {
           this.setState({
             songPlaying: true,
             currentSongPlayingUrl: url,
-            currentSongPlayingAudio: audioObject      
-          })  
+            currentSongPlayingAudio: audioObject
+          })
         }
       }
     }
@@ -148,13 +149,13 @@ class Playlist extends Component {
     return function(a, b) {
       if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
         // property doesn't exist on either object
-          return 0; 
+          return 0;
       }
 
       // if values are strings, convert to upper case
-      const varA = (typeof a[key] === 'string') ? 
+      const varA = (typeof a[key] === 'string') ?
         a[key].toUpperCase() : a[key];
-      const varB = (typeof b[key] === 'string') ? 
+      const varB = (typeof b[key] === 'string') ?
         b[key].toUpperCase() : b[key];
 
       // compare values
@@ -203,7 +204,7 @@ class Playlist extends Component {
         sortedTracks = sortedTracks.sort(this.compareValues('valence'));
         break;
     case 6:
-        newSort ="Energy - Descending";    
+        newSort ="Energy - Descending";
         sortedTracks = sortedTracks.sort(this.compareValues('energy', 'desc'));
         break;
     case 7:
@@ -213,7 +214,7 @@ class Playlist extends Component {
     case 8:
         newSort ="Recently Added";
         sortedTracks = sortedTracks.sort(this.compareValues('_id', 'desc'));
-        break;                
+        break;
     default:
         break;
     };
@@ -236,9 +237,9 @@ class Playlist extends Component {
           track.distance = Math.pow((targetValence - track.valence),2) + Math.pow((targetEnergy - track.energy),2);
         };
       });
-    }; 
+    };
 
-    return(newTracks);  
+    return(newTracks);
   }
 
 // Sorts playlist based on the 'sort by' dropdown list
@@ -253,22 +254,22 @@ class Playlist extends Component {
     switch(value) {
     case 1:
         newSort ="Happy"
-        sortedTracks = this.calcDistance(sortedTracks,1,1);        
+        sortedTracks = this.calcDistance(sortedTracks,1,1);
         sortedTracks = sortedTracks.sort(this.compareValues('distance'));
         break;
     case 2:
         newSort ="Sad"
-        sortedTracks = this.calcDistance(sortedTracks,0,0);        
+        sortedTracks = this.calcDistance(sortedTracks,0,0);
         sortedTracks = sortedTracks.sort(this.compareValues('distance'));
         break;
     case 3:
         newSort ="Angry"
-        sortedTracks = this.calcDistance(sortedTracks,0,1);        
+        sortedTracks = this.calcDistance(sortedTracks,0,1);
         sortedTracks = sortedTracks.sort(this.compareValues('distance'));
         break;
     case 4:
         newSort ="Relaxing"
-        sortedTracks = this.calcDistance(sortedTracks,1,0);        
+        sortedTracks = this.calcDistance(sortedTracks,1,0);
         sortedTracks = sortedTracks.sort(this.compareValues('distance'));
         break;
     default:
@@ -293,7 +294,7 @@ class Playlist extends Component {
     let sortedTracks = this.state.savedTracks.slice();
     let newSort = "Selected Track";
 
-    sortedTracks = this.calcDistance(sortedTracks,sortedTracks[index].valence,sortedTracks[index].energy);        
+    sortedTracks = this.calcDistance(sortedTracks,sortedTracks[index].valence,sortedTracks[index].energy);
     sortedTracks = sortedTracks.sort(this.compareValues('distance'));
 
     this.setState({ savedTracks: sortedTracks });
@@ -304,13 +305,11 @@ class Playlist extends Component {
   render() {
 
     return (
-      <div>
+      <div style={{margin: '0 auto', padding: 20}}>
       	<div>
-          <div style={{maxWidth: 1000, margin: '0 auto'}}>
-            <h2>My Playlist</h2>
-          </div>
+            {/*<p>Current Sort: {this.state.currentSort}</p>*/}
           <div>
-            <DropDownMenu value={this.state.sortDropDown} onChange={this.handlePlaylistSort}>
+            <DropDownMenu value={this.state.sortDropDown} onChange={this.handlePlaylistSort} style={{marginLeft: -20, width: 243}}>
               <MenuItem value={0} primaryText="Sort by" />
               <MenuItem value={1} primaryText="Title" />
               <MenuItem value={2} primaryText="Artist" />
@@ -321,73 +320,53 @@ class Playlist extends Component {
               <MenuItem value={7} primaryText="Energy - Ascending" />
               <MenuItem value={8} primaryText="Recently Added" />
             </DropDownMenu>
-            <DropDownMenu value={this.state.moodDropDown} onChange={this.handleMoodSort}>
+            <DropDownMenu value={this.state.moodDropDown} onChange={this.handleMoodSort} style={{marginLeft: -20, width: 243}}>
               <MenuItem value={0} primaryText="Choose a Mood" />
               <MenuItem value={1} primaryText="Happy" />
               <MenuItem value={2} primaryText="Sad" />
               <MenuItem value={3} primaryText="Angry" />
               <MenuItem value={4} primaryText="Relaxing" />
             </DropDownMenu>
-            <Chip>Current Sort: {this.state.currentSort}</Chip>
           </div>
+        <div>
 
-          <div>
-            {this.state.savedTracks.length ? (
-              <Table onRowSelection={this.handleRowSelection} style={{ maxWidth: 1000, margin: '0 auto', backgroundColor: '#F7F9FF', padding: 20}}>
-               <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                  <TableRow>
-                    <TableHeaderColumn>Audio</TableHeaderColumn>
-                    <TableHeaderColumn>Title</TableHeaderColumn>
-                    <TableHeaderColumn>Artist</TableHeaderColumn>
-                    <TableHeaderColumn>Album</TableHeaderColumn>
-                    <TableHeaderColumn>Positivity</TableHeaderColumn>
-                    <TableHeaderColumn>Energy</TableHeaderColumn>
-                    <TableHeaderColumn>Lyrics</TableHeaderColumn>
-                    <TableHeaderColumn>Button</TableHeaderColumn>
-                  </TableRow>
-                </TableHeader>
-                <TableBody displayRowCheckbox={false}>
-                  {this.state.savedTracks.map((track, index) => {
-                    return (
-                    <TableRow key={track._id}  selected={this.isSelected(index)}>
-                      <TableRowColumn>
-                        <IconButton 
-                          onClick={() => this.playTrack(track.trackURL)} 
-                          tooltip="Play Song"
-                        >
-                            <FontIcon className="material-icons">
-                              {this.state.currentSongPlayingUrl == track.trackURL && this.state.songPlaying == true ? "play_circle_filled" : "play_circle_outline"}
-                            </FontIcon>
-                        </IconButton>
-                      </TableRowColumn>
-                      <TableRowColumn>{track.trackName}</TableRowColumn>
-                      <TableRowColumn>{track.artist}</TableRowColumn>
-                      <TableRowColumn>{track.album}</TableRowColumn>
-                      <TableRowColumn>{track.valence}</TableRowColumn>
-                      <TableRowColumn>{track.energy}</TableRowColumn>
-                      <TableRowColumn>Lyrics</TableRowColumn>
-                      <TableRowColumn>
-                        <RaisedButton
-                          label="Sort"
-                          onClick={() => this.handleSortBySelected(index)}
-                        />
-                        <RaisedButton
-                          label="Delete"
-                          onClick={() => this.handleDeleteTrack(track._id)}
-                          style={styles.deleteButtonStyle}
-                        />
-                      </TableRowColumn>
-                    </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
-            ) : (<h1>No tracks in this playlist.</h1>)}
+          <h2 style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat', width: 402}}>My Playlist</h2>
+          {this.state.savedTracks.length ? (
+          <ul onRowSelection={this.handleRowSelection} style={{backgroundColor: '#F7F9FF', padding: 10, border: '1px solid #5A66E3', marginTop: '-21px', width: 400, maxHeight: 518, overflow: 'scroll', float: 'left'}}>
+          {this.state.savedTracks.map((track, index) => {
+          return (
+
+
+            <li key={track._id}  selected={this.isSelected(index)} style={{listStyleType: 'none', fontFamily: 'Montserrat'}}>
+
+              <IconButton style={{padding: 0, width: 0, height: 0}} onClick={() => this.playTrack(track.trackURL)} tooltip="Play Song" >
+                <FontIcon className="material-icons">
+                {this.state.currentSongPlayingUrl == track.trackURL && this.state.songPlaying == true ? "play_circle_filled" : "play_circle_outline"}
+                </FontIcon>
+              </IconButton>
+
+              <div style={{display: 'inline-block', margin: '10px 0 0 35px', borderBottom: '1px solid grey', width: '90%'}}>
+                <p style={{margin: 0}}>{track.trackName}</p>
+                <p style={{marginTop: 0, fontSize: 12}}>{track.artist}  |  {track.album}</p>
+              </div>
+
+              <DropDownMenu style={{float: 'right', marginTop: -70}} >
+                <MenuItem value={0} primaryText="Sort Playlist by this Song" onClick={() => this.handleSortBySelected(index)} />
+                <MenuItem value={1} primaryText="Remove this song from Playlist" onClick={() => this.handleDeleteTrack(track._id)} style={styles.deleteButtonStyle} />
+              </DropDownMenu>
+
+            </li>
+
+            )
+            })}
+          </ul>
+
+          ) : (<h1>No tracks in this playlist.</h1>)}
           </div>
-        </div>
+          </div>
         {this.state.chartData.length ? (
-          <TrackChart chartData={this.state.chartData}/>
-          ) : (<div></div>)}
+        <TrackChart chartData={this.state.chartData}/>
+        ) : (<div></div>)}
       </div>
     );
   }

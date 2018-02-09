@@ -29,55 +29,53 @@ import NavClean from "../../components/NavClean";
 class LoginPage extends React.Component {
 
 	render() {
-		return (
-                        <div>
-                        <div>
-                                <NavClean />
-                        </div>
-			<div 
-                                className="container" 
-                                style={{ backgroundImage: 'url(https://s17.postimg.org/z057sw1lb/landing-background.jpg)', width: "100%", backgroundSize: 'cover' }}>
+return (
+<div>
+  <div>
+  <NavClean />
+  </div>
+  <div style={{ backgroundImage: 'url(https://s17.postimg.org/z057sw1lb/landing-background.jpg)', width: "100%", backgroundSize: 'cover', position: 'fixed', height: '100%', top: 0, }}>
 
-                		<h1 
-                			style={{
-                				padding:'20px 40px',
-                				'font-size':'50px',
-                				margin:'0 auto',
-                				maxWidth: 900,
-                				textAlign: 'center',
-                				display: 'block',
-                				color: '#FFFFFF',
-                				letterSpacing: 1,
-                				paddingTop: 300
-                			}}>
-                			search music and curate your own playlist based on your mood
-                		</h1>
+  <h1
+  style={{
+  padding:'20px 40px',
+  'font-size':'50px',
+  margin:'0 auto',
+  maxWidth: 900,
+  textAlign: 'center',
+  display: 'block',
+  color: '#FFFFFF',
+  letterSpacing: 1,
+  paddingTop: 300
+  }}>
+  search music and curate your own playlist based on your mood
+  </h1>
 
-                		<button
-                			onClick={ () => window.location=REDIRECT_URL}
-                			style={{
-                				padding:'20px 50px',
-                				'font-size':'16px',
-                				margin:'0 auto',
-                				textAlign: 'center',
-                				display: 'block',
-                				textTransform: 'uppercase',
-                				backgroundColor: '#5A66E3',
-                				color: '#FFFFFF',
-                				fontWeight: 'bold',
-                				letterSpacing: 2,
-                				border: 0,
-                				cursor: 'pointer',
-                				marginTop: 20,
-                				marginBottom: 20
-                			}}>
-                			Log in to Spotify
-                		</button>
+  <button
+  onClick={ () => window.location=REDIRECT_URL}
+  style={{
+  padding:'20px 50px',
+  'font-size':'16px',
+  margin:'0 auto',
+  textAlign: 'center',
+  display: 'block',
+  textTransform: 'uppercase',
+  backgroundColor: '#5A66E3',
+  color: '#FFFFFF',
+  fontWeight: 'bold',
+  letterSpacing: 2,
+  border: 0,
+  cursor: 'pointer',
+  marginTop: 20,
+  marginBottom: 20
+  }}>
+  Log in to Spotify
+  </button>
 
-			</div>
-                        </div>
-		)
-	};
+  </div>
+</div>
+)
+};
 }
 
 export default LoginPage;

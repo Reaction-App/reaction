@@ -22,6 +22,17 @@ import {
   white, darkBlack, fullBlack,
 } from 'material-ui/styles/colors';
 
+  const styles = {
+    meep: {
+      // bottom: '20 !important',
+      // fontSize: '21',
+      // left: '20',
+      // position: 'absolute'
+    }
+  };
+
+
+
 // Get Access Token
 let parsed = querystring.parse(window.location.hash);
 let accessToken = parsed['#access_token'];
@@ -87,13 +98,23 @@ class Home extends Component {
         }
         if (response.ok) {
           response.json()
-          .then(data => this.setState({
-            userData: {
+          .then(data => {
+            this.setState({
+              userData: {
                 userName: data.display_name,
                 email: data.email,
                 userID: data.id
-            }
-          }))
+              }
+            });
+            
+            // check if user record exists in DB and update
+            // if not exist, crreate one
+            console.log(this.state);
+            API.upsertUser({
+              userName: data.display_name,
+              email: data.email,
+              userID: data.id});
+        })
        }
      })
   }
@@ -214,6 +235,7 @@ class Home extends Component {
 
 
 
+
   render() {
     return (
 
@@ -221,58 +243,71 @@ class Home extends Component {
         <div style={{
           backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
           width: "100%",
-          backgroundSize: 'cover'
+          backgroundSize: 'cover',
+          marginBottom: 50
         }}>
 
             {this.state.userData ? (
               <h3 style={{
                 marginTop: 0,
                 paddingTop: 20,
-                marginLeft: 20,
-                color: 'white'
+                color: 'white',
+                textAlign: 'center'
               }}>
-              Hello {this.state.userData.userName}</h3>
+              Hey there, {this.state.userData.userName}</h3>
             )
             : (<h3 style={{
                 marginTop: 0,
                 paddingTop: 20,
-                marginLeft: 20,
-                color: 'white'
+                color: 'white',
+                textAlign: 'center'
               }}>
-              Hello</h3>)}
+              Hey There, music lover.</h3>)}
 
             <div style={{margin: '0 auto', display: 'block', textAlign: 'center'}}>
               <TextField
                 underlineShow={false}
                 hintText="Enter Artist, Track Name etc..."
+                hintStyle={styles.meep}
                 name="query"
                 value={this.state.query}
                 onChange={this.handleInputChange}
                 style={{
                   backgroundColor: '#FFFFFF',
                   display: 'inline-block',
-                  marginTop: 24,
                   marginBottom: 60,
                   width: "50%",
                   paddingLeft: 10,
-                  height: 48,
+                  height: 59,
                   border: 0,
-                  fontSize: 14,
+                  fontSize: 20,
                   fontFamily: 'Montserrat',
-                  marginTop: 11
                 }}
               />
 
-              <RaisedButton
-                backgroundColor="#5A66E3"
+               <button
                 onClick={this.handleFormSubmit}
-                label="Search"
-                labelColor="#FFFFFF"
-                buttonStyle={{'height': '49px'}}
-              />
+                style={{
+                padding:'20px 50px',
+                'font-size':'16px',
+                margin:'0 auto',
+                textAlign: 'center',
+                display: 'inline-block',
+                textTransform: 'uppercase',
+                backgroundColor: '#5A66E3',
+                color: '#FFFFFF',
+                fontWeight: 'bold',
+                letterSpacing: 2,
+                border: 0,
+                cursor: 'pointer',
+                marginTop: 0,
+                marginBottom: 20
+                }}>
+                Search
+              </button>
             </div>
 
-        </div>  
+        </div>
 
         <div>
           {this.state.tracks.length ? (
@@ -283,13 +318,13 @@ class Home extends Component {
                 margin: '0 auto',
                 backgroundColor: '#F7F9FF',
                 padding: 20,
-                fontFamily: 'Montserrat'
+                fontFamily: 'Montserrat',
               }}>
-              <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                <TableRow>
-                  <TableHeaderColumn>Title</TableHeaderColumn>
-                  <TableHeaderColumn>Artist</TableHeaderColumn>
-                  <TableHeaderColumn>Album</TableHeaderColumn>
+              <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
+                <TableRow >
+                  <TableHeaderColumn style={{fontSize: 20}}>Title</TableHeaderColumn>
+                  <TableHeaderColumn style={{fontSize: 20}}>Artist</TableHeaderColumn>
+                  <TableHeaderColumn style={{fontSize: 20}}>Album</TableHeaderColumn>
                   <TableHeaderColumn></TableHeaderColumn>
                 </TableRow>
               </TableHeader>
@@ -301,18 +336,18 @@ class Home extends Component {
               }}>
                 {this.state.tracks.map((track, index) => {
                   return (
-                    <TableRow key={track.trackID} selected={this.isSelected(index)}>
-                      <TableRowColumn>{track.trackName}</TableRowColumn>
-                      <TableRowColumn>{track.artist}</TableRowColumn>
-                      <TableRowColumn>{track.album}</TableRowColumn>
-                      <TableRowColumn>
-                        <a rel="noreferrer noopener" href="track.trackURL" target="_blank">Link</a>
+                    <TableRow key={track.trackID} selected={this.isSelected(index)} >
+                      <TableRowColumn style={{fontSize: 16}}>{track.trackName}</TableRowColumn>
+                      <TableRowColumn style={{fontSize: 16}}>{track.artist}</TableRowColumn>
+                      <TableRowColumn style={{fontSize: 16}}>{track.album}</TableRowColumn>
+                      <TableRowColumn style={{fontSize: 16}}>
+                        <a style={{textDecoration: 'none'}} rel="noreferrer noopener" href="track.trackURL" target="_blank">Link</a>
                         <RaisedButton
                           backgroundColor={'#5A66E3'}
                           labelColor={"#FFFFFF"}
                           label="Add"
                           onClick={() => this.handleSaveTrack(track)}
-                          style={{ float: 'right' }}
+                          style={{ float: 'right',  fontSize: 16 }}
                         />
                       </TableRowColumn>
                     </TableRow>
