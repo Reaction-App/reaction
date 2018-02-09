@@ -4,6 +4,8 @@ import React from "react";
 // Material UI components
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
 import {
   Table,
   TableBody,
@@ -55,7 +57,7 @@ const Home = props =>
       color: 'white',
       textAlign: 'center'
     }}>
-      Hey There, music lover.</h3>)}
+      Hey There, {props.userData.userID}</h3>)}
 
     <div style={{margin: '0 auto', display: 'block', textAlign: 'center'}}>
       <TextField
@@ -114,6 +116,7 @@ const Home = props =>
       }}>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
           <TableRow >
+            <TableHeaderColumn style={{fontSize: 20}}></TableHeaderColumn>
             <TableHeaderColumn style={{fontSize: 20}}>Title</TableHeaderColumn>
             <TableHeaderColumn style={{fontSize: 20}}>Artist</TableHeaderColumn>
             <TableHeaderColumn style={{fontSize: 20}}>Album</TableHeaderColumn>
@@ -129,11 +132,25 @@ const Home = props =>
           {props.tracks.map((track, index) => {
             return (
               <TableRow key={track.trackID} selected={props.isSelected(index)} >
+                <TableRowColumn style={{fontSize: 16}}>
+                 
+                  <IconButton 
+                    style={{padding: 0, width: 0, height: 0}} 
+                    disabled={track.trackURL === null ? true : false} 
+                    tooltip={track.trackURL === null ? 'Not Available' : false} 
+                    onClick={() => props.playTrack(track.trackURL)}
+                  >
+                    <FontIcon className="material-icons">
+                    {props.currentSongPlayingUrl === track.trackURL && props.songPlaying === true ? "play_circle_filled" : "play_circle_outline"}
+                    </FontIcon>
+                  </IconButton>
+
+
+                </TableRowColumn>
                 <TableRowColumn style={{fontSize: 16}}>{track.trackName}</TableRowColumn>
                 <TableRowColumn style={{fontSize: 16}}>{track.artist}</TableRowColumn>
                 <TableRowColumn style={{fontSize: 16}}>{track.album}</TableRowColumn>
                 <TableRowColumn style={{fontSize: 16}}>
-                  <a style={{textDecoration: 'none'}} rel="noreferrer noopener" href="track.trackURL" target="_blank">Link</a>
                   <RaisedButton
                     backgroundColor={'#5A66E3'}
                     labelColor={"#FFFFFF"}

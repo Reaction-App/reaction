@@ -81,6 +81,9 @@ class AppContainer extends Component {
         tracks = {this.state.tracks}
         isSelected = {this.isSelected}
         handleSaveTrack = {this.handleSaveTrack}
+        playTrack = {this.playTrack}
+        currentSongPlayingUrl = {this.state.currentSongPlayingUrl}
+        songPlaying = {this.state.songPlaying}
       />;
     } else if (this.state.currentPage === "Playlist") {
       return <Playlist 
@@ -91,8 +94,8 @@ class AppContainer extends Component {
         handleMoodSort = {this.handleMoodSort}
         savedTracks = {this.state.savedTracks}
         selectedPlaylistTrack = {this.state.selectedPlaylistTrack}
-        handleRowSelection = {this.handleRowSelection}
-        isSelected = {this.isSelected}
+        handlePlaylistRowSelection = {this.handlePlaylistRowSelection}
+        playlistRowIsSelected = {this.playlistRowIsSelected}
         playTrack = {this.playTrack}
         currentSongPlayingUrl = {this.state.currentSongPlayingUrl}
         songPlaying = {this.state.songPlaying}
@@ -148,6 +151,22 @@ class AppContainer extends Component {
      })
   }
 
+  handleInputChange = event => {
+    // Get the name and value from event.target
+    // Set state with new value
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleFormSubmit = event => {
+
+    event.preventDefault();
+    this.searchSpotify(this.state.query);
+  }
+
+
   // API call for finding a track
   searchSpotify(query) {
 
@@ -174,7 +193,8 @@ class AppContainer extends Component {
         }
         if (response.ok) {
           response.json()
-        .then(data => this.setState({
+        .then(data => 
+          this.setState({
           tracks: data.tracks.items.map(item => {
             return {
               trackID: item.id,
@@ -208,20 +228,6 @@ class AppContainer extends Component {
       .then(response => response.json())
   }
 
-  handleInputChange = event => {
-    // Get the name and value from event.target
-    // Set state with new value
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleFormSubmit = event => {
-
-    event.preventDefault();
-    this.searchSpotify(this.state.query);
-  }
 
   // Row selection
   isSelected = (index) => {
@@ -238,7 +244,6 @@ class AppContainer extends Component {
 
     // Create new track object
     let fullTrackDetails = track;
-
     // Find audio features for the track and add to new track objcet
     this.findAudioFeatures(fullTrackDetails.trackID)
       .then(data=> {
@@ -257,6 +262,14 @@ class AppContainer extends Component {
           energy: fullTrackDetails.energy
         }))
       .then(res => alert("track saved"))
+      .then(res => {
+        this.setState({
+          tracks: {}
+        })
+      })
+      .then(res => {
+        this.loadTracks()
+      })
       .catch(err => console.log(err))
   }
 
@@ -318,11 +331,11 @@ class AppContainer extends Component {
     }
 
   // Row selection
-  isSelected = (index) => {
+  playlistRowIsSelected = (index) => {
       return this.state.selectedPlaylistTrack.indexOf(index) !== -1;
   }
 
-  handleRowSelection = (selectedRows) => {
+  handlePlaylistRowSelection = (selectedRows) => {
     this.setState({
       selectedPlaylistTrack: selectedRows,
     });
