@@ -9,7 +9,7 @@ const styles = {
 const Nav = props => (
   <AppBar
     title="Reaction Radio"
-    iconElementLeft = {<img src='https://s17.postimg.org/yqqotn75b/logo2.png' alt="Logo"
+    iconElementLeft = {<img src='https://s17.postimg.org/xgsvell33/logo2.png' alt="Logo"
       style={{
         height: '80px',
         marginTop: '-8px',

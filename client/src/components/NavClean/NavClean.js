@@ -8,18 +8,18 @@ const styles = {
 
 const NavClean = props => (
   <AppBar
-    title="Reaction Radio"
-    iconElementLeft = {<img src='https://s17.postimg.org/hsk8b0kpb/logo.png' alt="Logo"
+    iconElementLeft = {<img src='https://s17.postimg.org/xgsvell33/logo2.png' alt="Logo"
       style={{
-        width: '80px',
+        height: '80px',
         marginTop: '-8px',
         marginLeft: '-8px'
       }}
     />}
     style={{
-      backgroundColor: 'white',
+      backgroundColor: 'transparent',
       height: '80px',
-      color: 'black'
+      color: 'black',
+      boxShadow: 'none'
     }}
   />
 );
