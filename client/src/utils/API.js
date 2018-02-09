@@ -17,8 +17,7 @@ export default {
     return axios.post("/api/tracks", trackData);
   },
 
-  // Checks if a user exists, if not creates a new one
-  // returns user record
+  // Checks if a user exists in the DB, if not creates a new one
   upsertUser: function(userData) {
     return axios.post("/api/users/upsert", userData);
   }

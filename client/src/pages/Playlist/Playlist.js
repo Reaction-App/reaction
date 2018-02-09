@@ -52,6 +52,7 @@ class Playlist extends Component {
 
     // Load tracks from DB on page load
     this.loadTracks();
+    console.log(this.state);
   }
 
 
