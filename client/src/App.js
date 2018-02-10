@@ -1,9 +1,6 @@
 import React from "react";
-import Home from "./pages/Home";
-import Playlist from "./pages/Playlist";
 import LoginPage from "./pages/LoginPage";
 import { Container } from "./components/Grid";
-import Nav from "./components/Nav";
 import AppContainer from "./components/AppContainer";
 
 import {
