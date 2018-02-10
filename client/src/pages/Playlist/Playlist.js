@@ -20,7 +20,7 @@ import {
 // Material UI styles
 const styles = {};
 
-const Playlist = props => 
+const Playlist = props =>
 
   <div style={{margin: '0 auto', padding: 20, maxWidth: 1200, position: 'relative'}}>
 
@@ -58,7 +58,7 @@ const Playlist = props =>
         </DropDownMenu>
       </div>
 
-      <h2 style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat', width: 402}}>My Playlist</h2>       
+      <h2 style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat', width: 402}}>My Playlist</h2>
 
       {props.savedTracks.length ? (
         <List style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', width: 420, maxHeight: 518, overflow: 'scroll', float: 'left'}}>
@@ -68,10 +68,10 @@ const Playlist = props =>
               <ListItem
                 key={track._id}
                 leftIcon={
-                  <IconButton 
-                style={{top: -8}} 
-                disabled={track.trackURL === null ? true : false} 
-                tooltip={track.trackURL === null ? 'Not Available' : false} 
+                  <IconButton
+                style={{top: -8}}
+                disabled={track.trackURL === null ? true : false}
+                tooltip={track.trackURL === null ? 'Not Available' : false}
                 onClick={() => props.playTrack(track.trackURL)}
               >
                 <FontIcon className="material-icons">
@@ -86,13 +86,13 @@ const Playlist = props =>
                   </div>
                 ]}
               >
-                <p style={{marginTop: 0, marginBottom: 0, fontFamily: 'Montserrat'}}>
+                <p style={{marginTop: 0, marginBottom: 0, fontFamily: 'Montserrat', maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
                   {track.trackName}
                 </p>
-                <p style={{marginTop: 0, marginBottom: 0, paddingBottom: 1, fontFamily: 'Montserrat', fontSize: 12}}>
+                <p style={{marginTop: 0, marginBottom: 0, paddingBottom: 1, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
                   {track.artist}  |  {track.album}
                 </p>
-                <p style={{marginTop: 0, marginBottom: 0, paddingBottom: 5, fontFamily: 'Montserrat', fontSize: 12, borderBottom: '1px solid #555555'}}>
+                <p style={{marginTop: 0, marginBottom: 0, paddingBottom: 5, fontFamily: 'Montserrat', fontSize: 12, borderBottom: '1px solid #555555', maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
                   Positivity: {track.valence} | Energy: {track.energy} {props.showEmotion(track.valence,track.energy)}
                 </p>
               </ListItem>
