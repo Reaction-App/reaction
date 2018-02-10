@@ -37,7 +37,26 @@ import FlatButton from 'material-ui/FlatButton';
 
 
 // Home Page
-const Home = props => 
+const Home = props => {
+
+      // buttons for the modal
+    const actions = [
+      <FlatButton
+        label="Add More Songs"
+        primary={true}
+        onClick={() => props.handleClose()}
+        style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
+      />,
+      <FlatButton
+        backgroundColor={'#5A66E3'}
+        label="View My Playlist"
+        primary={true}
+        onClick={() => props.handlePageChange('Playlist')}
+        style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, width: 200 }}
+      />,
+    ];
+
+ return(
 
   <div>
     <div style={{
@@ -163,7 +182,7 @@ const Home = props =>
                       title="Song Added"
                       titleStyle={style.dialoguetitle}
                       overlayStyle={style.overlayStyle}
-                      actions={props.actions}
+                      actions={actions}
                       modal={false}
                       open={props.open}
                       onRequestClose={props.handleClose}
@@ -185,6 +204,7 @@ const Home = props =>
           )}
         </div>
       </div>
+      )}
 
 export default Home;
 

@@ -56,23 +56,6 @@ class AppContainer extends Component {
     currentSongPlayingAudio: null
   }
 
-  // buttons for the modal
-  actions = [
-    <FlatButton
-      label="Add More Songs"
-      primary={true}
-      /*onClick={this.handlePageChange('Home')}*/
-      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
-    />,
-    <FlatButton
-      backgroundColor={'#5A66E3'}
-      label="View My Playlist"
-      primary={true}
-      /*onClick={this.handlePageChange('Playlist')}*/
-      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, width: 200 }}
-    />,
-  ];
-
   componentDidMount() {
     // Redirect user who accesses /home without access token
     if (accessToken === undefined) {
@@ -95,6 +78,7 @@ class AppContainer extends Component {
         query = {this.state.query}
         handleOpen = {this.handleOpen}
         handleClose = {this.handleClose}
+        handlePageChange = {this.handlePageChange}
         open = {this.state.open}
         actions = {this.actions}
         handleInputChange = {this.handleInputChange}
@@ -176,12 +160,15 @@ class AppContainer extends Component {
 
   // handle dialog open and close
   handleOpen = () => {
-    console.log("modal open = true");
     this.setState({open: true});
   };
 
   handleClose = () => {
-    this.setState({open: false});
+    this.setState({
+      open: false, 
+      tracks:{},
+      query: ''
+    });
   };
 
   handleInputChange = event => {
