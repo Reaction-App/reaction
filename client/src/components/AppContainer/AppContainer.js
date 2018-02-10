@@ -5,12 +5,12 @@ import Home from "../../pages/Home";
 import Playlist from "../../pages/Playlist";
 import LoginPage from "../../pages/LoginPage";
 import querystring from 'querystring';
+import FlatButton from 'material-ui/FlatButton';
 
 
 // Get Access Token
 let parsed = querystring.parse(window.location.hash);
 let accessToken = parsed['#access_token'];
-
 
 class AppContainer extends Component {
   state = {
@@ -38,6 +38,7 @@ class AppContainer extends Component {
     // Playlist
     savedTracks: [],
     selectedPlaylistTrack: [], // the index of the savedTrack that is currently selected
+    open: false,
     sortDropDown: 0, // the current value of the 'sort by' dropdown list
     moodDropDown: 0, // moodDropDown is the current value of the 'mood' dropdown list
     currentSort: "Recently Added",
@@ -54,6 +55,23 @@ class AppContainer extends Component {
     currentSongPlayingUrl: "",
     currentSongPlayingAudio: null
   }
+
+  // buttons for the modal
+  actions = [
+    <FlatButton
+      label="Add More Songs"
+      primary={true}
+      onClick={this.handlePageChange('Home')}
+      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
+    />,
+    <FlatButton
+      backgroundColor={'#5A66E3'}
+      label="View My Playlist"
+      primary={true}
+      onClick={this.handlePageChange('Playlist')}
+      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, width: 200 }}
+    />,
+  ];
 
   componentDidMount() {
     // Redirect user who accesses /home without access token
@@ -75,6 +93,10 @@ class AppContainer extends Component {
       return <Home 
         userData = {this.state.userData}
         query = {this.state.query}
+        handleOpen = {this.handleOpen}
+        handleClose = {this.handleClose}
+        open = {this.state.open}
+        actions = {this.actions}
         handleInputChange = {this.handleInputChange}
         handleFormSubmit = {this.handleFormSubmit}
         handleRowSelection = {this.handleRowSelection}
@@ -150,6 +172,16 @@ class AppContainer extends Component {
        }
      })
   }
+
+  // handle dialog open and close
+  handleOpen = () => {
+    console.log("modal open = true");
+    this.setState({open: true});
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
 
   handleInputChange = event => {
     // Get the name and value from event.target
@@ -261,12 +293,8 @@ class AppContainer extends Component {
           valence: fullTrackDetails.valence,
           energy: fullTrackDetails.energy
         }))
-      .then(res => alert("track saved"))
-      .then(res => {
-        this.setState({
-          tracks: {}
-        })
-      })
+      //Below line triggers modal
+      .then(this.handleOpen())
       .then(res => {
         this.loadTracks()
       })
@@ -510,6 +538,7 @@ class AppContainer extends Component {
   }
 
   render() {
+
     return (
       <div>
         <Nav
