@@ -46,7 +46,7 @@ const Home = props =>
       backgroundSize: 'cover',
       marginBottom: 50
     }}>
-    {props.userData ? (
+    {props.userData && props.userData.userName ? (
       <h3 style={{
         marginTop: 0,
         paddingTop: 20,
