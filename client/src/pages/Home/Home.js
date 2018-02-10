@@ -36,9 +36,9 @@ import FlatButton from 'material-ui/FlatButton';
   }
 
 
-
 // Home Page
 const Home = props => 
+
   <div>
     <div style={{
       backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
@@ -153,14 +153,24 @@ const Home = props =>
                 <TableRowColumn style={{fontSize: 16}}>{track.trackName}</TableRowColumn>
                 <TableRowColumn style={{fontSize: 16}}>{track.artist}</TableRowColumn>
                 <TableRowColumn style={{fontSize: 16}}>{track.album}</TableRowColumn>
-                <TableRowColumn style={{fontSize: 16}}>
-                  <RaisedButton
-                    backgroundColor={'#5A66E3'}
-                    labelColor={"#FFFFFF"}
-                    label="Add"
-                    onClick={() => props.handleSaveTrack(track)}
-                    style={{ float: 'right',  fontSize: 16 }}
-                  />
+                <TableRowColumn>
+                  <div>
+                    <FlatButton
+                      backgroundColor={'#5A66E3'}
+                      label="Add Song" onClick={() => props.handleSaveTrack(track)}
+                      style={{ float: 'right',  fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat' }} />
+                    <Dialog
+                      title="Song Added"
+                      titleStyle={style.dialoguetitle}
+                      overlayStyle={style.overlayStyle}
+                      actions={props.actions}
+                      modal={false}
+                      open={props.open}
+                      onRequestClose={props.handleClose}
+                    >
+                      <p style={{fontFamily: 'Montserrat', fontSize: 18 }}>Would you like to keep adding songs or view your playlist?</p>
+                    </Dialog>
+                  </div>
                 </TableRowColumn>
               </TableRow>
             )
