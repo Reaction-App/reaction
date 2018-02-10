@@ -67,7 +67,6 @@ const Home = props =>
       <TextField
         underlineShow={false}
         hintText="Enter Track Name..."
-        hintStyle={styles.meep}
         name="query"
         value={props.query}
         onChange={props.handleInputChange}
