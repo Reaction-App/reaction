@@ -88,9 +88,6 @@ const Playlist = props =>
                 )
               })}
             </ul>
-
-
-
           ) : (<h1>No tracks in this playlist.</h1>)}
           </div>
           </div>

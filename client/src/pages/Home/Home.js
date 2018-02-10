@@ -22,14 +22,18 @@ import {
 //   white, darkBlack, fullBlack,
 // } from 'material-ui/styles/colors';
 
-  const styles = {
-    meep: {
-      // bottom: '20 !important',
-      // fontSize: '21',
-      // left: '20',
-      // position: 'absolute'
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+
+  const style = {
+    dialoguetitle: {
+      fontFamily: 'Montserrat',
+      fontSize: 24
+    },
+    overlayStyle: {
+      opacity: .2
     }
-  };
+  }
 
 
 
