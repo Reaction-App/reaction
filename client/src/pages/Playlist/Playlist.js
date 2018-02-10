@@ -307,15 +307,18 @@ class Playlist extends Component {
     return (
       <div style={{margin: '0 auto', padding: 20, maxWidth: 1200, position: 'relative'}}>
 
+      <div style={{minWidth: '300', maxWidth: 700}}>
       <div style={{position: 'absolute', left: 0, top: 130}}>
-          {this.state.chartData.length ? (
-          <TrackChart chartData={this.state.chartData}/>
-          ) : (<div></div>)}
-          <p style={{position: 'absolute', top: '12%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
-          <p style={{position: 'absolute', top: '12%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
-          <p style={{position: 'absolute', top: '56%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
-          <p style={{position: 'absolute', top: '56%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
-        </div>
+        {this.state.chartData.length ? (
+        <TrackChart chartData={this.state.chartData}/>
+        ) : (<div></div>)}
+        <p style={{position: 'absolute', top: '12%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
+        <p style={{position: 'absolute', top: '12%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
+        <p style={{position: 'absolute', top: '56%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
+        <p style={{position: 'absolute', top: '56%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
+      </div>
+      </div>
+
         <div style={{float: 'right'}}>
       	<div>
           <div>
@@ -348,14 +351,15 @@ class Playlist extends Component {
 
 
             <li key={track._id}  selected={this.isSelected(index)} style={{listStyleType: 'none', fontFamily: 'Montserrat'}}>
-              <IconButton style={{padding: 0, width: 0, height: 0}} onClick={() => this.playTrack(track.trackURL)} tooltip="Play Song" >
+              <IconButton style={{padding: 0, width: 0, height: 0, top: -26}} onClick={() => this.playTrack(track.trackURL)} tooltip="Play Song" >
                 <FontIcon className="material-icons">
                 {this.state.currentSongPlayingUrl == track.trackURL && this.state.songPlaying == true ? "play_circle_filled" : "play_circle_outline"}
                 </FontIcon>
               </IconButton>
               <div style={{display: 'inline-block', margin: '10px 0 0 35px', borderBottom: '1px solid grey', width: '90%'}}>
-                <p style={{margin: 0}}>{track.trackName}</p>
-                <p style={{marginTop: 0, fontSize: 12}}>{track.artist}  |  {track.album}</p>
+                <p style={{margin: 0, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{track.trackName}</p>
+                <p style={{marginTop: 0, fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{track.artist}  |  {track.album}</p>
+                <div><p style={{marginTop: 0, paddingLeft: 25, fontSize: 12, backgroundImage: 'url(https://kek.gg/i/7CD-52.png)', backgroundRepeat: 'no-repeat', backgroundSize: 20, backgroundPosition: 'left', height: 20, paddingTop: 7, marginTop: -10}}>{track.valence}% Energetic  |  {track.energy}% Positive</p></div>
               </div>
               <DropDownMenu style={{float: 'right', marginTop: -70}} >
                 <MenuItem value={0} primaryText="Sort Playlist by this Song" onClick={() => this.handleSortBySelected(index)} />

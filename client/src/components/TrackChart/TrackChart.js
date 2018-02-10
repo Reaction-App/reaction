@@ -21,12 +21,27 @@ class Chart extends Component {
     // }
 
     const config = {
+      // responsive: {
+      //   rules: [{
+      //     condition: {
+      //       minWidth: 900,
+
+      //     },
+      //     chartOptions: {
+      //       chart: {
+      //         width: 355,
+
+      //       }
+      //     }
+      //   }]
+      // },
+
       credits: {
         enabled: false
       },
       chart: {
-        width: 700,
-        height: 500,
+        // width: 355,
+
         type: 'scatter',
         backgroundColor: 'transparent',
       },

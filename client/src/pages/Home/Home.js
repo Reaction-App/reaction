@@ -22,14 +22,18 @@ import {
   white, darkBlack, fullBlack,
 } from 'material-ui/styles/colors';
 
-  const styles = {
-    meep: {
-      // bottom: '20 !important',
-      // fontSize: '21',
-      // left: '20',
-      // position: 'absolute'
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+
+  const style = {
+    dialoguetitle: {
+      fontFamily: 'Montserrat',
+      fontSize: 24
+    },
+    overlayStyle: {
+      opacity: .2
     }
-  };
+  }
 
 
 
@@ -42,6 +46,8 @@ class Home extends Component {
 
   // Initial state
   state = {
+    open: false,
+
       userData: {
         userName: '',
         email: '',
@@ -60,6 +66,15 @@ class Home extends Component {
       selected: []
 
   }
+
+
+  handleOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
 
   componentDidMount() {
     // If no access token, redirect to login page, else, get user data.
@@ -106,7 +121,7 @@ class Home extends Component {
                 userID: data.id
               }
             });
-            
+
             // check if user record exists in DB and update
             // if not exist, crreate one
             console.log(this.state);
@@ -229,7 +244,8 @@ class Home extends Component {
           valence: fullTrackDetails.valence,
           energy: fullTrackDetails.energy
         }))
-      .then(res => alert("track saved"))
+      //Below line triggers modal
+      .then(this.handleOpen)
       .catch(err => console.log(err))
   }
 
@@ -237,8 +253,22 @@ class Home extends Component {
 
 
   render() {
+    const actions = [
+      <FlatButton
+        label="Add More Songs"
+        primary={true}
+        onClick={this.handleClose}
+        style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
+      />,
+      <FlatButton
+        backgroundColor={'#5A66E3'}
+        label="View My Playlist"
+        primary={true}
+        onClick={(this.handleClose)}
+        style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, width: 200 }}
+      />,
+    ];
     return (
-
       <div>
         <div style={{
           backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
@@ -268,7 +298,6 @@ class Home extends Component {
               <TextField
                 underlineShow={false}
                 hintText="Enter Artist, Track Name etc..."
-                hintStyle={styles.meep}
                 name="query"
                 value={this.state.query}
                 onChange={this.handleInputChange}
@@ -278,7 +307,7 @@ class Home extends Component {
                   marginBottom: 60,
                   width: "50%",
                   paddingLeft: 10,
-                  height: 59,
+                  height: 60,
                   border: 0,
                   fontSize: 20,
                   fontFamily: 'Montserrat',
@@ -301,7 +330,8 @@ class Home extends Component {
                 border: 0,
                 cursor: 'pointer',
                 marginTop: 0,
-                marginBottom: 20
+                marginBottom: 20,
+                height: 60
                 }}>
                 Search
               </button>
@@ -340,7 +370,7 @@ class Home extends Component {
                       <TableRowColumn style={{fontSize: 16}}>{track.trackName}</TableRowColumn>
                       <TableRowColumn style={{fontSize: 16}}>{track.artist}</TableRowColumn>
                       <TableRowColumn style={{fontSize: 16}}>{track.album}</TableRowColumn>
-                      <TableRowColumn style={{fontSize: 16}}>
+{/*                      <TableRowColumn style={{fontSize: 16}}>
                         <a style={{textDecoration: 'none'}} rel="noreferrer noopener" href="track.trackURL" target="_blank">Link</a>
                         <RaisedButton
                           backgroundColor={'#5A66E3'}
@@ -349,7 +379,29 @@ class Home extends Component {
                           onClick={() => this.handleSaveTrack(track)}
                           style={{ float: 'right',  fontSize: 16 }}
                         />
+                      </TableRowColumn>*/}
+
+                      // MODAL
+                      <TableRowColumn>
+                        <div>
+                          <FlatButton
+                            backgroundColor={'#5A66E3'}
+                            label="Add Song" onClick={() => this.handleSaveTrack(track)}
+                            style={{ float: 'right',  fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat' }} />
+                          <Dialog
+                            title="Song Added"
+                            titleStyle={style.dialoguetitle}
+                            overlayStyle={style.overlayStyle}
+                            actions={actions}
+                            modal={false}
+                            open={this.state.open}
+                            onRequestClose={this.handleClose}
+                          >
+                            <p style={{fontFamily: 'Montserrat', fontSize: 18 }}>Would you like to keep adding songs or view your playlist?</p>
+                          </Dialog>
+                        </div>
                       </TableRowColumn>
+                      // END MODAL
                     </TableRow>
                   )
                 })}
