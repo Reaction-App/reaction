@@ -61,14 +61,14 @@ class AppContainer extends Component {
     <FlatButton
       label="Add More Songs"
       primary={true}
-      onClick={this.handlePageChange('Home')}
+      /*onClick={this.handlePageChange('Home')}*/
       style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
     />,
     <FlatButton
       backgroundColor={'#5A66E3'}
       label="View My Playlist"
       primary={true}
-      onClick={this.handlePageChange('Playlist')}
+      /*onClick={this.handlePageChange('Playlist')}*/
       style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, width: 200 }}
     />,
   ];
@@ -123,6 +123,7 @@ class AppContainer extends Component {
         songPlaying = {this.state.songPlaying}
         handleSortBySelected = {this.handleSortBySelected}
         handleDeleteTrack = {this.handleDeleteTrack}
+        showEmotion = {this.showEmotion}
       />;
     } else {
       return <LoginPage />;
@@ -535,6 +536,14 @@ class AppContainer extends Component {
     this.setState({ savedTracks: sortedTracks });
     this.setState({ currentSort: newSort });
     this.setState({ selectedPlaylistTrack: [] });
+  }
+
+  // emotion functions
+  showEmotion = (valence, energy) => {
+    if (valence>=0.5 && energy>=0.5) {return '🙂'};
+    if (valence<0.5 && energy<0.5) {return '😢'};
+    if (valence<0.5 && energy>0.5) {return '😡'};
+    if (valence>0.5 && energy<0.5) {return '😌'};
   }
 
   render() {
