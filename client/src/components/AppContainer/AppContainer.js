@@ -343,12 +343,12 @@ class AppContainer extends Component {
         })
       } else {
         if (this.state.currentSongPlayingID === id) {
-          this.state.currentSongPlayingAudio.pause();
+          this.stopSongPlaying()
           this.setState({
             songPlaying: false,
           })
         } else {
-          this.state.currentSongPlayingAudio.pause();
+          this.stopSongPlaying()
           audioObject.play();
           this.setState({
             songPlaying: true,
@@ -358,6 +358,10 @@ class AppContainer extends Component {
         }
       }
     }
+
+  stopSongPlaying = () => {
+      this.state.currentSongPlayingAudio.pause();
+  }
 
   // Row selection
   playlistRowIsSelected = (index) => {
@@ -372,6 +376,9 @@ class AppContainer extends Component {
 
 
   handleDeleteTrack = id => {
+    if (this.state.songPlaying) {
+      this.stopSongPlaying()
+    }
 
     // delete an article when delete button is clicked
     API.deleteTrack(id)

@@ -202,7 +202,7 @@ const Home = props => {
                 {props.noSongFound ? (
                   <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, that song does not exist! Please search for another song.</h2>
                 ):(
-                  <h2 style={{ fontFamily: 'Montserrat' }}>Start by searching for a song. Then click “Add” to begin curating your playlist.</h2>
+                  <h2 style={{ fontFamily: 'Montserrat' }}>Start by searching for a song. Then click “Add Song” to begin curating your playlist.</h2>
                 )}
             </div>
           )}
