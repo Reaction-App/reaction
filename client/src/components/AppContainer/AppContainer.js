@@ -52,7 +52,7 @@ class AppContainer extends Component {
     energy: 0,
     chartData: [],
     songPlaying: false,
-    currentSongPlayingUrl: "",
+    currentSongPlayingID: "",
     currentSongPlayingAudio: null
   }
 
@@ -69,6 +69,7 @@ class AppContainer extends Component {
 
   handlePageChange = page => {
     this.setState({ currentPage: page });
+    this.handleClose();
   }
 
   renderPage = () => {
@@ -89,6 +90,7 @@ class AppContainer extends Component {
         handleSaveTrack = {this.handleSaveTrack}
         playTrack = {this.playTrack}
         currentSongPlayingUrl = {this.state.currentSongPlayingUrl}
+        currentSongPlayingID = {this.state.currentSongPlayingID}
         songPlaying = {this.state.songPlaying}
       />;
     } else if (this.state.currentPage === "Playlist") {
@@ -103,7 +105,7 @@ class AppContainer extends Component {
         handlePlaylistRowSelection = {this.handlePlaylistRowSelection}
         playlistRowIsSelected = {this.playlistRowIsSelected}
         playTrack = {this.playTrack}
-        currentSongPlayingUrl = {this.state.currentSongPlayingUrl}
+        currentSongPlayingID = {this.state.currentSongPlayingID}
         songPlaying = {this.state.songPlaying}
         handleSortBySelected = {this.handleSortBySelected}
         handleDeleteTrack = {this.handleDeleteTrack}
@@ -161,7 +163,7 @@ class AppContainer extends Component {
   // handle dialog open and close
   handleOpen = () => {
     this.setState({open: true});
-  };
+  }
 
   handleClose = () => {
     this.setState({
@@ -169,7 +171,7 @@ class AppContainer extends Component {
       tracks:{},
       query: ''
     });
-  };
+  }
 
   handleInputChange = event => {
     // Get the name and value from event.target
@@ -318,18 +320,18 @@ class AppContainer extends Component {
       .catch(err => console.log(err));
   }
 
-  playTrack = (url) => {
+  playTrack = (url, id) => {
       let audioObject = new Audio(url);
 
       if (!this.state.songPlaying) {
         audioObject.play();
         this.setState({
           songPlaying: true,
-          currentSongPlayingUrl: url,
+          currentSongPlayingID: id,
           currentSongPlayingAudio: audioObject
         })
       } else {
-        if (this.state.currentSongPlayingUrl === url) {
+        if (this.state.currentSongPlayingID === id) {
           this.state.currentSongPlayingAudio.pause();
           this.setState({
             songPlaying: false,
@@ -339,7 +341,7 @@ class AppContainer extends Component {
           audioObject.play();
           this.setState({
             songPlaying: true,
-            currentSongPlayingUrl: url,
+            currentSongPlayingID: id,
             currentSongPlayingAudio: audioObject
           })
         }
