@@ -25,6 +25,7 @@ class AppContainer extends Component {
     },
     // Search form
     query: '',
+    noSongFound: false,
     tracks: {
       trackID: '',
       trackName: '',
@@ -92,6 +93,7 @@ class AppContainer extends Component {
         currentSongPlayingUrl = {this.state.currentSongPlayingUrl}
         currentSongPlayingID = {this.state.currentSongPlayingID}
         songPlaying = {this.state.songPlaying}
+        noSongFound = {this.state.noSongFound}
       />;
     } else if (this.state.currentPage === "Playlist") {
       return <Playlist 
@@ -192,6 +194,10 @@ class AppContainer extends Component {
   // API call for finding a track
   searchSpotify(query) {
 
+    this.setState({
+      noSongFound: false
+    })
+
     // URL constructor for search
     const BASE_URL = 'https://api.spotify.com/v1/search';
     const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10`;
@@ -216,6 +222,7 @@ class AppContainer extends Component {
         if (response.ok) {
           response.json()
         .then(data => 
+          {data.tracks.items.length > 0 ? (
           this.setState({
           tracks: data.tracks.items.map(item => {
             return {
@@ -226,7 +233,11 @@ class AppContainer extends Component {
               trackURL: item.preview_url
             }
           })
-        }))
+        })):(
+          this.setState({
+            noSongFound: true
+          }))}
+        )
       }
     })
   }
