@@ -1,5 +1,5 @@
 import React from "react";
-//import "/home.css";
+import "./home.css";
 
 // Material UI components
 import TextField from 'material-ui/TextField';
@@ -14,13 +14,6 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-
-// import {
-//   cyan500, cyan700,
-//   pinkA200,
-//   grey100, grey300, grey400, grey500,
-//   white, darkBlack, fullBlack,
-// } from 'material-ui/styles/colors';
 
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -125,7 +118,7 @@ const Home = props => {
     </div>
   </div>
 
-  <div>
+  <div className="tableDiv">
     {props.tracks.length ? (
       <Table
         onRowSelection={props.handleRowSelection}
@@ -160,6 +153,7 @@ const Home = props => {
                     style={{padding: 0, width: 0, height: 0}} 
                     disabled={track.trackURL === null ? true : false} 
                     tooltip={track.trackURL === null ? 'Not Available' : false} 
+                    tooltipPosition='center-right'
                     onClick={() => props.playTrack(track.trackURL, track.trackID)}
                   >
                     <FontIcon className="material-icons">
