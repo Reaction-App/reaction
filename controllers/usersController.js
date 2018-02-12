@@ -34,13 +34,13 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   upsert: function(req, res) {
-    console.log("upsert");
+    console.log("upsert user");
     console.log(req.body);
 
     db.User
       .findOneAndUpdate(
         {userID: req.body.userID},
-        {$set: { userID: req.body.userID, userName: req.body.userName, email: req.body.email }},
+        {$set: { userID: req.body.userID, userName: req.body.userName}},
         {upsert: true, new: true}
       )
       .then(dbModel => res.json(dbModel))

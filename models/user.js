@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     userID: { type: String, required: true },
 	userName: { type: String, required: false },
-    email: { type: String, required: false },
     tracks: [{
 		trackName: { type: String, required: true },
 		artist:  { type: String, required: true },

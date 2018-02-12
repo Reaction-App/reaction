@@ -7,18 +7,7 @@ import MenuItem from 'material-ui/MenuItem';
 import {List, ListItem} from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
 
-
-// Material UI styles
-const styles = {};
 
 const Playlist = props =>
 
@@ -80,7 +69,7 @@ const Playlist = props =>
               </IconButton>
                 }
                 nestedItems={[
-                  <div style={{ marginLeft: 72, marginTop: 0, padding: 0, fontFamily: 'Montserrat', fontSize: 12 }}>
+                  <div key={track._id} style={{ marginLeft: 72, marginTop: 0, padding: 0, fontFamily: 'Montserrat', fontSize: 12 }}>
                     <button onClick={() => props.handleDeleteTrack(track._id)}>Delete</button>
                     <button onClick={() => props.handleSortBySelected(index)}>Sort</button>
                   </div>

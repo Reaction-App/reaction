@@ -5,7 +5,6 @@ import Home from "../../pages/Home";
 import Playlist from "../../pages/Playlist";
 import LoginPage from "../../pages/LoginPage";
 import querystring from 'querystring';
-import FlatButton from 'material-ui/FlatButton';
 
 
 // Get Access Token
@@ -20,6 +19,7 @@ class AppContainer extends Component {
     accessToken: '',
     // User Account Data
     userData: {
+        _id: '',
         userName: '',
         userID: ''
     },
@@ -135,31 +135,39 @@ class AppContainer extends Component {
 
     // API call with header
     fetch(FETCH_URL, request_params)
-      .then(response => {
-        switch (response.status) {
-          case 500: console.error('Some server error'); break;
-          case 400: console.error('Missing token'); document.location.href="/"; break;
-          case 401: console.error('Unauthorized'); document.location.href="/"; break;
-          default: break;
-        }
-        if (response.ok) {
-          response.json()
-          .then(data => {
-            this.setState({
-              userData: {
-                userName: data.display_name,
-                userID: data.id
-              }
-            });
-            
-            // check if user record exists in DB and update
-            // if not exist, crreate one
-            API.upsertUser({
+    .then(response => {
+      switch (response.status) {
+        case 500: console.error('Some server error'); break;
+        case 400: console.error('Missing token'); document.location.href="/"; break;
+        case 401: console.error('Unauthorized'); document.location.href="/"; break;
+        default: break;
+      }
+      if (response.ok) {
+        response.json()
+        .then(data => {
+          this.setState({
+            userData: {
               userName: data.display_name,
-              userID: data.id});
+              userID: data.id
+            }
+          });
+          
+          // check if user record exists in DB and update
+          // if not exist, create one
+          // then add DB _id to state.userData
+          API
+          .upsertUser({
+            userName: data.display_name,
+            userID: data.id})
+          .then(res => {
+              this.setState(
+                { userData: Object.assign({}, this.state.userData, {_id: res.data._id}) }
+              );
+              console.log(this.state.userData);
+          })
         })
-       }
-     })
+      }
+    })
   }
 
   // handle dialog open and close
