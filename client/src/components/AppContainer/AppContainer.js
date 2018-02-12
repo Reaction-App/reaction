@@ -25,6 +25,7 @@ class AppContainer extends Component {
     },
     // Search form
     query: '',
+    noSongFound: false,
     tracks: {
       trackID: '',
       trackName: '',
@@ -52,26 +53,9 @@ class AppContainer extends Component {
     energy: 0,
     chartData: [],
     songPlaying: false,
-    currentSongPlayingUrl: "",
+    currentSongPlayingID: "",
     currentSongPlayingAudio: null
   }
-
-  // buttons for the modal
-  actions = [
-    <FlatButton
-      label="Add More Songs"
-      primary={true}
-      /*onClick={this.handlePageChange('Home')}*/
-      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
-    />,
-    <FlatButton
-      backgroundColor={'#5A66E3'}
-      label="View My Playlist"
-      primary={true}
-      /*onClick={this.handlePageChange('Playlist')}*/
-      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, width: 200 }}
-    />,
-  ];
 
   componentDidMount() {
     // Redirect user who accesses /home without access token
@@ -86,6 +70,7 @@ class AppContainer extends Component {
 
   handlePageChange = page => {
     this.setState({ currentPage: page });
+    this.handleClose();
   }
 
   renderPage = () => {
@@ -95,6 +80,7 @@ class AppContainer extends Component {
         query = {this.state.query}
         handleOpen = {this.handleOpen}
         handleClose = {this.handleClose}
+        handlePageChange = {this.handlePageChange}
         open = {this.state.open}
         actions = {this.actions}
         handleInputChange = {this.handleInputChange}
@@ -105,7 +91,9 @@ class AppContainer extends Component {
         handleSaveTrack = {this.handleSaveTrack}
         playTrack = {this.playTrack}
         currentSongPlayingUrl = {this.state.currentSongPlayingUrl}
+        currentSongPlayingID = {this.state.currentSongPlayingID}
         songPlaying = {this.state.songPlaying}
+        noSongFound = {this.state.noSongFound}
       />;
     } else if (this.state.currentPage === "Playlist") {
       return <Playlist 
@@ -119,7 +107,7 @@ class AppContainer extends Component {
         handlePlaylistRowSelection = {this.handlePlaylistRowSelection}
         playlistRowIsSelected = {this.playlistRowIsSelected}
         playTrack = {this.playTrack}
-        currentSongPlayingUrl = {this.state.currentSongPlayingUrl}
+        currentSongPlayingID = {this.state.currentSongPlayingID}
         songPlaying = {this.state.songPlaying}
         handleSortBySelected = {this.handleSortBySelected}
         handleDeleteTrack = {this.handleDeleteTrack}
@@ -176,13 +164,16 @@ class AppContainer extends Component {
 
   // handle dialog open and close
   handleOpen = () => {
-    console.log("modal open = true");
     this.setState({open: true});
-  };
+  }
 
   handleClose = () => {
-    this.setState({open: false});
-  };
+    this.setState({
+      open: false, 
+      tracks:{},
+      query: ''
+    });
+  }
 
   handleInputChange = event => {
     // Get the name and value from event.target
@@ -202,6 +193,10 @@ class AppContainer extends Component {
 
   // API call for finding a track
   searchSpotify(query) {
+
+    this.setState({
+      noSongFound: false
+    })
 
     // URL constructor for search
     const BASE_URL = 'https://api.spotify.com/v1/search';
@@ -227,6 +222,7 @@ class AppContainer extends Component {
         if (response.ok) {
           response.json()
         .then(data => 
+          {data.tracks.items.length > 0 ? (
           this.setState({
           tracks: data.tracks.items.map(item => {
             return {
@@ -237,7 +233,11 @@ class AppContainer extends Component {
               trackURL: item.preview_url
             }
           })
-        }))
+        })):(
+          this.setState({
+            noSongFound: true
+          }))}
+        )
       }
     })
   }
@@ -331,33 +331,37 @@ class AppContainer extends Component {
       .catch(err => console.log(err));
   }
 
-  playTrack = (url) => {
+  playTrack = (url, id) => {
       let audioObject = new Audio(url);
 
       if (!this.state.songPlaying) {
         audioObject.play();
         this.setState({
           songPlaying: true,
-          currentSongPlayingUrl: url,
+          currentSongPlayingID: id,
           currentSongPlayingAudio: audioObject
         })
       } else {
-        if (this.state.currentSongPlayingUrl === url) {
-          this.state.currentSongPlayingAudio.pause();
+        if (this.state.currentSongPlayingID === id) {
+          this.stopSongPlaying()
           this.setState({
             songPlaying: false,
           })
         } else {
-          this.state.currentSongPlayingAudio.pause();
+          this.stopSongPlaying()
           audioObject.play();
           this.setState({
             songPlaying: true,
-            currentSongPlayingUrl: url,
+            currentSongPlayingID: id,
             currentSongPlayingAudio: audioObject
           })
         }
       }
     }
+
+  stopSongPlaying = () => {
+      this.state.currentSongPlayingAudio.pause();
+  }
 
   // Row selection
   playlistRowIsSelected = (index) => {
@@ -372,6 +376,9 @@ class AppContainer extends Component {
 
 
   handleDeleteTrack = id => {
+    if (this.state.songPlaying) {
+      this.stopSongPlaying()
+    }
 
     // delete an article when delete button is clicked
     API.deleteTrack(id)
