@@ -45,10 +45,18 @@ module.exports = {
       )
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  }
-  // addTrack: function(req, res) {
-  //   db.User
-  //     .findOne({ _id: re.params.id})
-  //     .then(user => )
-  // }
+  },
+
+  addTrack: function(req, res) {
+    console.log("addTrack")
+    console.log(req.body);
+    db.User
+      .findByIdAndUpdate(
+        req.body._id,
+        {$push: {"tracks": req.body.newTrack}},
+        {safe: true, upsert:true, new:true}
+      )
+      .catch(err => res.status(422).json(err));
+
+  },
 };

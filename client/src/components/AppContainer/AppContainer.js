@@ -96,6 +96,8 @@ class AppContainer extends Component {
         noSongFound = {this.state.noSongFound}
       />;
     } else if (this.state.currentPage === "Playlist") {
+
+
       return <Playlist 
         chartData = {this.state.chartData}
         sortDropDown = {this.state.sortDropDown}
@@ -155,6 +157,7 @@ class AppContainer extends Component {
           // check if user record exists in DB and update
           // if not exist, create one
           // then add DB _id to state.userData
+          // Uses object.assign to get current userData object then add _id to the object 
           API
           .upsertUser({
             userName: data.display_name,
@@ -163,7 +166,8 @@ class AppContainer extends Component {
               this.setState(
                 { userData: Object.assign({}, this.state.userData, {_id: res.data._id}) }
               );
-              console.log(this.state.userData);
+
+              this.loadTracks();
           })
         })
       }
@@ -292,16 +296,20 @@ class AppContainer extends Component {
         fullTrackDetails.energy = data.energy
       })
       .then(res =>
-        // Save tracks to database
+        // push track to the user's playlist in DB
         API.saveTrack({
-          trackName: fullTrackDetails.trackName,
-          artist: fullTrackDetails.artist,
-          album: fullTrackDetails.album,
-          trackID: fullTrackDetails.trackID,
-          trackURL: fullTrackDetails.trackURL,
-          valence: fullTrackDetails.valence,
-          energy: fullTrackDetails.energy
-        }))
+          _id: this.state.userData._id,
+          newTrack: {
+            trackName: fullTrackDetails.trackName,
+            artist: fullTrackDetails.artist,
+            album: fullTrackDetails.album,
+            trackID: fullTrackDetails.trackID,
+            trackURL: fullTrackDetails.trackURL,
+            valence: fullTrackDetails.valence,
+            energy: fullTrackDetails.energy
+          }
+        })
+      )
       //Below line triggers modal
       .then(this.handleOpen())
       .then(res => {
@@ -312,23 +320,24 @@ class AppContainer extends Component {
 
   loadTracks = () => {
 
-    // Load tracks from DB
-    API.getTracks()
-      .then(res => {
-        let newTracks = res.data;
-        newTracks = newTracks.sort(this.compareValues('_id','desc'));
-        this.setState({ savedTracks: newTracks });
-        this.getGraphData();
-      })
-      .catch(err => console.log(err));
+    // Load tracks from DB.
+    // NOTE: Requires loadSpotifyUserData to be complete so that user id is available 
+    API.getUser(this.state.userData._id)
+        .then(res => {
+          let newTracks = res.data.tracks;
+          newTracks = newTracks.sort(this.compareValues('_id','desc'));
+          this.setState({ savedTracks: newTracks });
+          this.getGraphData();
+        })
+        .catch(err => console.log(err));
   }
 
   getGraphData = () => {
 
     // Load tracks from DB
-    API.getTracks()
+    API.getUser(this.state.userData._id)
       .then(res => {
-        let tracks = res.data;
+        let tracks = this.state.savedTracks;
         let chartTracks = [];
         tracks.forEach((tracks) => {
           let nameString = '"' + tracks.trackName + '" by ' + tracks.artist;
@@ -388,7 +397,7 @@ class AppContainer extends Component {
       this.stopSongPlaying()
     }
 
-    // delete an article when delete button is clicked
+    // delete a track when delete button is clicked
     API.deleteTrack(id)
       .then(res => this.loadTracks())
       .catch(err => console.log(err));

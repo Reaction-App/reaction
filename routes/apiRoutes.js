@@ -12,13 +12,17 @@ router.route("/users")
 router
   .route("/users/:id")
   .get(usersController.findById)
-  .put(usersController.update)
-  .delete(usersController.remove);
+//   .put(usersController.update)
+//   .delete(usersController.remove);
 
 // Matches with "/api/users/upsert"
 router
   .route("/users/upsert")
   .post(usersController.upsert);
+
+// Matches with "/api/users/tracks"
+router.route("/users/tracks")
+  .post(usersController.addTrack);
 
 // Matches with "/api/tracks"
 router.route("/tracks")
