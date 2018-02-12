@@ -1,5 +1,5 @@
 import React from "react";
-//import "/home.css";
+import "./home.css";
 
 // Material UI components
 import TextField from 'material-ui/TextField';
@@ -14,13 +14,6 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-
-// import {
-//   cyan500, cyan700,
-//   pinkA200,
-//   grey100, grey300, grey400, grey500,
-//   white, darkBlack, fullBlack,
-// } from 'material-ui/styles/colors';
 
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -125,7 +118,7 @@ const Home = props => {
     </div>
   </div>
 
-  <div>
+  <div className="tableDiv">
     {props.tracks.length ? (
       <Table
         onRowSelection={props.handleRowSelection}
@@ -160,10 +153,11 @@ const Home = props => {
                     style={{padding: 0, width: 0, height: 0}} 
                     disabled={track.trackURL === null ? true : false} 
                     tooltip={track.trackURL === null ? 'Not Available' : false} 
-                    onClick={() => props.playTrack(track.trackURL)}
+                    tooltipPosition='center-right'
+                    onClick={() => props.playTrack(track.trackURL, track.trackID)}
                   >
                     <FontIcon className="material-icons">
-                    {props.currentSongPlayingUrl === track.trackURL && props.songPlaying === true ? "play_circle_filled" : "play_circle_outline"}
+                    {props.currentSongPlayingID === track.trackID && props.songPlaying === true ? "play_circle_filled" : "play_circle_outline"}
                     </FontIcon>
                   </IconButton>
 
@@ -199,7 +193,11 @@ const Home = props => {
         )
         : ( <div style={{ margin: '0 auto', marginTop: 80, display: 'block', textAlign: 'center', maxWidth: 500 }}>
                 <img style={{ width: 150 }} src='https://s17.postimg.org/vobidfu3z/start-searaching.png' alt="Start Searching" />
-                <h2 style={{ fontFamily: 'Montserrat' }}>Start by searching for a song. Then click “Add” to begin curating your playlist.</h2>
+                {props.noSongFound ? (
+                  <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, that song does not exist! Please search for another song.</h2>
+                ):(
+                  <h2 style={{ fontFamily: 'Montserrat' }}>Start by searching for a song. Then click “Add Song” to begin curating your playlist.</h2>
+                )}
             </div>
           )}
         </div>

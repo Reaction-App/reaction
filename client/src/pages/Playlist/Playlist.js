@@ -72,10 +72,10 @@ const Playlist = props =>
                 style={{top: -8}}
                 disabled={track.trackURL === null ? true : false}
                 tooltip={track.trackURL === null ? 'Not Available' : false}
-                onClick={() => props.playTrack(track.trackURL)}
+                onClick={() => props.playTrack(track.trackURL, track.trackID)}
               >
                 <FontIcon className="material-icons">
-                {props.currentSongPlayingUrl === track.trackURL && props.songPlaying === true ? "play_circle_filled" : "play_circle_outline"}
+                {props.currentSongPlayingID === track.trackID && props.songPlaying === true ? "play_circle_filled" : "play_circle_outline"}
                 </FontIcon>
               </IconButton>
                 }
