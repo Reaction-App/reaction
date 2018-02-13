@@ -118,6 +118,7 @@ class AppContainer extends Component {
     }
   };
 
+
   // API call for user data
   loadSpotifyUserData() {
 
@@ -316,6 +317,7 @@ class AppContainer extends Component {
   }
 
   getGraphData = () => {
+
 
     // Load tracks from DB
     API.getTracks()
