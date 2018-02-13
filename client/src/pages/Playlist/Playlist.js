@@ -7,14 +7,6 @@ import MenuItem from 'material-ui/MenuItem';
 import {List, ListItem} from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
 
 import './playlist.css';
 
@@ -22,9 +14,6 @@ import './playlist.css';
 //   document.getElementById("meep").style.display = "none";
 // }
 
-
-// Material UI styles
-const styles = {};
 
 const Playlist = props =>
 
