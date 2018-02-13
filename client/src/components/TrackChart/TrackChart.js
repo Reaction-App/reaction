@@ -36,6 +36,20 @@ class Chart extends Component {
       //   }]
       // },
 
+
+      // responsive: {
+      //   rules: [{
+      //     condition: {
+      //       maxWidth: 500
+      //     },
+      //     chartOptions: {
+      //       chart: {
+      //         width: 355
+      //       }
+      //     }
+      //   }]
+      // }
+
       credits: {
         enabled: false
       },
