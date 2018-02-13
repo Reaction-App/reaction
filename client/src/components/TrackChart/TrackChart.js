@@ -5,17 +5,25 @@ const ReactHighcharts = require('react-highcharts');
 
 class Chart extends Component {
 
-  componentDidUpdate() {
+
+
+  graphLoading = (message) => {
     let chart = this.refs.chart.getChart();
-    chart.showLoading()
+    chart.showLoading(message)
     setTimeout(() => {
       chart.hideLoading()
-    }, 500)
+    }, 600)      
+  }
+
+  componentDidUpdate() {
+
+    // this.graphLoading("Loading...");
   }
 
   render() {
 
-    let {chartData} = this.props
+    const componentScope = this;
+    let {chartData} = componentScope.props
     let data = [{data: chartData, color: '#5A66E3'}]
     // let labelStyle = {
     //     left: '120px',
@@ -123,12 +131,14 @@ class Chart extends Component {
 
       plotOptions: {
         series: {
+          animation: false,
           events: {
-            // click: function() {
-            //   // alert(this.chart.hoverPoint.name)
-            //   SortFunctions.helloWorld()
-            // }
-          }
+            click: (event) => {
+              componentScope.props.graphClick(event);
+              this.graphLoading("Sorting by track...")
+            }
+          },
+          cursor: 'pointer'
         },
         scatter: {
           marker: {
