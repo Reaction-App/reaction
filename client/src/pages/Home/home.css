@@ -24,6 +24,12 @@
   border: 0;
 }
 
+.table-styles {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 @media only screen and (max-width: 600px) {
   .button-search {
     padding: 20px 30px;
@@ -32,4 +38,9 @@
     font-size: 16px;
     padding: 0 20px;
   }
+  .table-styles {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap
+}
 }

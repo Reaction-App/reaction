@@ -100,17 +100,15 @@ const Home = props => {
     </div>
   </div>
 
-  <div className="tableDiv">
+  <div className="tableDiv"
+  style={{
+          marginBottom: 100
+      }}>
     {props.tracks.length ? (
       <Table
-        onRowSelection={props.handleRowSelection}
-        style={{
-          maxWidth: '80%',
-          margin: '0 auto',
-          backgroundColor: '#F7F9FF',
-          padding: 20,
-          fontFamily: 'Montserrat',
-      }}>
+        className="table-styles"
+        style={{backgroundColor: '#F7F9FF', fontFamily: 'Montserrat' }}
+        onRowSelection={props.handleRowSelection}>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
           <TableRow >
             <TableHeaderColumn style={{fontSize: 20, width: 30}}></TableHeaderColumn>
