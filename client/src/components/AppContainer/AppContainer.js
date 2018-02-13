@@ -179,6 +179,7 @@ class AppContainer extends Component {
   }
 
   handleClose = () => {
+    this.loadTracks();
     this.setState({
       open: false, 
       tracks:{},

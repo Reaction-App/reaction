@@ -108,7 +108,7 @@ class Chart extends Component {
       },
       series: data
     };
-    return <ReactHighcharts config={config} neverReflow />
+    return <ReactHighcharts config={config}/>
   }
 }
 
