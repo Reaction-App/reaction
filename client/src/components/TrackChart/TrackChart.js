@@ -130,7 +130,8 @@ class Chart extends Component {
               // alert(this.chart.hoverPoint.name)
               // SortFunctions.helloWorld()
             }
-          }
+          },
+          cursor: 'pointer'
         },
         scatter: {
           marker: {
