@@ -21,7 +21,7 @@ const Playlist = props =>
 
     <div className="chart">
         {props.chartData.length ? (
-        <TrackChart chartData={props.chartData}/>
+        <TrackChart chartData={props.chartData} graphClick={props.graphClick}/>
         ) : (<div></div>)}
     </div>
 

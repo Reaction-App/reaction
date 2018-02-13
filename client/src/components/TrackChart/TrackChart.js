@@ -15,7 +15,8 @@ class Chart extends Component {
 
   render() {
 
-    let {chartData} = this.props
+    const componentScope = this;
+    let {chartData} = componentScope.props
     let data = [{data: chartData, color: '#5A66E3'}]
     // let labelStyle = {
     //     left: '120px',
@@ -124,10 +125,11 @@ class Chart extends Component {
       plotOptions: {
         series: {
           events: {
-            // click: function() {
-            //   // alert(this.chart.hoverPoint.name)
-            //   SortFunctions.helloWorld()
-            // }
+            click: (event) => {
+              componentScope.props.graphClick(event);
+              // alert(this.chart.hoverPoint.name)
+              // SortFunctions.helloWorld()
+            }
           }
         },
         scatter: {
