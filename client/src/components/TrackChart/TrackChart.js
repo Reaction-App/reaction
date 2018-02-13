@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
+import SortFunctions from "../../utils/SortFunctions";
 // import $ from "jquery";
 const ReactHighcharts = require('react-highcharts');
 
+
+
 class Chart extends Component {
+
+  componentDidMount() {
+    // let chart = this.refs.chart.getChart();
+    // chart.series[0].removePoint({x: .5, y: .5});
+  }
+
+  deletePoint(index) {
+    // let chart = this.refs.chart.getChart();
+    // chart.series[0].addPoint({x: .5, y: .5});
+  }
 
   render() {
 
     let {chartData} = this.props
-    let data = [{colorByPoint: false, data: chartData, color: '#5A66E3'}]
+    let data = [{data: chartData, color: '#5A66E3'}]
     // let labelStyle = {
     //     left: '120px',
     //     top: '100px',
@@ -82,6 +95,14 @@ class Chart extends Component {
       },
 
       plotOptions: {
+        series: {
+          events: {
+            click: function() {
+              // alert(this.chart.hoverPoint.name)
+              SortFunctions.helloWorld()
+            }
+          }
+        },
         scatter: {
           marker: {
             radius: 5,

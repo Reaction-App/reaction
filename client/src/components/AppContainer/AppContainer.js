@@ -97,6 +97,7 @@ class AppContainer extends Component {
       />;
     } else if (this.state.currentPage === "Playlist") {
       return <Playlist 
+        chart={this.chart}
         chartData = {this.state.chartData}
         sortDropDown = {this.state.sortDropDown}
         handlePlaylistSort = {this.handlePlaylistSort}
@@ -117,6 +118,7 @@ class AppContainer extends Component {
       return <LoginPage />;
     }
   };
+
 
   // API call for user data
   loadSpotifyUserData() {
@@ -317,6 +319,7 @@ class AppContainer extends Component {
 
   getGraphData = () => {
 
+
     // Load tracks from DB
     API.getTracks()
       .then(res => {
@@ -328,6 +331,7 @@ class AppContainer extends Component {
         });
         this.setState({chartData: chartTracks});
       })
+      .then(res => console.log(this.state.chartData))
       .catch(err => console.log(err));
   }
 
@@ -375,10 +379,24 @@ class AppContainer extends Component {
   }
 
 
-  handleDeleteTrack = id => {
+  handleDeleteTrack = (id, trackName, artist) => {
     if (this.state.songPlaying) {
       this.stopSongPlaying()
     }
+
+    // let nameString = '"' + trackName + '" by ' + artist;
+
+    // let newChartData = this.state.chartData
+
+    // newChartData.forEach((track, index) => {
+    //   if (track.name === nameString) {
+    //     newChartData.splice(index)
+    //   }
+    // })
+
+    // this.setState({
+    //   chartData: newChartData
+    // })
 
     // delete an article when delete button is clicked
     API.deleteTrack(id)
