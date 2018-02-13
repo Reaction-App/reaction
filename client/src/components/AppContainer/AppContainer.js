@@ -97,7 +97,6 @@ class AppContainer extends Component {
       />;
     } else if (this.state.currentPage === "Playlist") {
       return <Playlist 
-        chart={this.chart}
         chartData = {this.state.chartData}
         sortDropDown = {this.state.sortDropDown}
         handlePlaylistSort = {this.handlePlaylistSort}
@@ -378,7 +377,7 @@ class AppContainer extends Component {
   }
 
 
-  handleDeleteTrack = (id, trackName, artist) => {
+  handleDeleteTrack = id => {
     if (this.state.songPlaying) {
       this.stopSongPlaying()
     }
