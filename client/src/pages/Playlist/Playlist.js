@@ -69,7 +69,7 @@ const Playlist = props =>
               </IconButton>
                 }
                 nestedItems={[
-                  <div key={track._id} style={{ marginLeft: 72, marginTop: 0, padding: 0, fontFamily: 'Montserrat', fontSize: 12 }}>
+                  <div style={{ marginLeft: 72, marginTop: 0, padding: 0, fontFamily: 'Montserrat', fontSize: 12 }}>
                     <button onClick={() => props.handleDeleteTrack(track._id)}>Delete</button>
                     <button onClick={() => props.handleSortBySelected(index)}>Sort</button>
                   </div>

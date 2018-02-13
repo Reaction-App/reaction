@@ -64,7 +64,7 @@ class AppContainer extends Component {
     } else {
       this.setState({accessToken: accessToken})
       this.loadSpotifyUserData()
-      this.loadTracks()
+      //this.loadTracks() can't load tracks until loadSpotifyUserData is complete
     }
   }
 
@@ -165,8 +165,7 @@ class AppContainer extends Component {
           .then(res => {
               this.setState(
                 { userData: Object.assign({}, this.state.userData, {_id: res.data._id}) }
-              );
-
+              )
               this.loadTracks();
           })
         })
@@ -337,7 +336,7 @@ class AppContainer extends Component {
     // Load tracks from DB
     API.getUser(this.state.userData._id)
       .then(res => {
-        let tracks = this.state.savedTracks;
+        let tracks = res.data.tracks;
         let chartTracks = [];
         tracks.forEach((tracks) => {
           let nameString = '"' + tracks.trackName + '" by ' + tracks.artist;
@@ -399,7 +398,7 @@ class AppContainer extends Component {
 
     // delete a track when delete button is clicked
     API.deleteTrack(id)
-      .then(res => this.loadTracks())
+      .then(this.loadTracks())
       .catch(err => console.log(err));
   }
 

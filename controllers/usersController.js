@@ -2,37 +2,15 @@ const db = require("../models");
 
 // Methods for the users DB controller
 module.exports = {
-  findAll: function(req, res) {
-    db.User
-      .find(req.query)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
+
+  // find a user by id and return the user object
   findById: function(req, res) {
     db.User
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  create: function(req, res) {
-    db.User
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  update: function(req, res) {
-    db.User
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  remove: function(req, res) {
-    db.User
-      .findById({ _id: req.params.id })
-      .then(dbModel => dbModel.remove())
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
+  // return user object based on Spotify userID, create a user if one doesn't exist
   upsert: function(req, res) {
     console.log("upsert user");
     console.log(req.body);
@@ -46,7 +24,7 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-
+  // add a track to the tracks array of a user
   addTrack: function(req, res) {
     console.log("addTrack")
     console.log(req.body);
@@ -59,4 +37,16 @@ module.exports = {
       .catch(err => res.status(422).json(err));
 
   },
+  // delete a track from the tracks array of a user
+  removeTrack: function(req, res) {
+    console.log("removeTrack");
+    console.log(req.params.id);
+    let trackId = req.params.id;
+    db.User.findOneAndUpdate(
+      {'tracks._id':req.params.id}, 
+      {$pull: { tracks: {_id:req.params.id }}},
+      {new:true}
+    )
+    .catch(err => res.status(422).json(err));
+  }
 };

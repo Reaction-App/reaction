@@ -7,9 +7,9 @@ export default {
     return axios.get("/api/users/" + id);
   },
 
-  // Deletes the track with the given id
-  deleteTrack: function(id) {
-    return axios.delete("/api/tracks/" + id);
+  // Checks if a user exists in the DB, if not creates a new one
+  upsertUser: function(userData) {
+    return axios.post("/api/users", userData);
   },
 
   // Saves a track to the database
@@ -17,8 +17,8 @@ export default {
     return axios.post("/api/users/tracks", trackData);
   },
 
-  // Checks if a user exists in the DB, if not creates a new one
-  upsertUser: function(userData) {
-    return axios.post("/api/users/upsert", userData);
+  // Deletes the track with the given id
+  deleteTrack: function(id) {
+    return axios.delete("/api/users/tracks/" + id);
   }
 };
