@@ -122,14 +122,6 @@ const Home = props => {
             return (
               <TableRow key={track.trackID} selected={props.isSelected(index)} >
 
-                <TableRowColumn style={{fontSize: 16}}>
-                 
-                  <IconButton 
-                    style={{padding: 0, width: 0, height: 0}} 
-                    disabled={track.trackURL === null ? true : false} 
-                    tooltip={track.trackURL === null ? 'Not Available' : false} 
-                    tooltipPosition='bottom-right'
-
                 <TableRowColumn style={{fontSize: 16, width: 30}}>
 
                   <IconButton
