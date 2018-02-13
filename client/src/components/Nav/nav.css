@@ -1,0 +1,15 @@
+.responsive-nav {
+  display: none !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .menu-item {
+    display: none !important;
+  }
+  .responsive-nav {
+    display: block !important;
+    background-color: transparent !important;
+    padding-right: 0 !important;
+    margin-top: 8px;
+  }
+}

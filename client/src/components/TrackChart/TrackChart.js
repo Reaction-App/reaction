@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
+import SortFunctions from "../../utils/SortFunctions";
 // import $ from "jquery";
 const ReactHighcharts = require('react-highcharts');
 
 class Chart extends Component {
 
+  componentDidUpdate() {
+    let chart = this.refs.chart.getChart();
+    chart.showLoading()
+    setTimeout(() => {
+      chart.hideLoading()
+    }, 500)
+  }
+
   render() {
 
     let {chartData} = this.props
-    let data = [{colorByPoint: false, data: chartData, color: '#5A66E3'}]
+    let data = [{data: chartData, color: '#5A66E3'}]
     // let labelStyle = {
     //     left: '120px',
     //     top: '100px',
@@ -36,12 +45,33 @@ class Chart extends Component {
       //   }]
       // },
 
+
+      // responsive: {
+      //   rules: [{
+      //     condition: {
+      //       maxWidth: 500
+      //     },
+      //     chartOptions: {
+      //       chart: {
+      //         width: 355
+      //       }
+      //     }
+      //   }]
+      // }
+
       credits: {
         enabled: false
       },
+      loading: {
+        labelStyle: {
+            color: 'white'
+        },
+        style: {
+            backgroundColor: 'gray'
+        }
+      },
       chart: {
         // width: 355,
-
         type: 'scatter',
         backgroundColor: 'transparent',
       },
@@ -82,6 +112,14 @@ class Chart extends Component {
       },
 
       plotOptions: {
+        series: {
+          events: {
+            // click: function() {
+            //   // alert(this.chart.hoverPoint.name)
+            //   SortFunctions.helloWorld()
+            // }
+          }
+        },
         scatter: {
           marker: {
             radius: 5,
@@ -108,7 +146,15 @@ class Chart extends Component {
       },
       series: data
     };
-    return <ReactHighcharts config={config} neverReflow />
+    return (
+      <div style={{position: 'absolute', left: 0}}>
+      <ReactHighcharts config={config} ref="chart"/>
+        <p style={{position: 'absolute', top: '12%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
+        <p style={{position: 'absolute', top: '12%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
+        <p style={{position: 'absolute', top: '56%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
+        <p style={{position: 'absolute', top: '56%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
+      </div>
+    )
   }
 }
 
