@@ -3,18 +3,14 @@ import SortFunctions from "../../utils/SortFunctions";
 // import $ from "jquery";
 const ReactHighcharts = require('react-highcharts');
 
-
-
 class Chart extends Component {
 
-  componentDidMount() {
-    // let chart = this.refs.chart.getChart();
-    // chart.series[0].removePoint({x: .5, y: .5});
-  }
-
-  deletePoint(index) {
-    // let chart = this.refs.chart.getChart();
-    // chart.series[0].addPoint({x: .5, y: .5});
+  componentDidUpdate() {
+    let chart = this.refs.chart.getChart();
+    chart.showLoading()
+    setTimeout(() => {
+      chart.hideLoading()
+    }, 500)
   }
 
   render() {
@@ -52,9 +48,16 @@ class Chart extends Component {
       credits: {
         enabled: false
       },
+      loading: {
+        labelStyle: {
+            color: 'white'
+        },
+        style: {
+            backgroundColor: 'gray'
+        }
+      },
       chart: {
         // width: 355,
-
         type: 'scatter',
         backgroundColor: 'transparent',
       },
@@ -97,10 +100,10 @@ class Chart extends Component {
       plotOptions: {
         series: {
           events: {
-            click: function() {
-              // alert(this.chart.hoverPoint.name)
-              SortFunctions.helloWorld()
-            }
+            // click: function() {
+            //   // alert(this.chart.hoverPoint.name)
+            //   SortFunctions.helloWorld()
+            // }
           }
         },
         scatter: {
@@ -129,7 +132,7 @@ class Chart extends Component {
       },
       series: data
     };
-    return <ReactHighcharts config={config} neverReflow />
+    return <ReactHighcharts config={config} ref="chart"/>
   }
 }
 

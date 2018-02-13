@@ -331,7 +331,6 @@ class AppContainer extends Component {
         });
         this.setState({chartData: chartTracks});
       })
-      .then(res => console.log(this.state.chartData))
       .catch(err => console.log(err));
   }
 
@@ -383,20 +382,6 @@ class AppContainer extends Component {
     if (this.state.songPlaying) {
       this.stopSongPlaying()
     }
-
-    // let nameString = '"' + trackName + '" by ' + artist;
-
-    // let newChartData = this.state.chartData
-
-    // newChartData.forEach((track, index) => {
-    //   if (track.name === nameString) {
-    //     newChartData.splice(index)
-    //   }
-    // })
-
-    // this.setState({
-    //   chartData: newChartData
-    // })
 
     // delete an article when delete button is clicked
     API.deleteTrack(id)
