@@ -291,8 +291,8 @@ class AppContainer extends Component {
     // Find audio features for the track and add to new track objcet
     this.findAudioFeatures(fullTrackDetails.trackID)
       .then(data=> {
-        fullTrackDetails.valence = data.valence
-        fullTrackDetails.energy = data.energy
+        fullTrackDetails.valence = (data.valence * 100).toFixed(2)
+        fullTrackDetails.energy = (data.energy * 100).toFixed(2)
       })
       .then(res =>
         // push track to the user's playlist in DB
@@ -328,6 +328,7 @@ class AppContainer extends Component {
           this.setState({ savedTracks: newTracks });
           this.getGraphData();
         })
+        .then(console.log(this.savedTracks))
         .catch(err => console.log(err));
   }
 
