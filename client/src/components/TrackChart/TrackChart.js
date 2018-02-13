@@ -5,6 +5,8 @@ const ReactHighcharts = require('react-highcharts');
 
 class Chart extends Component {
 
+
+
   graphLoading = (message) => {
     let chart = this.refs.chart.getChart();
     chart.showLoading(message)
@@ -14,7 +16,8 @@ class Chart extends Component {
   }
 
   componentDidUpdate() {
-    this.graphLoading("Loading...");
+
+    // this.graphLoading("Loading...");
   }
 
   render() {
@@ -128,6 +131,7 @@ class Chart extends Component {
 
       plotOptions: {
         series: {
+          animation: false,
           events: {
             click: (event) => {
               componentScope.props.graphClick(event);
