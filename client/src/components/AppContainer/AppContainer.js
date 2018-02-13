@@ -75,7 +75,7 @@ class AppContainer extends Component {
 
   renderPage = () => {
     if (this.state.currentPage === "Home") {
-      return <Home 
+      return <Home
         userData = {this.state.userData}
         query = {this.state.query}
         handleOpen = {this.handleOpen}
@@ -96,9 +96,7 @@ class AppContainer extends Component {
         noSongFound = {this.state.noSongFound}
       />;
     } else if (this.state.currentPage === "Playlist") {
-
-
-      return <Playlist 
+      return <Playlist
         chartData = {this.state.chartData}
         sortDropDown = {this.state.sortDropDown}
         handlePlaylistSort = {this.handlePlaylistSort}
@@ -120,6 +118,7 @@ class AppContainer extends Component {
     }
   };
 
+
   // API call for user data
   loadSpotifyUserData() {
 
@@ -137,22 +136,22 @@ class AppContainer extends Component {
 
     // API call with header
     fetch(FETCH_URL, request_params)
-    .then(response => {
-      switch (response.status) {
-        case 500: console.error('Some server error'); break;
-        case 400: console.error('Missing token'); document.location.href="/"; break;
-        case 401: console.error('Unauthorized'); document.location.href="/"; break;
-        default: break;
-      }
-      if (response.ok) {
-        response.json()
-        .then(data => {
-          this.setState({
-            userData: {
-              userName: data.display_name,
-              userID: data.id
-            }
-          });
+      .then(response => {
+        switch (response.status) {
+          case 500: console.error('Some server error'); break;
+          case 400: console.error('Missing token'); document.location.href="/"; break;
+          case 401: console.error('Unauthorized'); document.location.href="/"; break;
+          default: break;
+        }
+        if (response.ok) {
+          response.json()
+          .then(data => {
+            this.setState({
+              userData: {
+                userName: data.display_name,
+                userID: data.id
+              }
+            });
           
           // check if user record exists in DB and update
           // if not exist, create one
@@ -181,7 +180,7 @@ class AppContainer extends Component {
   handleClose = () => {
     this.loadTracks();
     this.setState({
-      open: false, 
+      open: false,
       tracks:{},
       query: ''
     });
@@ -233,7 +232,7 @@ class AppContainer extends Component {
         }
         if (response.ok) {
           response.json()
-        .then(data => 
+        .then(data =>
           {data.tracks.items.length > 0 ? (
           this.setState({
           tracks: data.tracks.items.map(item => {
@@ -333,6 +332,7 @@ class AppContainer extends Component {
   }
 
   getGraphData = () => {
+
 
     // Load tracks from DB
     API.getUser(this.state.userData._id)
@@ -562,13 +562,17 @@ class AppContainer extends Component {
     this.setState({ selectedPlaylistTrack: [] });
   }
 
+  // const happy = '<img src="https://s17.postimg.org/sx0jyqekv/happy.png" />';
+
   // emotion functions
   showEmotion = (valence, energy) => {
-    if (valence>=0.5 && energy>=0.5) {return '🙂'};
-    if (valence<0.5 && energy<0.5) {return '😢'};
-    if (valence<0.5 && energy>0.5) {return '😡'};
-    if (valence>0.5 && energy<0.5) {return '😌'};
+    if (valence>=0.5 && energy>=0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/sx0jyqekv/happy.png" /></div>)};
+    if (valence<0.5 && energy<0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/5pav3pnhb/sad.png" /></div>)};
+    if (valence<0.5 && energy>0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/mptrcfatb/angry.png" /></div>)};
+    if (valence>0.5 && energy<0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
   }
+
+
 
   render() {
 

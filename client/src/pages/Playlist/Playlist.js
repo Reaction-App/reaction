@@ -8,25 +8,27 @@ import {List, ListItem} from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 
+import './playlist.css';
+
+// if (props.savedTracks.length === 0) {
+//   document.getElementById("meep").style.display = "none";
+// }
+
 
 const Playlist = props =>
 
   <div style={{margin: '0 auto', padding: 20, maxWidth: 1200, position: 'relative'}}>
 
-    <div style={{position: 'absolute', left: 0, top: 130}}>
+    <div className="chart">
         {props.chartData.length ? (
         <TrackChart chartData={props.chartData}/>
         ) : (<div></div>)}
-        <p style={{position: 'absolute', top: '12%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
-        <p style={{position: 'absolute', top: '12%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
-        <p style={{position: 'absolute', top: '56%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
-        <p style={{position: 'absolute', top: '56%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
     </div>
 
-    <div style={{float: 'right'}}>
+    <div className="playlist-container">
 
       <div>
-        <DropDownMenu value={props.sortDropDown} onChange={props.handlePlaylistSort} style={{marginLeft: -20, width: 243}}>
+        <DropDownMenu value={props.sortDropDown} onChange={props.handlePlaylistSort} style={{ width: '50%'}}>
           <MenuItem value={0} primaryText="Sort by" />
           <MenuItem value={1} primaryText="Title" />
           <MenuItem value={2} primaryText="Artist" />
@@ -38,7 +40,7 @@ const Playlist = props =>
           <MenuItem value={8} primaryText="Recently Added" />
         </DropDownMenu>
 
-        <DropDownMenu value={props.moodDropDown} onChange={props.handleMoodSort} style={{marginLeft: -20, width: 243}}>
+        <DropDownMenu value={props.moodDropDown} onChange={props.handleMoodSort} style={{width: '50%'}}>
           <MenuItem value={0} primaryText="Choose a Mood" />
           <MenuItem value={1} primaryText="Happy" />
           <MenuItem value={2} primaryText="Sad" />
@@ -47,14 +49,15 @@ const Playlist = props =>
         </DropDownMenu>
       </div>
 
-      <h2 style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat', width: 402}}>My Playlist</h2>
+      <h2 className="playlist-header" style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat'}}>My Playlist</h2>
 
       {props.savedTracks.length ? (
-        <List style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', width: 420, maxHeight: 518, overflow: 'scroll', float: 'left'}}>
+        <List className="list" style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', maxHeight: 518, overflow: 'scroll', float: 'left'}}>
 
           {props.savedTracks.map((track, index) => {
             return (
               <ListItem
+                id="songItem"
                 key={track._id}
                 leftIcon={
                   <IconButton
@@ -70,28 +73,31 @@ const Playlist = props =>
                 }
                 nestedItems={[
                   <div style={{ marginLeft: 72, marginTop: 0, padding: 0, fontFamily: 'Montserrat', fontSize: 12 }}>
-                    <button onClick={() => props.handleDeleteTrack(track._id)}>Delete</button>
-                    <button onClick={() => props.handleSortBySelected(index)}>Sort</button>
+                    <button style={{padding:'10px 20px', fontSize:'10px', margin:'0 auto', textAlign: 'center', display: 'inline-block', textTransform: 'uppercase', backgroundColor: '#5A66E3', color: '#FFFFFF', fontWeight: 'bold', letterSpacing: 2, border: 0, cursor: 'pointer', marginTop: -10, marginRight: 10 }}
+         onClick={() => props.handleDeleteTrack(track._id)}>Delete</button>
+                    <button style={{padding:'10px 20px', fontSize:'10px', margin:'0 auto', textAlign: 'center', display: 'inline-block', textTransform: 'uppercase', backgroundColor: '#5A66E3', color: '#FFFFFF', fontWeight: 'bold', letterSpacing: 2, border: 0, cursor: 'pointer', marginTop: -10 }} onClick={() => props.handleSortBySelected(index)}>Sort</button>
                   </div>
                 ]}
               >
                 <p style={{marginTop: 0, marginBottom: 0, fontFamily: 'Montserrat', maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
                   {track.trackName}
                 </p>
-                <p style={{marginTop: 0, marginBottom: 0, paddingBottom: 1, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+                <p style={{marginTop: 2, marginBottom: 0, paddingBottom: 1, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
                   {track.artist}  |  {track.album}
                 </p>
-                <p style={{marginTop: 0, marginBottom: 0, paddingBottom: 5, fontFamily: 'Montserrat', fontSize: 12, borderBottom: '1px solid #555555', maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
-                  Positivity: {track.valence} | Energy: {track.energy} {props.showEmotion(track.valence,track.energy)}
-                </p>
+                <div style={{borderBottom: '1px solid #BABABA'}}>
+                  <p style={{marginTop: 0, marginBottom: 0, paddingBottom: 5, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'inline-block'}}>
+                    Positivity: {track.valence} | Energy: {track.energy}
+                  </p>
+                  <div style={{display: 'inline-block', marginLeft: 10, marginTop: -15, verticalAlign: 'middle'}}>{props.showEmotion(track.valence,track.energy)}</div>
+                </div>
+
               </ListItem>
             )
           })}
         </List>
-      ) : (<h1>No tracks in this playlist.</h1>)}
-
+      ) : (<p style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', width: 380, maxHeight: 518, overflow: 'scroll', float: 'left', padding: 20}}>Once you start adding songs, they will show up here in your playlist.</p>)}
     </div>
-
   </div>
 
 export default Playlist;
