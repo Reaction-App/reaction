@@ -1,5 +1,5 @@
 import React from "react";
-import "./home.css";
+import './home.css';
 
 // Material UI components
 import TextField from 'material-ui/TextField';
@@ -77,42 +77,24 @@ const Home = props => {
 
     <div style={{margin: '0 auto', display: 'block', textAlign: 'center'}}>
       <TextField
+        className="search-field"
         underlineShow={false}
-        hintText="Enter Track Name..."
+        hintText="Search Song..."
         name="query"
         value={props.query}
         onChange={props.handleInputChange}
         style={{
           backgroundColor: '#FFFFFF',
-          display: 'inline-block',
-          marginBottom: 60,
-          width: "50%",
-          paddingLeft: 10,
-          height: 59,
-          border: 0,
+          height: 60,
           fontSize: 20,
           fontFamily: 'Montserrat',
+          width: '50%'
         }}
       />
 
        <button
-        onClick={props.handleFormSubmit}
-        style={{
-        padding:'20px 50px',
-        fontSize:'16px',
-        margin:'0 auto',
-        textAlign: 'center',
-        display: 'inline-block',
-        textTransform: 'uppercase',
-        backgroundColor: '#5A66E3',
-        color: '#FFFFFF',
-        fontWeight: 'bold',
-        letterSpacing: 2,
-        border: 0,
-        cursor: 'pointer',
-        marginTop: 0,
-        marginBottom: 20
-        }}>
+        className="button-search"
+        onClick={props.handleFormSubmit}>
         Search
       </button>
     </div>
@@ -131,7 +113,7 @@ const Home = props => {
       }}>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
           <TableRow >
-            <TableHeaderColumn style={{fontSize: 20}}></TableHeaderColumn>
+            <TableHeaderColumn style={{fontSize: 20, width: 30}}></TableHeaderColumn>
             <TableHeaderColumn style={{fontSize: 20}}>Title</TableHeaderColumn>
             <TableHeaderColumn style={{fontSize: 20}}>Artist</TableHeaderColumn>
             <TableHeaderColumn style={{fontSize: 20}}>Album</TableHeaderColumn>
@@ -147,12 +129,12 @@ const Home = props => {
           {props.tracks.map((track, index) => {
             return (
               <TableRow key={track.trackID} selected={props.isSelected(index)} >
-                <TableRowColumn style={{fontSize: 16}}>
-                 
-                  <IconButton 
-                    style={{padding: 0, width: 0, height: 0}} 
-                    disabled={track.trackURL === null ? true : false} 
-                    tooltip={track.trackURL === null ? 'Not Available' : false} 
+                <TableRowColumn style={{fontSize: 16, width: 30}}>
+
+                  <IconButton
+                    style={{padding: 0, width: 0, height: 0}}
+                    disabled={track.trackURL === null ? true : false}
+                    tooltip={track.trackURL === null ? 'Not Available' : false}
                     tooltipPosition='center-right'
                     onClick={() => props.playTrack(track.trackURL, track.trackID)}
                   >
@@ -196,7 +178,7 @@ const Home = props => {
                 {props.noSongFound ? (
                   <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, that song does not exist! Please search for another song.</h2>
                 ):(
-                  <h2 style={{ fontFamily: 'Montserrat' }}>Start by searching for a song. Then click “Add Song” to begin curating your playlist.</h2>
+                  <h2 className="empty-state-text" style={{ fontFamily: 'Montserrat' }}>Start by searching for a song. Then click “Add Song” to begin curating your playlist.</h2>
                 )}
             </div>
           )}
