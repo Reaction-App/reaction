@@ -87,7 +87,7 @@ const Playlist = props =>
                 </p>
                 <div style={{borderBottom: '1px solid #BABABA'}}>
                   <p style={{marginTop: 0, marginBottom: 0, paddingBottom: 5, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'inline-block'}}>
-                    Positivity: {track.valence} | Energy: {track.energy}
+                    Positivity: {track.valence}% | Energy: {track.energy}%
                   </p>
                   <div style={{display: 'inline-block', marginLeft: 10, marginTop: -15, verticalAlign: 'middle'}}>{props.showEmotion(track.valence,track.energy)}</div>
                 </div>

@@ -79,6 +79,11 @@ class Chart extends Component {
         text: ''
       },
       xAxis: {
+        labels: {
+          formatter: function() {
+            return this.value+'%';
+          }
+        },
         title: {
           enabled: true,
           text: 'Positivity'
@@ -87,23 +92,28 @@ class Chart extends Component {
         endOnTick: true,
         showLastLabel: true,
         min: 0,
-        max: 1,
+        max: 100,
         plotLines: [{
             color: '#C4C4C4',
             width: 1,
-            value: .5
+            value: 50
         }]
       },
       yAxis: {
+        labels: {
+          formatter: function() {
+            return this.value+'%';
+          }
+        },
         title: {
           text: 'Energy'
         },
         min: 0,
-        max: 1,
+        max: 100,
         plotLines: [{
             color: '#C4C4C4',
             width: 1,
-            value: .5
+            value: 50
         }]
 
       },
@@ -140,7 +150,7 @@ class Chart extends Component {
           tooltip: {
             allowHTML: true,
             headerFormat: '<b>{point.key}</b><br>',
-            pointFormat: 'Positivity: {point.x}, Energy: {point.y}'
+            pointFormat: 'Positivity: {point.x}%, Energy: {point.y}%'
           }
         }
       },
