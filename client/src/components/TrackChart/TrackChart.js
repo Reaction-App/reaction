@@ -5,12 +5,16 @@ const ReactHighcharts = require('react-highcharts');
 
 class Chart extends Component {
 
-  componentDidUpdate() {
+  graphLoading = (message) => {
     let chart = this.refs.chart.getChart();
-    chart.showLoading()
+    chart.showLoading(message)
     setTimeout(() => {
       chart.hideLoading()
-    }, 500)
+    }, 600)      
+  }
+
+  componentDidUpdate() {
+    this.graphLoading("Loading...");
   }
 
   render() {
@@ -127,8 +131,7 @@ class Chart extends Component {
           events: {
             click: (event) => {
               componentScope.props.graphClick(event);
-              // alert(this.chart.hoverPoint.name)
-              // SortFunctions.helloWorld()
+              this.graphLoading("Sorting by track...")
             }
           },
           cursor: 'pointer'
