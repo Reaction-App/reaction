@@ -108,6 +108,7 @@ class AppContainer extends Component {
         handlePlaylistRowSelection = {this.handlePlaylistRowSelection}
         playlistRowIsSelected = {this.playlistRowIsSelected}
         playTrack = {this.playTrack}
+        graphClick = {this.graphClick}
         currentSongPlayingID = {this.state.currentSongPlayingID}
         songPlaying = {this.state.songPlaying}
         handleSortBySelected = {this.handleSortBySelected}
@@ -562,6 +563,17 @@ class AppContainer extends Component {
     this.setState({ savedTracks: sortedTracks });
     this.setState({ currentSort: newSort });
     this.setState({ selectedPlaylistTrack: [] });
+  }
+
+  graphClick = event => {
+    let graphTrack = event.point.name.split(/"/)[1];
+    let trackIndex = 0;
+    this.state.savedTracks.forEach((track, index) => {
+      if (graphTrack === track.trackName) {
+        trackIndex = index
+      }
+    })
+    this.handleSortBySelected(trackIndex);
   }
 
   // const happy = '<img src="https://s17.postimg.org/sx0jyqekv/happy.png" />';
