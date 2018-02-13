@@ -1,0 +1,44 @@
+h1 {
+  padding:20px 40px;
+  font-size: 50px;
+  margin: 0 auto;
+  max-width: 900px;
+  text-align: center;
+  display: block;
+  letter-spacing: 1px;
+  padding-top: 300px;
+  color: #FFFFFF;
+}
+
+.login-button {
+  padding: 20px 50px;
+  font-size: 16px;
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  text-transform: uppercase;
+  background-color: #5A66E3;
+  color: #FFFFFF;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border: 0;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.background {
+  background-image: url('https://s17.postimg.org/z057sw1lb/landing-background.jpg');
+  width: 100%;
+  background-size: cover;
+  position: fixed;
+  height: 100%;
+  top: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  h1 {
+    font-size: 30px;
+    padding: 200px 20px 20px;
+  }
+}

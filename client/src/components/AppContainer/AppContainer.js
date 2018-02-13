@@ -75,7 +75,7 @@ class AppContainer extends Component {
 
   renderPage = () => {
     if (this.state.currentPage === "Home") {
-      return <Home 
+      return <Home
         userData = {this.state.userData}
         query = {this.state.query}
         handleOpen = {this.handleOpen}
@@ -96,7 +96,7 @@ class AppContainer extends Component {
         noSongFound = {this.state.noSongFound}
       />;
     } else if (this.state.currentPage === "Playlist") {
-      return <Playlist 
+      return <Playlist
         chartData = {this.state.chartData}
         sortDropDown = {this.state.sortDropDown}
         handlePlaylistSort = {this.handlePlaylistSort}
@@ -152,7 +152,7 @@ class AppContainer extends Component {
                 userID: data.id
               }
             });
-            
+
             // check if user record exists in DB and update
             // if not exist, crreate one
             API.upsertUser({
@@ -170,7 +170,7 @@ class AppContainer extends Component {
 
   handleClose = () => {
     this.setState({
-      open: false, 
+      open: false,
       tracks:{},
       query: ''
     });
@@ -222,7 +222,7 @@ class AppContainer extends Component {
         }
         if (response.ok) {
           response.json()
-        .then(data => 
+        .then(data =>
           {data.tracks.items.length > 0 ? (
           this.setState({
           tracks: data.tracks.items.map(item => {
@@ -547,13 +547,17 @@ class AppContainer extends Component {
     this.setState({ selectedPlaylistTrack: [] });
   }
 
+  // const happy = '<img src="https://s17.postimg.org/sx0jyqekv/happy.png" />';
+
   // emotion functions
   showEmotion = (valence, energy) => {
-    if (valence>=0.5 && energy>=0.5) {return '🙂'};
-    if (valence<0.5 && energy<0.5) {return '😢'};
-    if (valence<0.5 && energy>0.5) {return '😡'};
-    if (valence>0.5 && energy<0.5) {return '😌'};
+    if (valence>=0.5 && energy>=0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/sx0jyqekv/happy.png" /></div>)};
+    if (valence<0.5 && energy<0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/5pav3pnhb/sad.png" /></div>)};
+    if (valence<0.5 && energy>0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/mptrcfatb/angry.png" /></div>)};
+    if (valence>0.5 && energy<0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
   }
+
+
 
   render() {
 

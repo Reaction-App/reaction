@@ -45,6 +45,20 @@ class Chart extends Component {
       //   }]
       // },
 
+
+      // responsive: {
+      //   rules: [{
+      //     condition: {
+      //       maxWidth: 500
+      //     },
+      //     chartOptions: {
+      //       chart: {
+      //         width: 355
+      //       }
+      //     }
+      //   }]
+      // }
+
       credits: {
         enabled: false
       },
@@ -132,7 +146,9 @@ class Chart extends Component {
       },
       series: data
     };
+
     return <ReactHighcharts config={config} ref="chart"/>
+
   }
 }
 

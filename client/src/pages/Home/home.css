@@ -1,3 +1,35 @@
-.tableDiv {
-	margin-bottom: 50px;
+.button-search {
+  padding: 20px 50px;
+  font-size: 16px;
+  margin: 0 auto;
+  text-align: center;
+  display: inline-block;
+  text-transform: uppercase;
+  background-color: #5A66E3;
+  color: #FFFFFF;
+  font-weight: bold;
+  letter-spacing: 2;
+  border: 0;
+  cursor: pointer;
+  margin-top: 0;
+  margin-bottom: 20;
+  height: 60px;
+}
+
+.search-field {
+  background-color: #FFFFFF;
+  display: inline-block;
+  margin-bottom: 60px;
+  padding-left: 10px;
+  border: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .button-search {
+    padding: 20px 30px;
+  }
+  .empty-state-text {
+    font-size: 16px;
+    padding: 0 20px;
+  }
 }
