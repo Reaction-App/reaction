@@ -87,6 +87,7 @@ class AppContainer extends Component {
         handleFormSubmit = {this.handleFormSubmit}
         handleRowSelection = {this.handleRowSelection}
         tracks = {this.state.tracks}
+        savedTracks = {this.state.savedTracks}
         isSelected = {this.isSelected}
         handleSaveTrack = {this.handleSaveTrack}
         playTrack = {this.playTrack}
