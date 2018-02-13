@@ -45,6 +45,7 @@ class AppContainer extends Component {
     currentSort: "Recently Added",
     trackName: { type: String, required: true },
     artist: "",
+    highlightSongOnGraph: null,
     album: "",
     trackID: "",
     trackURL: "",
@@ -114,6 +115,8 @@ class AppContainer extends Component {
         handleSortBySelected = {this.handleSortBySelected}
         handleDeleteTrack = {this.handleDeleteTrack}
         showEmotion = {this.showEmotion}
+        highlightSongOnGraph = {this.state.highlightSongOnGraph}
+        highlightThis = {this.highlightThis}
       />;
     } else {
       return <LoginPage />;
@@ -586,6 +589,18 @@ class AppContainer extends Component {
     if (valence>0.5 && energy<0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
   }
 
+  highlightThis = index => {
+    // let foundIndex = null;
+
+    // this.state.savedTracks.forEach((track, index) => {
+    //   if (id === track.trackID) {
+    //     foundIndex = index
+    //   }
+    // })
+    // // console.log(id)
+    console.log(index)
+    this.setState({highlightSongOnGraph: index})
+  }
 
 
   render() {
