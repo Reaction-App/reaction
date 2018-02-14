@@ -27,7 +27,7 @@ class Chart extends Component {
     chart.showLoading(message)
     setTimeout(() => {
       chart.hideLoading()
-    }, 600)      
+    }, 1250)      
   }
 
   componentDidLoad() {
@@ -108,7 +108,10 @@ class Chart extends Component {
         backgroundColor: 'transparent',
       },
       title: {
-        text: ''
+        text: '[Click on a point to sort by track.]',
+        style: {
+            fontSize: '14px',
+          }
       },
       xAxis: {
         labels: {
@@ -118,8 +121,11 @@ class Chart extends Component {
         },
         title: {
           enabled: true,
-          text: 'Positivity'
-          },
+          text: 'Positivity',
+          style: {
+            fontSize: '18px'
+          }
+        },
         startOnTick: true,
         endOnTick: true,
         showLastLabel: true,
@@ -138,7 +144,10 @@ class Chart extends Component {
           }
         },
         title: {
-          text: 'Energy'
+          text: 'Energy',
+          style: {
+            fontSize: '20px'
+          }
         },
         min: 0,
         max: 100,
@@ -190,9 +199,9 @@ class Chart extends Component {
             },
           },
           tooltip: {
-            allowHTML: true,
-            headerFormat: '<b>{point.key}</b><br>',
-            pointFormat: 'Positivity: {point.x}%, Energy: {point.y}%'
+            useHTML: true,
+            headerFormat: '<b>{point.key}</b><br><table>',
+            pointFormat: 'Positivity: {point.x}%, Energy: {point.y}%',
           }
         }
       },

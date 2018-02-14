@@ -72,7 +72,9 @@ class AppContainer extends Component {
   handlePageChange = page => {
     this.setState({ 
       currentPage: page,
-      highlightSongOnGraph: null 
+      highlightSongOnGraph: null,
+      tracks:{},
+      query: '' 
     });
     this.handleClose();
   }
@@ -188,9 +190,7 @@ class AppContainer extends Component {
   handleClose = () => {
     this.loadTracks();
     this.setState({
-      open: false,
-      tracks:{},
-      query: ''
+      open: false
     });
   }
 
@@ -594,26 +594,22 @@ class AppContainer extends Component {
     if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
   }
 
+  // When hovering over a playlist track, show tooltip on chart
   highlightThis = id => {
-    let foundTrack = null;
     let nameString = '';
 
-    if (id === null) {
-      this.setState({highlightSongOnGraph: null})
-    } else {
+    // If id is not null, create namestring for chart componenent
+    if (id != null) {
       this.state.savedTracks.forEach((track) => {
         if (id === track.trackID) {
           nameString = '"' + track.trackName + '" by ' + track.artist;
         }
       });
-
-      this.setState({highlightSongOnGraph: nameString})
     }
+    this.setState({highlightSongOnGraph: nameString})
   }
 
-
   render() {
-
     return (
       <div>
         <Nav
