@@ -11,6 +11,13 @@ import querystring from 'querystring';
 let parsed = querystring.parse(window.location.hash);
 let accessToken = parsed['#access_token'];
 
+function removeHash () { 
+    window.history.pushState("", document.title, window.location.pathname + window.location.search);
+}
+
+removeHash();
+
+
 class AppContainer extends Component {
   state = {
     // Page state
