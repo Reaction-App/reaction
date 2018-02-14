@@ -7,7 +7,15 @@ class Chart extends Component {
 
   highlight = () => {
     let chart = this.refs.chart.getChart();
-    let highlightThisIndex = this.props.highlightSongOnGraph;
+    let highlightThisSong = this.props.highlightSongOnGraph;
+    let highlightThisIndex = null;
+
+    chart.series[0].data.forEach((data) => {
+      if (highlightThisSong === data.options.name) {
+        highlightThisIndex = data.index
+      }
+    })
+
     if (highlightThisIndex != null) {
       chart.series[0].data[highlightThisIndex].setState('hover');
       chart.tooltip.refresh(chart.series[0].data[highlightThisIndex]);
@@ -34,7 +42,6 @@ class Chart extends Component {
     const componentScope = this;
     let {chartData} = componentScope.props
     let data = [{data: chartData, color: '#5A66E3'}]
-    console.log(data);
 
 
     // if (componentScope.props.hoverPoint()) {
