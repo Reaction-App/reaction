@@ -14,7 +14,7 @@ import './styles.css';
 	// Heroku: REDIRECT_URL set to 'https://desolate-caverns-55074.herokuapp.com/home/callback'
 
 	// Local Redirect
-	const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home/callback');
+	const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home');
 
 	// Heroku Redirect
 	// const REDIRECT_URI = encodeURIComponent('https://reaction-music.herokuapp.com/home/callback');
