@@ -5,7 +5,22 @@ const ReactHighcharts = require('react-highcharts');
 
 class Chart extends Component {
 
+  highlight = () => {
+    let chart = this.refs.chart.getChart();
+    let highlightThisSong = this.props.highlightSongOnGraph;
+    let highlightThisIndex = null;
 
+    chart.series[0].data.forEach((data) => {
+      if (highlightThisSong === data.options.name) {
+        highlightThisIndex = data.index
+      }
+    })
+
+    if (highlightThisIndex != null) {
+      chart.series[0].data[highlightThisIndex].setState('hover');
+      chart.tooltip.refresh(chart.series[0].data[highlightThisIndex]);
+    }
+  }
 
   graphLoading = (message) => {
     let chart = this.refs.chart.getChart();
@@ -15,9 +30,11 @@ class Chart extends Component {
     }, 600)      
   }
 
-  componentDidUpdate() {
+  componentDidLoad() {
+  }
 
-    // this.graphLoading("Loading...");
+  componentDidUpdate() {
+    this.highlight();
   }
 
   render() {
@@ -25,6 +42,13 @@ class Chart extends Component {
     const componentScope = this;
     let {chartData} = componentScope.props
     let data = [{data: chartData, color: '#5A66E3'}]
+
+
+    // if (componentScope.props.hoverPoint()) {
+    //   let chart = this.refs.chart.getChart();
+    //   this.series[0].data[0].setState('hover');
+    // }
+
     // let labelStyle = {
     //     left: '120px',
     //     top: '100px',
@@ -146,7 +170,7 @@ class Chart extends Component {
             states: {
               hover: {
                 enabled: true,
-                lineColor: 'rgb(100,100,100)'
+                lineColor: 'rgb(100,100,100)',
               }
             }
           },
@@ -154,8 +178,16 @@ class Chart extends Component {
             hover: {
               marker: {
                 enabled: false
-              }
-            }
+              },
+              // halo: {
+              //   size: 10,
+              //   attributes: {
+              //       fill: 'black',
+              //       'stroke-width': 2,
+              //       stroke: 'black'
+              //   }
+              // }
+            },
           },
           tooltip: {
             allowHTML: true,
