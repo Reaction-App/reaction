@@ -526,7 +526,7 @@ class AppContainer extends Component {
     switch(value) {
     case 1:
         newSort ="Happy"
-        sortedTracks = this.calcDistance(sortedTracks,1,1);
+        sortedTracks = this.calcDistance(sortedTracks,100,100);
         sortedTracks = sortedTracks.sort(this.compareValues('distance'));
         break;
     case 2:
@@ -536,12 +536,12 @@ class AppContainer extends Component {
         break;
     case 3:
         newSort ="Angry"
-        sortedTracks = this.calcDistance(sortedTracks,0,1);
+        sortedTracks = this.calcDistance(sortedTracks,0,100);
         sortedTracks = sortedTracks.sort(this.compareValues('distance'));
         break;
     case 4:
         newSort ="Relaxing"
-        sortedTracks = this.calcDistance(sortedTracks,1,0);
+        sortedTracks = this.calcDistance(sortedTracks,100,0);
         sortedTracks = sortedTracks.sort(this.compareValues('distance'));
         break;
     default:
@@ -588,10 +588,10 @@ class AppContainer extends Component {
 
   // emotion functions
   showEmotion = (valence, energy) => {
-    if (valence>=0.5 && energy>=0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/sx0jyqekv/happy.png" /></div>)};
-    if (valence<0.5 && energy<0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/5pav3pnhb/sad.png" /></div>)};
-    if (valence<0.5 && energy>0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/mptrcfatb/angry.png" /></div>)};
-    if (valence>0.5 && energy<0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
+    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/sx0jyqekv/happy.png" /></div>)};
+    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/5pav3pnhb/sad.png" /></div>)};
+    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/mptrcfatb/angry.png" /></div>)};
+    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
   }
 
   highlightThis = id => {
