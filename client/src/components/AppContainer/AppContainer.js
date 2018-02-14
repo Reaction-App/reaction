@@ -598,13 +598,17 @@ class AppContainer extends Component {
     let foundTrack = null;
     let nameString = '';
 
-    this.state.savedTracks.forEach((track) => {
-      if (id === track.trackID) {
-        nameString = '"' + track.trackName + '" by ' + track.artist;
-      }
-    });
+    if (id === null) {
+      this.setState({highlightSongOnGraph: null})
+    } else {
+      this.state.savedTracks.forEach((track) => {
+        if (id === track.trackID) {
+          nameString = '"' + track.trackName + '" by ' + track.artist;
+        }
+      });
 
-    this.setState({highlightSongOnGraph: nameString})
+      this.setState({highlightSongOnGraph: nameString})
+    }
   }
 
 

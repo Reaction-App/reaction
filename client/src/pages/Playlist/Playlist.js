@@ -71,7 +71,8 @@ const Playlist = props =>
                 </FontIcon>
               </IconButton>
                 }
-                onClick={() => props.highlightThis(track.trackID)}
+                onMouseEnter={() => props.highlightThis(track.trackID)}
+                onMouseLeave={() => props.highlightThis(null)}
                 nestedItems={[
                   <div style={{ marginLeft: 72, marginTop: 0, padding: 0, fontFamily: 'Montserrat', fontSize: 12 }}>
                     <button style={{padding:'10px 20px', fontSize:'10px', margin:'0 auto', textAlign: 'center', display: 'inline-block', textTransform: 'uppercase', backgroundColor: '#5A66E3', color: '#FFFFFF', fontWeight: 'bold', letterSpacing: 2, border: 0, cursor: 'pointer', marginTop: -10, marginRight: 10 }}
