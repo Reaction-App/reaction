@@ -45,6 +45,7 @@ class AppContainer extends Component {
     currentSort: "Recently Added",
     trackName: { type: String, required: true },
     artist: "",
+    highlightSongOnGraph: null,
     album: "",
     trackID: "",
     trackURL: "",
@@ -69,7 +70,10 @@ class AppContainer extends Component {
   }
 
   handlePageChange = page => {
-    this.setState({ currentPage: page });
+    this.setState({ 
+      currentPage: page,
+      highlightSongOnGraph: null 
+    });
     this.handleClose();
   }
 
@@ -114,6 +118,8 @@ class AppContainer extends Component {
         handleSortBySelected = {this.handleSortBySelected}
         handleDeleteTrack = {this.handleDeleteTrack}
         showEmotion = {this.showEmotion}
+        highlightSongOnGraph = {this.state.highlightSongOnGraph}
+        highlightThis = {this.highlightThis}
       />;
     } else {
       return <LoginPage />;
@@ -344,9 +350,11 @@ class AppContainer extends Component {
         let chartTracks = [];
         tracks.forEach((tracks) => {
           let nameString = '"' + tracks.trackName + '" by ' + tracks.artist;
-          chartTracks.push({name: nameString, x: tracks.valence, y: tracks.energy})
+          chartTracks.unshift({name: nameString, x: tracks.valence, y: tracks.energy})
         });
-        this.setState({chartData: chartTracks});
+        this.setState({
+          chartData: chartTracks
+        });
       })
       .catch(err => console.log(err));
   }
@@ -586,6 +594,18 @@ class AppContainer extends Component {
     if (valence>0.5 && energy<0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
   }
 
+  highlightThis = id => {
+    let foundTrack = null;
+    let nameString = '';
+
+    this.state.savedTracks.forEach((track) => {
+      if (id === track.trackID) {
+        nameString = '"' + track.trackName + '" by ' + track.artist;
+      }
+    });
+
+    this.setState({highlightSongOnGraph: nameString})
+  }
 
 
   render() {
