@@ -526,7 +526,7 @@ class AppContainer extends Component {
     switch(value) {
     case 1:
         newSort ="Happy"
-        sortedTracks = this.calcDistance(sortedTracks,1,1);
+        sortedTracks = this.calcDistance(sortedTracks,100,100);
         sortedTracks = sortedTracks.sort(this.compareValues('distance'));
         break;
     case 2:
@@ -536,12 +536,12 @@ class AppContainer extends Component {
         break;
     case 3:
         newSort ="Angry"
-        sortedTracks = this.calcDistance(sortedTracks,0,1);
+        sortedTracks = this.calcDistance(sortedTracks,0,100);
         sortedTracks = sortedTracks.sort(this.compareValues('distance'));
         break;
     case 4:
         newSort ="Relaxing"
-        sortedTracks = this.calcDistance(sortedTracks,1,0);
+        sortedTracks = this.calcDistance(sortedTracks,100,0);
         sortedTracks = sortedTracks.sort(this.compareValues('distance'));
         break;
     default:
