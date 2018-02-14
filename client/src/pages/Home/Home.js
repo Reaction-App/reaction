@@ -3,7 +3,6 @@ import './home.css';
 
 // Material UI components
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import {
@@ -32,22 +31,22 @@ import FlatButton from 'material-ui/FlatButton';
 // Home Page
 const Home = props => {
 
-      // buttons for the modal
-    const actions = [
-      <FlatButton
-        label="Add More Songs"
-        primary={true}
-        onClick={() => props.handleClose()}
-        style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
-      />,
-      <FlatButton
-        backgroundColor={'#5A66E3'}
-        label="View My Playlist"
-        primary={true}
-        onClick={() => props.handlePageChange('Playlist')}
-        style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, width: 200 }}
-      />,
-    ];
+  // buttons for the modal
+  const actions = [
+    <FlatButton
+      label="Add More Songs"
+      primary={true}
+      onClick={() => props.handleClose()}
+      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
+    />,
+    <FlatButton
+      backgroundColor={'#5A66E3'}
+      label="View My Playlist"
+      primary={true}
+      onClick={() => props.handlePageChange('Playlist')}
+      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, width: 200 }}
+    />,
+  ];
 
  return(
 
@@ -58,24 +57,17 @@ const Home = props => {
       backgroundSize: 'cover',
       marginBottom: 50
     }}>
-    {props.userData && props.userData.userName ? (
       <h3 style={{
         marginTop: 0,
         paddingTop: 20,
         color: 'white',
         textAlign: 'center'
       }}>
-        Hey there, {props.userData.userName}</h3>
-    )
-    : (<h3 style={{
-      marginTop: 0,
-      paddingTop: 20,
-      color: 'white',
-      textAlign: 'center'
-    }}>
-      Hey There, {props.userData.userID}</h3>)}
+        Hey there, {props.userData.userName ? props.userData.userName : props.userData.userID}
+      </h3>
 
     <div style={{margin: '0 auto', display: 'block', textAlign: 'center'}}>
+      <form>
       <TextField
         className="search-field"
         underlineShow={false}
@@ -97,7 +89,9 @@ const Home = props => {
         onClick={props.handleFormSubmit}>
         Search
       </button>
+      </form>
     </div>
+
   </div>
 
   <div className="tableDiv"
@@ -127,13 +121,14 @@ const Home = props => {
           {props.tracks.map((track, index) => {
             return (
               <TableRow key={track.trackID} selected={props.isSelected(index)} >
+
                 <TableRowColumn style={{fontSize: 16, width: 30}}>
 
                   <IconButton
                     style={{padding: 0, width: 0, height: 0}}
                     disabled={track.trackURL === null ? true : false}
                     tooltip={track.trackURL === null ? 'Not Available' : false}
-                    tooltipPosition='center-right'
+                    tooltipPosition='bottom-right'
                     onClick={() => props.playTrack(track.trackURL, track.trackID)}
                   >
                     <FontIcon className="material-icons">
@@ -149,9 +144,11 @@ const Home = props => {
                 <TableRowColumn>
                   <div>
                     <FlatButton
-                      backgroundColor={'#5A66E3'}
-                      label="Add Song" onClick={() => props.handleSaveTrack(track)}
-                      style={{ float: 'right',  fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat' }} />
+                      backgroundColor={props.savedTracks.findIndex(x => x.trackID === track.trackID) == -1 ? '#5A66E3' : '#ACAEB2'}
+                      label={props.savedTracks.findIndex(x => x.trackID === track.trackID) == -1 ? "Add Song" : "Added"}
+                      disabled={props.savedTracks.findIndex(x => x.trackID === track.trackID) == -1 ? false : true}
+                      onClick={() => props.handleSaveTrack(track)}
+                      style={{ float: 'right',  fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', width: 112 }} />
                     <Dialog
                       title="Song Added"
                       titleStyle={style.dialoguetitle}

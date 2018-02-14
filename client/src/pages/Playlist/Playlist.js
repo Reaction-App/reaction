@@ -7,14 +7,6 @@ import MenuItem from 'material-ui/MenuItem';
 import {List, ListItem} from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
 
 import './playlist.css';
 
@@ -23,16 +15,13 @@ import './playlist.css';
 // }
 
 
-// Material UI styles
-const styles = {};
-
 const Playlist = props =>
 
   <div style={{margin: '0 auto', padding: 20, maxWidth: 1200, position: 'relative'}}>
 
     <div className="chart">
         {props.chartData.length ? (
-        <TrackChart chartData={props.chartData}/>
+        <TrackChart chartData={props.chartData} graphClick={props.graphClick} highlightSongOnGraph={props.highlightSongOnGraph}/>
         ) : (<div></div>)}
     </div>
 
@@ -82,6 +71,7 @@ const Playlist = props =>
                 </FontIcon>
               </IconButton>
                 }
+                onClick={() => props.highlightThis(track.trackID)}
                 nestedItems={[
                   <div style={{ marginLeft: 72, marginTop: 0, padding: 0, fontFamily: 'Montserrat', fontSize: 12 }}>
                     <button style={{padding:'10px 20px', fontSize:'10px', margin:'0 auto', textAlign: 'center', display: 'inline-block', textTransform: 'uppercase', backgroundColor: '#5A66E3', color: '#FFFFFF', fontWeight: 'bold', letterSpacing: 2, border: 0, cursor: 'pointer', marginTop: -10, marginRight: 10 }}
@@ -98,7 +88,7 @@ const Playlist = props =>
                 </p>
                 <div style={{borderBottom: '1px solid #BABABA'}}>
                   <p style={{marginTop: 0, marginBottom: 0, paddingBottom: 5, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'inline-block'}}>
-                    Positivity: {track.valence} | Energy: {track.energy}
+                    Positivity: {track.valence}% | Energy: {track.energy}%
                   </p>
                   <div style={{display: 'inline-block', marginLeft: 10, marginTop: -15, verticalAlign: 'middle'}}>{props.showEmotion(track.valence,track.energy)}</div>
                 </div>

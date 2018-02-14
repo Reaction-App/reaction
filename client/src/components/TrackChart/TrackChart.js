@@ -5,18 +5,50 @@ const ReactHighcharts = require('react-highcharts');
 
 class Chart extends Component {
 
-  componentDidUpdate() {
+  highlight = () => {
     let chart = this.refs.chart.getChart();
-    chart.showLoading()
+    let highlightThisSong = this.props.highlightSongOnGraph;
+    let highlightThisIndex = null;
+
+    chart.series[0].data.forEach((data) => {
+      if (highlightThisSong === data.options.name) {
+        highlightThisIndex = data.index
+      }
+    })
+
+    if (highlightThisIndex != null) {
+      chart.series[0].data[highlightThisIndex].setState('hover');
+      chart.tooltip.refresh(chart.series[0].data[highlightThisIndex]);
+    }
+  }
+
+  graphLoading = (message) => {
+    let chart = this.refs.chart.getChart();
+    chart.showLoading(message)
     setTimeout(() => {
       chart.hideLoading()
-    }, 500)
+    }, 600)      
+  }
+
+  componentDidLoad() {
+  }
+
+  componentDidUpdate() {
+    this.highlight();
   }
 
   render() {
 
-    let {chartData} = this.props
+    const componentScope = this;
+    let {chartData} = componentScope.props
     let data = [{data: chartData, color: '#5A66E3'}]
+
+
+    // if (componentScope.props.hoverPoint()) {
+    //   let chart = this.refs.chart.getChart();
+    //   this.series[0].data[0].setState('hover');
+    // }
+
     // let labelStyle = {
     //     left: '120px',
     //     top: '100px',
@@ -79,6 +111,11 @@ class Chart extends Component {
         text: ''
       },
       xAxis: {
+        labels: {
+          formatter: function() {
+            return this.value+'%';
+          }
+        },
         title: {
           enabled: true,
           text: 'Positivity'
@@ -87,23 +124,28 @@ class Chart extends Component {
         endOnTick: true,
         showLastLabel: true,
         min: 0,
-        max: 1,
+        max: 100,
         plotLines: [{
             color: '#C4C4C4',
             width: 1,
-            value: .5
+            value: 50
         }]
       },
       yAxis: {
+        labels: {
+          formatter: function() {
+            return this.value+'%';
+          }
+        },
         title: {
           text: 'Energy'
         },
         min: 0,
-        max: 1,
+        max: 100,
         plotLines: [{
             color: '#C4C4C4',
             width: 1,
-            value: .5
+            value: 50
         }]
 
       },
@@ -113,12 +155,14 @@ class Chart extends Component {
 
       plotOptions: {
         series: {
+          animation: false,
           events: {
-            // click: function() {
-            //   // alert(this.chart.hoverPoint.name)
-            //   SortFunctions.helloWorld()
-            // }
-          }
+            click: (event) => {
+              componentScope.props.graphClick(event);
+              this.graphLoading("Sorting by track...")
+            }
+          },
+          cursor: 'pointer'
         },
         scatter: {
           marker: {
@@ -126,7 +170,7 @@ class Chart extends Component {
             states: {
               hover: {
                 enabled: true,
-                lineColor: 'rgb(100,100,100)'
+                lineColor: 'rgb(100,100,100)',
               }
             }
           },
@@ -134,13 +178,21 @@ class Chart extends Component {
             hover: {
               marker: {
                 enabled: false
-              }
-            }
+              },
+              // halo: {
+              //   size: 10,
+              //   attributes: {
+              //       fill: 'black',
+              //       'stroke-width': 2,
+              //       stroke: 'black'
+              //   }
+              // }
+            },
           },
           tooltip: {
             allowHTML: true,
             headerFormat: '<b>{point.key}</b><br>',
-            pointFormat: 'Positivity: {point.x}, Energy: {point.y}'
+            pointFormat: 'Positivity: {point.x}%, Energy: {point.y}%'
           }
         }
       },
@@ -148,7 +200,7 @@ class Chart extends Component {
     };
     return (
       <div style={{position: 'absolute', left: 0}}>
-      <ReactHighcharts config={config} neverReflow />
+      <ReactHighcharts config={config} ref="chart"/>
         <p style={{position: 'absolute', top: '12%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
         <p style={{position: 'absolute', top: '12%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
         <p style={{position: 'absolute', top: '56%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>

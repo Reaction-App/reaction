@@ -5,7 +5,6 @@ import Home from "../../pages/Home";
 import Playlist from "../../pages/Playlist";
 import LoginPage from "../../pages/LoginPage";
 import querystring from 'querystring';
-import FlatButton from 'material-ui/FlatButton';
 
 
 // Get Access Token
@@ -20,6 +19,7 @@ class AppContainer extends Component {
     accessToken: '',
     // User Account Data
     userData: {
+        _id: '',
         userName: '',
         userID: ''
     },
@@ -45,6 +45,7 @@ class AppContainer extends Component {
     currentSort: "Recently Added",
     trackName: { type: String, required: true },
     artist: "",
+    highlightSongOnGraph: null,
     album: "",
     trackID: "",
     trackURL: "",
@@ -64,12 +65,15 @@ class AppContainer extends Component {
     } else {
       this.setState({accessToken: accessToken})
       this.loadSpotifyUserData()
-      this.loadTracks()
+      //this.loadTracks() can't load tracks until loadSpotifyUserData is complete
     }
   }
 
   handlePageChange = page => {
-    this.setState({ currentPage: page });
+    this.setState({ 
+      currentPage: page,
+      highlightSongOnGraph: null 
+    });
     this.handleClose();
   }
 
@@ -87,6 +91,7 @@ class AppContainer extends Component {
         handleFormSubmit = {this.handleFormSubmit}
         handleRowSelection = {this.handleRowSelection}
         tracks = {this.state.tracks}
+        savedTracks = {this.state.savedTracks}
         isSelected = {this.isSelected}
         handleSaveTrack = {this.handleSaveTrack}
         playTrack = {this.playTrack}
@@ -107,11 +112,14 @@ class AppContainer extends Component {
         handlePlaylistRowSelection = {this.handlePlaylistRowSelection}
         playlistRowIsSelected = {this.playlistRowIsSelected}
         playTrack = {this.playTrack}
+        graphClick = {this.graphClick}
         currentSongPlayingID = {this.state.currentSongPlayingID}
         songPlaying = {this.state.songPlaying}
         handleSortBySelected = {this.handleSortBySelected}
         handleDeleteTrack = {this.handleDeleteTrack}
         showEmotion = {this.showEmotion}
+        highlightSongOnGraph = {this.state.highlightSongOnGraph}
+        highlightThis = {this.highlightThis}
       />;
     } else {
       return <LoginPage />;
@@ -152,15 +160,24 @@ class AppContainer extends Component {
                 userID: data.id
               }
             });
-
-            // check if user record exists in DB and update
-            // if not exist, crreate one
-            API.upsertUser({
-              userName: data.display_name,
-              userID: data.id});
+          
+          // check if user record exists in DB and update
+          // if not exist, create one
+          // then add DB _id to state.userData
+          // Uses object.assign to get current userData object then add _id to the object 
+          API
+          .upsertUser({
+            userName: data.display_name,
+            userID: data.id})
+          .then(res => {
+              this.setState(
+                { userData: Object.assign({}, this.state.userData, {_id: res.data._id}) }
+              )
+              this.loadTracks();
+          })
         })
-       }
-     })
+      }
+    })
   }
 
   // handle dialog open and close
@@ -169,6 +186,7 @@ class AppContainer extends Component {
   }
 
   handleClose = () => {
+    this.loadTracks();
     this.setState({
       open: false,
       tracks:{},
@@ -281,20 +299,24 @@ class AppContainer extends Component {
     // Find audio features for the track and add to new track objcet
     this.findAudioFeatures(fullTrackDetails.trackID)
       .then(data=> {
-        fullTrackDetails.valence = data.valence
-        fullTrackDetails.energy = data.energy
+        fullTrackDetails.valence = (data.valence * 100).toFixed(2)
+        fullTrackDetails.energy = (data.energy * 100).toFixed(2)
       })
       .then(res =>
-        // Save tracks to database
+        // push track to the user's playlist in DB
         API.saveTrack({
-          trackName: fullTrackDetails.trackName,
-          artist: fullTrackDetails.artist,
-          album: fullTrackDetails.album,
-          trackID: fullTrackDetails.trackID,
-          trackURL: fullTrackDetails.trackURL,
-          valence: fullTrackDetails.valence,
-          energy: fullTrackDetails.energy
-        }))
+          _id: this.state.userData._id,
+          newTrack: {
+            trackName: fullTrackDetails.trackName,
+            artist: fullTrackDetails.artist,
+            album: fullTrackDetails.album,
+            trackID: fullTrackDetails.trackID,
+            trackURL: fullTrackDetails.trackURL,
+            valence: fullTrackDetails.valence,
+            energy: fullTrackDetails.energy
+          }
+        })
+      )
       //Below line triggers modal
       .then(this.handleOpen())
       .then(res => {
@@ -305,30 +327,34 @@ class AppContainer extends Component {
 
   loadTracks = () => {
 
-    // Load tracks from DB
-    API.getTracks()
-      .then(res => {
-        let newTracks = res.data;
-        newTracks = newTracks.sort(this.compareValues('_id','desc'));
-        this.setState({ savedTracks: newTracks });
-        this.getGraphData();
-      })
-      .catch(err => console.log(err));
+    // Load tracks from DB.
+    // NOTE: Requires loadSpotifyUserData to be complete so that user id is available 
+    API.getUser(this.state.userData._id)
+        .then(res => {
+          let newTracks = res.data.tracks;
+          newTracks = newTracks.sort(this.compareValues('_id','desc'));
+          this.setState({ savedTracks: newTracks });
+          this.getGraphData();
+        })
+        .then(console.log(this.savedTracks))
+        .catch(err => console.log(err));
   }
 
   getGraphData = () => {
 
 
     // Load tracks from DB
-    API.getTracks()
+    API.getUser(this.state.userData._id)
       .then(res => {
-        let tracks = res.data;
+        let tracks = res.data.tracks;
         let chartTracks = [];
         tracks.forEach((tracks) => {
           let nameString = '"' + tracks.trackName + '" by ' + tracks.artist;
-          chartTracks.push({name: nameString, x: tracks.valence, y: tracks.energy})
+          chartTracks.unshift({name: nameString, x: tracks.valence, y: tracks.energy})
         });
-        this.setState({chartData: chartTracks});
+        this.setState({
+          chartData: chartTracks
+        });
       })
       .catch(err => console.log(err));
   }
@@ -382,9 +408,9 @@ class AppContainer extends Component {
       this.stopSongPlaying()
     }
 
-    // delete an article when delete button is clicked
+    // delete a track when delete button is clicked
     API.deleteTrack(id)
-      .then(res => this.loadTracks())
+      .then(this.loadTracks())
       .catch(err => console.log(err));
   }
 
@@ -547,6 +573,17 @@ class AppContainer extends Component {
     this.setState({ selectedPlaylistTrack: [] });
   }
 
+  graphClick = event => {
+    let graphTrack = event.point.name.split(/"/)[1];
+    let trackIndex = 0;
+    this.state.savedTracks.forEach((track, index) => {
+      if (graphTrack === track.trackName) {
+        trackIndex = index
+      }
+    })
+    this.handleSortBySelected(trackIndex);
+  }
+
   // const happy = '<img src="https://s17.postimg.org/sx0jyqekv/happy.png" />';
 
   // emotion functions
@@ -557,6 +594,18 @@ class AppContainer extends Component {
     if (valence>0.5 && energy<0.5) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
   }
 
+  highlightThis = id => {
+    let foundTrack = null;
+    let nameString = '';
+
+    this.state.savedTracks.forEach((track) => {
+      if (id === track.trackID) {
+        nameString = '"' + track.trackName + '" by ' + track.artist;
+      }
+    });
+
+    this.setState({highlightSongOnGraph: nameString})
+  }
 
 
   render() {
