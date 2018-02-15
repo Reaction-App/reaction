@@ -55,6 +55,7 @@ const Home = props => {
       backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
       width: "100%",
       backgroundSize: 'cover',
+      padding: 10,
       marginBottom: 50
     }}>
       <h3 style={{
@@ -67,13 +68,47 @@ const Home = props => {
       </h3>
 
     <div style={{margin: '0 auto', display: 'block', textAlign: 'center'}}>
+
       <form>
+
       <TextField
         className="search-field"
         underlineShow={false}
-        hintText="Search Song..."
-        name="query"
-        value={props.query}
+        hintText="Track Name..."
+        name="searchTrack"
+        value={props.searchTrack}
+        onChange={props.handleInputChange}
+        style={{
+          backgroundColor: '#FFFFFF',
+          height: 60,
+          fontSize: 20,
+          fontFamily: 'Montserrat',
+          width: '50%'
+        }}
+      />
+
+      <TextField
+        className="search-field"
+        underlineShow={false}
+        hintText="Artist..."
+        name="searchArtist"
+        value={props.searchArtist}
+        onChange={props.handleInputChange}
+        style={{
+          backgroundColor: '#FFFFFF',
+          height: 60,
+          fontSize: 20,
+          fontFamily: 'Montserrat',
+          width: '50%'
+        }}
+      />
+
+      <TextField
+        className="search-field"
+        underlineShow={false}
+        hintText="Album..."
+        name="searchAlbum"
+        value={props.searchAlbum}
         onChange={props.handleInputChange}
         style={{
           backgroundColor: '#FFFFFF',
@@ -89,6 +124,7 @@ const Home = props => {
         onClick={props.handleFormSubmit}>
         Search
       </button>
+
       </form>
     </div>
 

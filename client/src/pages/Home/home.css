@@ -3,7 +3,7 @@
   font-size: 16px;
   margin: 0 auto;
   text-align: center;
-  display: inline-block;
+  display: block;
   text-transform: uppercase;
   background-color: #5A66E3;
   color: #FFFFFF;
@@ -12,7 +12,7 @@
   border: 0;
   cursor: pointer;
   margin-top: 0;
-  margin-bottom: 20;
+  margin-bottom: 20px;
   height: 60px;
   vertical-align: top;
 }
@@ -20,7 +20,7 @@
 .search-field {
   background-color: #FFFFFF;
   display: inline-block;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   padding-left: 10px;
   border: 0;
 }
