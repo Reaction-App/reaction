@@ -42,7 +42,7 @@ const Playlist = props => {
       label="View Spotify Playlist"
       primary={true}
       onClick={() => props.viewPlaylist()}      
-      style={{fontSize: 10, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, width: 200 }}
+      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, 'line-height': '20px' }}
     />,
   ];
 
@@ -65,7 +65,7 @@ const Playlist = props => {
                     open={props.playlistAddedModalOpen}
                     onRequestClose={props.closePlaylistAddedModal}
                     >
-                    <p style={{fontFamily: 'Montserrat', fontSize: 18 }}>Would you like to keep adding songs or view your playlist?</p>
+                    <p style={{fontFamily: 'Montserrat', fontSize: 18 }}>Your playlist has been exported to Spotify!</p>
                   </Dialog>
               </div>
             </div>
