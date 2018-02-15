@@ -25,7 +25,7 @@ const Nav = props => (
     iconElementRight={
       <div>
         <FlatButton
-          className="menu-item"
+          className="menu-item selected"
           label="Search"
           onClick={() => props.handlePageChange("Home")}
           style={{marginTop: 14, fontFamily: 'Montserrat'}} />
