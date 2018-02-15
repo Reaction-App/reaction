@@ -21,10 +21,14 @@ const Playlist = props =>
 
     <div className="chart">
         {props.chartData.length ? (
-        <TrackChart chartData={props.chartData} graphClick={props.graphClick} highlightSongOnGraph={props.highlightSongOnGraph}/>
+          <div>
+            <TrackChart chartData={props.chartData} graphClick={props.graphClick} highlightSongOnGraph={props.highlightSongOnGraph}/>
+            <div className="addToPlaylistButtonDiv">
+              <button className="addToPlaylistButton" onClick={() => props.postPlaylistToSpotify()}>Export Playlist to Spotify</button>
+            </div>
+          </div>
         ) : (<div></div>)}
     </div>
-
     <div className="playlist-container">
 
       <div>
