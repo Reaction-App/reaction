@@ -69,8 +69,9 @@ class AppContainer extends Component {
     // Spotify Playlist
     playlistID: '',
     playlistUrl: '',
-    playlistDescription: '',
-    playlistName: '',
+    playlistDescription: 'My Reaction Radio Playlist',
+    playlistName: 'My Reaction Radio Playlist',
+    playlistAddedModalOpen: false
   }
 
   componentDidMount() {
@@ -137,6 +138,10 @@ class AppContainer extends Component {
         highlightSongOnGraph = {this.state.highlightSongOnGraph}
         highlightThis = {this.highlightThis}
         postPlaylistToSpotify = {this.postPlaylistToSpotify}
+        playlistAddedModalOpen = {this.state.playlistAddedModalOpen}
+        openPlaylistAddedModal = {this.openPlaylistAddedModal}
+        closePlaylistAddedModal = {this.closePlaylistAddedModal}
+        viewPlaylist = {this.viewPlaylist}
       />;
     } else {
       return <LoginPage />;
@@ -626,24 +631,22 @@ class AppContainer extends Component {
     this.setState({highlightSongOnGraph: nameString})
   }
 
+  // Export playlist to  Spotify
   postPlaylistToSpotify = () => {
 
     const playlistData = { description: 'My Reaction Radio Playlist', name: 'My Reaction Radio Playlist', public: 'true' };
-    Spotify.createPlaylist(this.state.accessToken, this.state.userData.userID, playlistData).then(response => {
+
+    Spotify.createPlaylist(this.state.accessToken, this.state.userData.userID, playlistData)
+    .then(response => {
       this.setState({
         playlistID: response.data.id,
         playlistUrl: response.data.external_urls.spotify
       });
     })
     .then(() => {
-      return this.addSongsToPlaylist(this.state.userData.userID, this.state.playlistID, this.state.savedTracks)
-  })
-    // .then((response) => {
-    //   this.handleConfirmation({
-    //     playlistUrl: this.state.playlistUrl,
-    //     status: response.status
-    //   });
-    // })
+      this.addSongsToPlaylist(this.state.userData.userID, this.state.playlistID, this.state.savedTracks)
+    })
+    .then(() => this.openPlaylistAddedModal())
   }
   
 
@@ -655,7 +658,8 @@ class AppContainer extends Component {
 
     console.log(trackURIs);
 
-    return Spotify.addTracksToPlaylist(this.state.accessToken, userID, playlistID, trackURIs).then(response => {
+    return Spotify.addTracksToPlaylist(this.state.accessToken, userID, playlistID, trackURIs)
+    .then(response => {
       return {
         data: response.data,
         status: response.status
@@ -663,27 +667,23 @@ class AppContainer extends Component {
     })
   }
 
-  resetPlaylist() {
+  openPlaylistAddedModal = () => {
+    this.setState({playlistAddedModalOpen: true})
+  }
+
+  closePlaylistAddedModal = () => {
     this.setState({
-      playlistDescription: '',
-      playlistName: '',
+      playlistAddedModalOpen: false,
+      playlistDescription: 'My Reaction Radio Playlist',
+      playlistName: 'My Reaction Radio Playlist',
       playlistID: '',
       playlistUrl: ''
     })
   }
 
-  // // Modal after saving to playlist
-  // handleOpen = () => {
-  //   this.setState({open: true});
-  // }
-
-  // handleClose = () => {
-  //   this.setState({
-  //     open: false
-  //   });
-  // }
-
-
+  viewPlaylist = () => {
+    window.open(this.state.playlistUrl)
+  }
 
   render() {
     return (
