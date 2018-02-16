@@ -12,6 +12,7 @@ import './playlist.css';
 
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import FlipMove from 'react-flip-move';
 
 // if (props.savedTracks.length === 0) {
 //   document.getElementById("meep").style.display = "none";
@@ -101,6 +102,7 @@ const Playlist = props => {
         <h2 className="playlist-header" style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat'}}>My Playlist<button className="addToPlaylistButton" onClick={() => props.postPlaylistToSpotify()}>Export to Spotify</button></h2>
         {props.savedTracks.length ? (
           <List className="list" style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', maxHeight: 518, overflow: 'scroll', float: 'left'}}>
+            <FlipMove duration={750} easing="ease-out">
             {props.savedTracks.map((track, index) => {
               return (
                 <ListItem
@@ -147,6 +149,7 @@ const Playlist = props => {
               </ListItem>
             )}
             )}
+          </ FlipMove>
         </List>
       ) : (<p style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', width: 380, maxHeight: 518, overflow: 'scroll', float: 'left', padding: 20}}>Once you start adding songs, they will show up here in your playlist.</p>)}
       </div>
