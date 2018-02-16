@@ -17,6 +17,16 @@
   vertical-align: top;
 }
 
+.button-search:focus {
+  outline: 0;
+}
+
+.button-search:hover {
+  background-color: #454448;
+  /*color: #5A66E3;*/
+  transition: all 0.3s ease;
+}
+
 .search-field {
   background-color: #FFFFFF;
   display: inline-block;
@@ -40,8 +50,8 @@
     padding: 0 20px;
   }
   .table-styles {
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap
-}
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap
+  }
 }

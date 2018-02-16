@@ -27,6 +27,36 @@ h1 {
   margin-bottom: 20px;
 }
 
+.login-button:hover {
+  transform: translateY(-15px);
+  transition: all 0.3s ease;
+}
+
+
+.login-button:focus {
+  outline: 0;
+}
+
+.spotify-callout {
+  text-align: center;
+  display: block;
+}
+
+.spotify-callout img {
+  width: 100px;
+  margin-left: 10px;
+  vertical-align: middle;
+  margin-top: -4px;
+}
+
+.spotify-callout p {
+  color: #FFFFFF;
+  /*text-transform: uppercase;*/
+  letter-spacing: 1px;
+  font-weight: bold;
+  display: inline-block;
+}
+
 .background {
   background-image: url('https://s17.postimg.org/z057sw1lb/landing-background.jpg');
   width: 100%;

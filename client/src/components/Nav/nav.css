@@ -2,6 +2,23 @@
   display: none !important;
 }
 
+.selected span {
+  border-bottom: 3px solid #5A66E3;
+  padding: 0 0 3px !important;
+  font-weight: bold !important;
+}
+
+.menu-item:hover {
+background-color: transparent !important;
+color: #5A66E3;
+}
+
+.menu-item, .menu-item span {
+font-weight: bold !important;
+color: #454448;
+letter-spacing: 1px !important;
+}
+
 @media only screen and (max-width: 600px) {
   .menu-item {
     display: none !important;

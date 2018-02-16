@@ -26,7 +26,6 @@ const Playlist = props =>
     </div>
 
     <div className="playlist-container">
-
       <div>
         <DropDownMenu value={props.sortDropDown} onChange={props.handlePlaylistSort} style={{ width: '50%'}}>
           <MenuItem value={0} primaryText="Sort by" />
@@ -49,7 +48,7 @@ const Playlist = props =>
         </DropDownMenu>
       </div>
 
-      <h2 className="playlist-header" style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat'}}>My Playlist</h2>
+      <h2 className="playlist-header" style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat'}}>My Playlist <a>Export To Spotify</a></h2>
 
       {props.savedTracks.length ? (
         <List className="list" style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', maxHeight: 518, overflow: 'scroll', float: 'left'}}>
@@ -57,6 +56,8 @@ const Playlist = props =>
           {props.savedTracks.map((track, index) => {
             return (
               <ListItem
+              className="meep"
+                style={{paddingBottom: 0}}
                 id="songItem"
                 key={track._id}
                 leftIcon={
@@ -71,16 +72,15 @@ const Playlist = props =>
                 </FontIcon>
               </IconButton>
                 }
-                onMouseEnter={() => props.highlightThis(track.trackID)}
-                onMouseLeave={() => props.highlightThis(null)}
-                nestedItems={[
-                  <div style={{ marginLeft: 72, marginTop: 0, padding: 0, fontFamily: 'Montserrat', fontSize: 12 }}>
-                    <button style={{padding:'10px 20px', fontSize:'10px', margin:'0 auto', textAlign: 'center', display: 'inline-block', textTransform: 'uppercase', backgroundColor: '#5A66E3', color: '#FFFFFF', fontWeight: 'bold', letterSpacing: 2, border: 0, cursor: 'pointer', marginTop: -10, marginRight: 10 }}
-         onClick={() => props.handleDeleteTrack(track._id)}>Delete</button>
-                    <button style={{padding:'10px 20px', fontSize:'10px', margin:'0 auto', textAlign: 'center', display: 'inline-block', textTransform: 'uppercase', backgroundColor: '#5A66E3', color: '#FFFFFF', fontWeight: 'bold', letterSpacing: 2, border: 0, cursor: 'pointer', marginTop: -10 }} onClick={() => props.handleSortBySelected(index)}>Sort</button>
-                  </div>
-                ]}
+                onClick={() => props.highlightThis(track.trackID)}
               >
+
+              <div className="action-icons">
+                <img className="sort" onClick={() => props.handleSortBySelected(index)} src="https://s14.postimg.org/f0aj9ige9/sort.png" alt="Sort" />
+
+                <img className="delete" onClick={() => props.handleDeleteTrack(track._id)} src="https://s14.postimg.org/ar5t7e2v5/delete.png" alt="Delete" />
+              </div>
+
                 <p style={{marginTop: 0, marginBottom: 0, fontFamily: 'Montserrat', maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
                   {track.trackName}
                 </p>
@@ -95,8 +95,8 @@ const Playlist = props =>
                 </div>
 
               </ListItem>
-            )
-          })}
+            )})
+        }
         </List>
       ) : (<p style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', width: 380, maxHeight: 518, overflow: 'scroll', float: 'left', padding: 20}}>Once you start adding songs, they will show up here in your playlist.</p>)}
     </div>
