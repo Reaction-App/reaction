@@ -155,54 +155,38 @@ class AppContainer extends Component {
   // API call for user data
   loadSpotifyUserData() {
 
-    // URL constructor for user data
-    const BASE_URL = 'https://api.spotify.com/v1/me';
-    const FETCH_URL = `${BASE_URL}`;
-    const request_params = {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`
-      },
-      mode: 'cors',
-      cache: 'default'
-    };
-
-    // API call with header
-    fetch(FETCH_URL, request_params)
+    Spotify.getUserInfo(accessToken)
       .then(response => {
+        console.log(response.status)
         switch (response.status) {
           case 500: console.error('Some server error'); break;
           case 400: console.error('Missing token'); document.location.href="/"; break;
           case 401: console.error('Unauthorized'); document.location.href="/"; break;
           default: break;
         }
-        if (response.ok) {
-          response.json()
-          .then(data => {
-            this.setState({
-              userData: {
-                userName: data.display_name,
-                userID: data.id
-              }
-            });
+        this.setState({
+          userData: {
+          userName: response.data.display_name,
+          userID: response.data.id
+          }
+        });
           
-          // check if user record exists in DB and update
-          // if not exist, create one
-          // then add DB _id to state.userData
-          // Uses object.assign to get current userData object then add _id to the object 
-          API
-          .upsertUser({
-            userName: data.display_name,
-            userID: data.id})
-          .then(res => {
-              this.setState(
-                { userData: Object.assign({}, this.state.userData, {_id: res.data._id}) }
-              )
-              this.loadTracks();
-          })
+        // check if user record exists in DB and update
+        // if not exist, create one
+        // then add DB _id to state.userData
+        // Uses object.assign to get current userData object then add _id to the object 
+        API
+        .upsertUser({
+          userName: response.data.display_name,
+          userID: response.data.id
         })
-      }
-    })
+        .then(res => {
+            this.setState(
+              { userData: Object.assign({}, this.state.userData, {_id: res.data._id}) }
+            )
+            this.loadTracks();
+        })
+      })
   }
 
   // handle dialog open and close
@@ -661,7 +645,6 @@ class AppContainer extends Component {
     .then(() => this.openPlaylistAddedModal())
   }
   
-
   addSongsToPlaylist(userID, playlistID, tracksToAdd) {
 
     const trackURIs = tracksToAdd.map(track => { 
