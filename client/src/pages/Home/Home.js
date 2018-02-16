@@ -5,6 +5,8 @@ import './home.css';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 import {
   Table,
   TableBody,
@@ -55,7 +57,6 @@ const Home = props => {
       backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
       width: "100%",
       backgroundSize: 'cover',
-      padding: 10,
       marginBottom: 50
     }}>
       <h3 style={{
@@ -71,44 +72,18 @@ const Home = props => {
 
       <form>
 
-      <TextField
-        className="search-field"
-        underlineShow={false}
-        hintText="Track Name..."
-        name="searchTrack"
-        value={props.searchTrack}
-        onChange={props.handleInputChange}
-        style={{
-          backgroundColor: '#FFFFFF',
-          height: 60,
-          fontSize: 20,
-          fontFamily: 'Montserrat',
-          width: '50%'
-        }}
-      />
+      <DropDownMenu value={props.searchOption} onChange={props.handleSearchOption}>
+        <MenuItem value={'title'} primaryText="Title" />
+        <MenuItem value={'artist'} primaryText="Artist" />
+        <MenuItem value={'album'} primaryText="Album" />
+      </DropDownMenu>
 
       <TextField
         className="search-field"
         underlineShow={false}
-        hintText="Artist..."
-        name="searchArtist"
-        value={props.searchArtist}
-        onChange={props.handleInputChange}
-        style={{
-          backgroundColor: '#FFFFFF',
-          height: 60,
-          fontSize: 20,
-          fontFamily: 'Montserrat',
-          width: '50%'
-        }}
-      />
-
-      <TextField
-        className="search-field"
-        underlineShow={false}
-        hintText="Album..."
-        name="searchAlbum"
-        value={props.searchAlbum}
+        hintText="Search for a song..."
+        name="query"
+        value={props.query}
         onChange={props.handleInputChange}
         style={{
           backgroundColor: '#FFFFFF',
