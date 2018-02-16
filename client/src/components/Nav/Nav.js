@@ -25,12 +25,12 @@ const Nav = props => (
     iconElementRight={
       <div>
         <FlatButton
-          className="menu-item selected"
+          className={ props.currentPage === "Home" ? "menu-item selected" : "menu-item" }
           label="Search"
           onClick={() => props.handlePageChange("Home")}
           style={{marginTop: 14, fontFamily: 'Montserrat'}} />
         <FlatButton
-          className="menu-item"
+          className={ props.currentPage === "Playlist" ? "menu-item selected" : "menu-item" }
           label="Playlist"
           onClick={() => props.handlePageChange("Playlist")}
           style={{marginTop: 14, fontFamily: 'Montserrat'}} />

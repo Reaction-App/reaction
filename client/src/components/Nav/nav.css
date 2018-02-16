@@ -4,10 +4,13 @@
 
 .selected span {
   border-bottom: 3px solid #5A66E3;
-  padding: 0 0 3px !important;
   font-weight: bold !important;
 }
 
+.menu-item span {
+  padding: 0 0 3px !important;
+  margin: 20px;
+}
 .menu-item:hover {
 background-color: transparent !important;
 color: #5A66E3;
