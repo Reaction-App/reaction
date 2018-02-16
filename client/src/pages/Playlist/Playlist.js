@@ -10,21 +10,66 @@ import FontIcon from 'material-ui/FontIcon';
 
 import './playlist.css';
 
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+
 // if (props.savedTracks.length === 0) {
 //   document.getElementById("meep").style.display = "none";
 // }
 
+  const style = {
+    dialoguetitle: {
+      fontFamily: 'Montserrat',
+      fontSize: 24
+    },
+    overlayStyle: {
+      opacity: .2
+    }
+  }
 
-const Playlist = props =>
+const Playlist = props => {
 
-  <div style={{margin: '0 auto', padding: 20, maxWidth: 1200, position: 'relative'}}>
+  // buttons for the modal
+  const actions = [
+    <FlatButton
+      label="Close"
+      primary={true}
+      onClick={() => props.closePlaylistAddedModal()}
+      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
+    />,
+    <FlatButton
+      backgroundColor={'#5A66E3'}
+      label="View Spotify Playlist"
+      primary={true}
+      onClick={() => props.viewPlaylist()}      
+      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, 'line-height': '20px' }}
+    />,
+  ];
 
-    <div className="chart">
-        {props.chartData.length ? (
-        <TrackChart chartData={props.chartData} graphClick={props.graphClick} highlightSongOnGraph={props.highlightSongOnGraph}/>
-        ) : (<div></div>)}
-    </div>
+  return (
 
+    <div style={{margin: '0 auto', padding: 20, maxWidth: 1200, position: 'relative'}}>
+
+      <div className="chart">
+          {props.chartData.length ? (
+            <div>
+              <TrackChart chartData={props.chartData} graphClick={props.graphClick} highlightSongOnGraph={props.highlightSongOnGraph}/>
+              <div className="addToPlaylistButtonDiv">
+                <button className="addToPlaylistButton" onClick={() => props.postPlaylistToSpotify()}>Export Playlist to Spotify</button>
+                  <Dialog
+                    title="Playlist Saved"
+                    titleStyle={style.dialoguetitle}
+                    overlayStyle={style.overlayStyle}
+                    actions={actions}
+                    modal={false}
+                    open={props.playlistAddedModalOpen}
+                    onRequestClose={props.closePlaylistAddedModal}
+                    >
+                    <p style={{fontFamily: 'Montserrat', fontSize: 18 }}>Your playlist has been exported to Spotify!</p>
+                  </Dialog>
+              </div>
+            </div>
+          ) : (<div></div>)}
     <div className="playlist-container">
       <div>
         <DropDownMenu value={props.sortDropDown} onChange={props.handlePlaylistSort} style={{ width: '50%'}}>
@@ -47,7 +92,8 @@ const Playlist = props =>
           <MenuItem value={4} primaryText="Relaxing" />
         </DropDownMenu>
       </div>
-
+      <div className="playlist-container">
+  
       <h2 className="playlist-header" style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat'}}>My Playlist <a>Export To Spotify</a></h2>
 
       {props.savedTracks.length ? (
@@ -99,7 +145,8 @@ const Playlist = props =>
         }
         </List>
       ) : (<p style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', width: 380, maxHeight: 518, overflow: 'scroll', float: 'left', padding: 20}}>Once you start adding songs, they will show up here in your playlist.</p>)}
+
     </div>
-  </div>
+    )}
 
 export default Playlist;

@@ -45,6 +45,32 @@
   margin: -7px 0 7px;
 }
 
+.addToPlaylistButtonDiv {
+  display: inline-block;
+  margin-top: 420px;
+  margin-left: 100px;
+}
+
+.addToPlaylistButton {
+  padding: 20px 50px;
+  font-size: 16px;
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  text-transform: uppercase;
+  background-color: #5A66E3;
+  color: #FFFFFF;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border: 0;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+@media only screen and (min-width: 1000px) {
+
 .sort {
   height: 15px !important;
 }
@@ -58,6 +84,7 @@
 }
 
 @media only screen and (min-width: 1100px) {
+
   .playlist-container {
     float: right;
     width: 420px;
