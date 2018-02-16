@@ -50,22 +50,24 @@ const Playlist = props => {
 
     <div style={{margin: '0 auto', padding: 20, maxWidth: 1200, position: 'relative'}}>
 
+
+    <Dialog
+      title="Playlist Saved"
+      titleStyle={style.dialoguetitle}
+      overlayStyle={style.overlayStyle}
+      actions={actions}
+      modal={false}
+      open={props.playlistAddedModalOpen}
+      onRequestClose={props.closePlaylistAddedModal}
+      >
+      <p style={{fontFamily: 'Montserrat', fontSize: 18 }}>Your playlist has been exported to Spotify!</p>
+    </Dialog>
+    
+
       <div className="chart">
           {props.chartData.length ? (
             <div>
               <TrackChart chartData={props.chartData} graphClick={props.graphClick} highlightSongOnGraph={props.highlightSongOnGraph}/>
-                <button className="addToPlaylistButton" onClick={() => props.postPlaylistToSpotify()}>Export Playlist to Spotify</button>
-                  <Dialog
-                    title="Playlist Saved"
-                    titleStyle={style.dialoguetitle}
-                    overlayStyle={style.overlayStyle}
-                    actions={actions}
-                    modal={false}
-                    open={props.playlistAddedModalOpen}
-                    onRequestClose={props.closePlaylistAddedModal}
-                    >
-                    <p style={{fontFamily: 'Montserrat', fontSize: 18 }}>Your playlist has been exported to Spotify!</p>
-                  </Dialog>
             </div>
           ) : (<div></div>)}
     </div>
@@ -96,7 +98,7 @@ const Playlist = props => {
         </DropDownMenu>
       </div>
       <div className="playlist-container">
-        <h2 className="playlist-header" style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat'}}>My Playlist <a>Export To Spotify</a></h2>
+        <h2 className="playlist-header" style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat'}}>My Playlist<button className="addToPlaylistButton" onClick={() => props.postPlaylistToSpotify()}>Export to Spotify</button></h2>
         {props.savedTracks.length ? (
           <List className="list" style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', maxHeight: 518, overflow: 'scroll', float: 'left'}}>
             {props.savedTracks.map((track, index) => {

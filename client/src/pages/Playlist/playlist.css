@@ -46,11 +46,10 @@
 }
 
 .addToPlaylistButton {
-  padding: 20px 50px;
-  font-size: 16px;
+  font-size: 14px;
+  padding-top: 6px;
   margin: 0 auto;
-  text-align: center;
-  display: block;
+  text-align: right;
   text-transform: uppercase;
   background-color: #5A66E3;
   color: #FFFFFF;
@@ -58,10 +57,7 @@
   letter-spacing: 2px;
   border: 0;
   cursor: pointer;
-  margin-top: 400px;
-  margin-left: 100px;
-  margin-bottom: 20px;
-  position: absolute;
+  float: right;
 }
 
 
