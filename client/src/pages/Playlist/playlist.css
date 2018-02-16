@@ -1,16 +1,48 @@
+/*.playlist-container {
+  margin: 0 auto;
+  padding: 20px;
+  max-w: 1200px;
+   position: relative;
+}
+*/
 .list {
     width: 100%;
   }
 
 .playlist-header {
   margin-right: initial !important;
+  width: calc(100% - 18px);
 }
+
+.playlist-header a {
+  font-size: 12px;
+  float: right;
+  margin-top: 7px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
 .playlist-container {
   margin-top: 420px;
+  margin-bottom: 150px;
   }
 
 .chart {
-  display: inline-block;
+  margin: 0 auto;
+  width: 630px;
+  display: block;
+  position: inherit;
+}
+
+.action-icons img {
+  height: 20px;
+  float: right;
+  clear: both;
+  padding: 5px 0 5px;
+}
+
+.action-icons {
+  margin: -7px 0 7px;
 }
 
 .addToPlaylistButtonDiv {
@@ -38,6 +70,21 @@
 
 
 @media only screen and (min-width: 1000px) {
+
+.sort {
+  height: 15px !important;
+}
+
+.delete {
+  margin-right: 3px;
+}
+
+.meep {
+  margin-bottom: -15px !important;
+}
+
+@media only screen and (min-width: 1100px) {
+
   .playlist-container {
     float: right;
     width: 420px;
@@ -48,6 +95,7 @@
     font-size: 24px !important;
   }
   .chart {
-  top: 130px;
-}
+    margin: initial;
+    top: 130px;
+  }
 }

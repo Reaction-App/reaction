@@ -13,6 +13,7 @@ import './styles.css';
 	// IF USING HEORKU, USE THIS URL
 	// const REDIRECT_URI = encodeURIComponent('https://reaction-music.herokuapp.com/home/');
 
+
 	// Spotify scopes: https://developer.spotify.com/web-api/using-scopes/
 
 	const SCOPE = '&scope=playlist-modify-public';
@@ -31,7 +32,8 @@ return (
   </div>
   <div className="background">
     <h1>search music and curate your own playlist based on your mood</h1>
-    <button className="login-button" onClick={ () => window.location=REDIRECT_URL}>Log in to Spotify</button>
+    <button className="login-button" onClick={ () => window.location=REDIRECT_URL}>Log In</button>
+    <span className="spotify-callout"><p>Powered by</p> <img src="https://s17.postimg.org/rjpi4vcv3/Spotify_logo_with_text.svg.png" alt="Spotify" /></span>
   </div>
 </div>
 )
