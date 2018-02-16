@@ -5,6 +5,8 @@ import './home.css';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 import {
   Table,
   TableBody,
@@ -67,11 +69,19 @@ const Home = props => {
       </h3>
 
     <div style={{margin: '0 auto', display: 'block', textAlign: 'center'}}>
+
       <form>
+
+      <DropDownMenu value={props.searchOption} onChange={props.handleSearchOption}>
+        <MenuItem value={'title'} primaryText="Title" />
+        <MenuItem value={'artist'} primaryText="Artist" />
+        <MenuItem value={'album'} primaryText="Album" />
+      </DropDownMenu>
+
       <TextField
         className="search-field"
         underlineShow={false}
-        hintText="Search Song..."
+        hintText="Search for a song..."
         name="query"
         value={props.query}
         onChange={props.handleInputChange}
@@ -89,6 +99,7 @@ const Home = props => {
         onClick={props.handleFormSubmit}>
         Search
       </button>
+
       </form>
     </div>
 

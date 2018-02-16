@@ -33,6 +33,7 @@ class AppContainer extends Component {
         userID: ''
     },
     // Search form
+    searchOption: 'title',
     query: '',
     noSongFound: false,
     tracks: {
@@ -98,6 +99,8 @@ class AppContainer extends Component {
     if (this.state.currentPage === "Home") {
       return <Home
         userData = {this.state.userData}
+        searchOption = {this.searchOption}
+        handleSearchOption = {this.handleSearchOption}
         query = {this.state.query}
         handleOpen = {this.handleOpen}
         handleClose = {this.handleClose}
@@ -214,6 +217,11 @@ class AppContainer extends Component {
     });
   }
 
+  handleSearchOption = (event, index, value) => {
+    this.setState({ searchOption: value });
+    console.log('searchOption' + this.state.searchOption)
+  }
+
   handleInputChange = event => {
     // Get the name and value from event.target
     // Set state with new value
@@ -226,17 +234,20 @@ class AppContainer extends Component {
   handleFormSubmit = event => {
 
     event.preventDefault();
-    this.searchSpotify(this.state.query);
+    this.searchSpotify(this.state.searchOption, this.state.query);
   }
 
-
   // API call for finding a track
-  searchSpotify(query) {
+  searchSpotify(searchOption, query) {
 
     this.setState({
       noSongFound: false
     })
 
+    if (searchOption === 'artist') { query = `artist:${query}` }
+    if (searchOption === 'album') { query = `album:${query}` }
+
+    console.log('query: ' + query);
     // URL constructor for search
     const BASE_URL = 'https://api.spotify.com/v1/search';
     const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10`;
@@ -472,6 +483,7 @@ class AppContainer extends Component {
   handlePlaylistSort = (event, index, value) => {
 
     this.setState({ sortDropDown: value });
+    console.log('sortDropDown ' + this.state.sortDropDown);
     this.setState({ moodDropDown: 0 });
 
     let sortedTracks = this.state.savedTracks.slice()
