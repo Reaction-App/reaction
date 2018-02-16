@@ -120,7 +120,9 @@ const Playlist = props => {
                       </FontIcon>
                     </IconButton>
                   }
-                  onClick={() => props.highlightThis(track.trackID)}
+                      onMouseEnter={() => props.highlightThis(track.trackID)}
+                      onMouseLeave={() => props.highlightThis(null)}
+
                 >
               <div className="action-icons">
                 <img className="sort" onClick={() => props.handleSortBySelected(index)} src="https://s14.postimg.org/f0aj9ige9/sort.png" alt="Sort" />
