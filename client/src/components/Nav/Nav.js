@@ -3,6 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import MenuItem from 'material-ui/MenuItem';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
@@ -15,15 +16,44 @@ import './nav.css';
 const Nav = props => (
   <AppBar
     title="Reaction Radio"
-    iconElementLeft = {<img src='https://s17.postimg.org/xgsvell33/logo2.png' alt="Logo"
+    iconElementLeft = {
+      <div>
+
+      <img src='https://s17.postimg.org/xgsvell33/logo2.png' alt="Logo"
       style={{
         height: '80px',
         marginTop: '-8px',
         marginLeft: '-8px'
       }}
-    />}
+    />
+
+
+    </div>
+  }
+
     iconElementRight={
+
       <div>
+
+        <div style={{display: 'inline-block', marginRight: 30, marginTop: 10, width: 330, backgroundColor: '#F7F9FF'}}>
+          <IconButton
+            style={{top: -4, float: 'left'}}
+            disabled={!props.currentSongPlayingTrack ? true : false}
+            tooltip={!props.currentSongPlayingTrack ? 'Not Available' : false}
+            onClick={() => props.playTrack(props.currentSongPlayingTrack)}
+          >
+            <FontIcon className="material-icons">
+              {props.songPlaying ? "play_circle_filled" : "play_circle_outline"}
+            </FontIcon>
+          </IconButton>
+          <p style={{marginTop: 0, marginBottom: 0, fontFamily: 'Montserrat', maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+            {props.currentSongPlayingTrack.trackName}
+          </p>
+          <p style={{marginTop: 2, marginBottom: 0, paddingBottom: 1, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+            {props.currentSongPlayingTrack ? (props.currentSongPlayingTrack.artist + " | " + props.currentSongPlayingTrack.album) : <p>Preview Player</p>}
+          </p>
+        </div>
+
         <FlatButton
           className={ props.currentPage === "Home" ? "menu-item selected" : "menu-item" }
           label="Search"

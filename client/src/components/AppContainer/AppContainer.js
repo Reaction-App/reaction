@@ -67,6 +67,7 @@ class AppContainer extends Component {
     songPlaying: false,
     currentSongPlayingID: "",
     currentSongPlayingAudio: null,
+    currentSongPlayingTrack: "",
     // Spotify Playlist
     playlistID: '',
     playlistUrl: '',
@@ -392,7 +393,9 @@ class AppContainer extends Component {
       .catch(err => console.log(err));
   }
 
-  playTrack = (url, id) => {
+  playTrack = (track) => {
+      let url = track.trackURL;
+      let id = track.trackID;
       let audioObject = new Audio(url);
 
       if (!this.state.songPlaying) {
@@ -400,7 +403,8 @@ class AppContainer extends Component {
         this.setState({
           songPlaying: true,
           currentSongPlayingID: id,
-          currentSongPlayingAudio: audioObject
+          currentSongPlayingAudio: audioObject,
+          currentSongPlayingTrack: track
         })
       } else {
         if (this.state.currentSongPlayingID === id) {
@@ -414,7 +418,8 @@ class AppContainer extends Component {
           this.setState({
             songPlaying: true,
             currentSongPlayingID: id,
-            currentSongPlayingAudio: audioObject
+            currentSongPlayingAudio: audioObject,
+            currentSongPlayingTrack: track
           })
         }
       }
@@ -703,6 +708,11 @@ class AppContainer extends Component {
         <Nav
           currentPage={this.state.currentPage}
           handlePageChange={this.handlePageChange}
+          playTrack = {this.playTrack}
+          currentSongPlayingID = {this.state.currentSongPlayingID}
+          currentSongPlayingUrl = {this.state.currentSongPlayingUrl}
+          currentSongPlayingTrack = {this.state.currentSongPlayingTrack}
+          songPlaying = {this.state.songPlaying}
         />
         {this.renderPage()}
       </div>

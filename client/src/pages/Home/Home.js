@@ -53,6 +53,7 @@ const Home = props => {
  return(
 
   <div>
+
     <div style={{
       backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
       width: "100%",
@@ -140,7 +141,7 @@ const Home = props => {
                     disabled={track.trackURL === null ? true : false}
                     tooltip={track.trackURL === null ? 'Not Available' : false}
                     tooltipPosition='bottom-right'
-                    onClick={() => props.playTrack(track.trackURL, track.trackID)}
+                    onClick={() => props.playTrack(track)}
                   >
                     <FontIcon className="material-icons">
                     {props.currentSongPlayingID === track.trackID && props.songPlaying === true ? "play_circle_filled" : "play_circle_outline"}
