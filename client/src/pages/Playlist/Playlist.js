@@ -54,7 +54,6 @@ const Playlist = props => {
           {props.chartData.length ? (
             <div>
               <TrackChart chartData={props.chartData} graphClick={props.graphClick} highlightSongOnGraph={props.highlightSongOnGraph}/>
-              <div className="addToPlaylistButtonDiv">
                 <button className="addToPlaylistButton" onClick={() => props.postPlaylistToSpotify()}>Export Playlist to Spotify</button>
                   <Dialog
                     title="Playlist Saved"
@@ -67,7 +66,6 @@ const Playlist = props => {
                     >
                     <p style={{fontFamily: 'Montserrat', fontSize: 18 }}>Your playlist has been exported to Spotify!</p>
                   </Dialog>
-              </div>
             </div>
           ) : (<div></div>)}
     </div>
