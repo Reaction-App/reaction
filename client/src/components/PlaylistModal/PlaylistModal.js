@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 
 
 const PlaylistModal = props => {
-  
+
   const style = {
       dialoguetitle: {
         fontFamily: 'Montserrat',
@@ -20,19 +20,21 @@ const PlaylistModal = props => {
   width: '50%',
   maxWidth: 'none',
 };
-  
+
   const actions01 = [
     <FlatButton
       label="Cancel"
+      className="modal-button modal-outline"
       primary={true}
       onClick={() => props.closeNameYourPlaylistModal()}
       style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
     />,
     <FlatButton
       backgroundColor={'#5A66E3'}
+      className="modal-button"
       label="Export to Spotify"
       primary={true}
-      onClick={() => props.postPlaylistToSpotify()}      
+      onClick={() => props.postPlaylistToSpotify()}
       style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, width: 200, height: 60, 'line-height': '20px' }}
     />,
   ];
@@ -40,15 +42,17 @@ const PlaylistModal = props => {
   const actions02 = [
     <FlatButton
       label="Close"
+      className="modal-button modal-outline"
       primary={true}
       onClick={() => props.closePlaylistAddedModal()}
       style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
     />,
     <FlatButton
       backgroundColor={'#5A66E3'}
+      className="modal-button"
       label="View Spotify Playlist"
       primary={true}
-      onClick={() => props.viewPlaylist()}      
+      onClick={() => props.viewPlaylist()}
       style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, 'line-height': '20px' }}
     />,
   ];

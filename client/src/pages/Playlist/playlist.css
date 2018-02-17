@@ -51,7 +51,7 @@ display: none;
   .playlist-container {
     width: 420px;
     padding-top: 80px;
-    background-color: #F7F9FF;
+    /*background-color: #F7F9FF;*/
     padding-bottom: 50px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
   }
@@ -100,5 +100,13 @@ display: none;
   .addToPlaylistButton:hover {
     background-color: #454448;
     transition: all 0.3s ease;
+  }
+
+  .song-container {
+    overflow: scroll;
+        height: 100%;
+    position: fixed;
+    background-color: #F7F9FF;
+    width: 420px;
   }
 }
