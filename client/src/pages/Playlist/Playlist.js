@@ -1,5 +1,6 @@
 import React from "react";
 import TrackChart from "../../components/TrackChart";
+import PlaylistModal from "../../components/PlaylistModal";
 
 // Material UI components
 import DropDownMenu from 'material-ui/DropDownMenu';
@@ -18,53 +19,15 @@ import FlipMove from 'react-flip-move';
 //   document.getElementById("meep").style.display = "none";
 // }
 
-  const style = {
-    dialoguetitle: {
-      fontFamily: 'Montserrat',
-      fontSize: 24
-    },
-    overlayStyle: {
-      opacity: .2
-    }
-  }
+
 
 const Playlist = props => {
 
-  // buttons for the modal
-  const actions = [
-    <FlatButton
-      label="Close"
-      primary={true}
-      onClick={() => props.closePlaylistAddedModal()}
-      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
-    />,
-    <FlatButton
-      backgroundColor={'#5A66E3'}
-      label="View Spotify Playlist"
-      primary={true}
-      onClick={() => props.viewPlaylist()}      
-      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, 'line-height': '20px' }}
-    />,
-  ];
-
+  
   return (
 
     <div style={{margin: '0 auto', padding: 20, maxWidth: 1200, position: 'relative'}}>
-
-
-    <Dialog
-      title="Playlist Saved"
-      titleStyle={style.dialoguetitle}
-      overlayStyle={style.overlayStyle}
-      actions={actions}
-      modal={false}
-      open={props.playlistAddedModalOpen}
-      onRequestClose={props.closePlaylistAddedModal}
-      >
-      <p style={{fontFamily: 'Montserrat', fontSize: 18 }}>Your playlist has been exported to Spotify!</p>
-    </Dialog>
-    
-
+    <PlaylistModal {...props}/>
       <div className="chart">
           {props.chartData.length ? (
             <div>
@@ -99,7 +62,7 @@ const Playlist = props => {
         </DropDownMenu>
       </div>
       <div className="playlist-container">
-        <h2 className="playlist-header" style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat'}}>My Playlist<button className="addToPlaylistButton" onClick={() => props.postPlaylistToSpotify()}>Export to Spotify</button></h2>
+        <h2 className="playlist-header" style={{color: 'white', backgroundColor: '#5A66E3', padding: 10, fontFamily: 'Montserrat'}}>My Playlist<button className="addToPlaylistButton" onClick={() => props.openNameYourPlaylistModal()}>Export to Spotify</button></h2>
         {props.savedTracks.length ? (
           <List className="list" style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', maxHeight: 518, overflow: 'scroll', float: 'left'}}>
             <FlipMove duration={750} easing="ease-out">

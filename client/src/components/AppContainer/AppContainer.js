@@ -71,7 +71,8 @@ class AppContainer extends Component {
     playlistID: '',
     playlistUrl: '',
     playlistDescription: 'My Reaction Radio Playlist',
-    playlistName: 'My Reaction Radio Playlist',
+    playlistName: '',
+    nameYourPlaylistModalOpen: false,
     playlistAddedModalOpen: false
   }
 
@@ -128,6 +129,9 @@ class AppContainer extends Component {
         moodDropDown = {this.state.moodDropDown}
         handleMoodSort = {this.handleMoodSort}
         savedTracks = {this.state.savedTracks}
+        handleInputChange = {this.handleInputChange}
+        handleFormSubmit = {this.handleFormSubmit}
+        playlistName = {this.state.playlistName}
         selectedPlaylistTrack = {this.state.selectedPlaylistTrack}
         handlePlaylistRowSelection = {this.handlePlaylistRowSelection}
         playlistRowIsSelected = {this.playlistRowIsSelected}
@@ -141,8 +145,11 @@ class AppContainer extends Component {
         highlightSongOnGraph = {this.state.highlightSongOnGraph}
         highlightThis = {this.highlightThis}
         postPlaylistToSpotify = {this.postPlaylistToSpotify}
+        nameYourPlaylistModalOpen = {this.state.nameYourPlaylistModalOpen}
         playlistAddedModalOpen = {this.state.playlistAddedModalOpen}
+        openNameYourPlaylistModal = {this.openNameYourPlaylistModal}
         openPlaylistAddedModal = {this.openPlaylistAddedModal}
+        closeNameYourPlaylistModal = {this.closeNameYourPlaylistModal}
         closePlaylistAddedModal = {this.closePlaylistAddedModal}
         viewPlaylist = {this.viewPlaylist}
       />;
@@ -646,7 +653,12 @@ class AppContainer extends Component {
   // Export playlist to  Spotify
   postPlaylistToSpotify = () => {
 
-    const playlistData = { description: 'My Reaction Radio Playlist', name: 'My Reaction Radio Playlist', public: 'true' };
+    let playlistName = this.state.playlistName
+    if (playlistName.length <= 0) {
+      playlistName = 'My Reaction Radio Playlist'
+    }
+
+    const playlistData = { description: 'My Reaction Radio Playlist', name: playlistName, public: 'true' };
 
     Spotify.createPlaylist(this.state.accessToken, this.state.userData.userID, playlistData)
     .then(response => {
@@ -659,6 +671,7 @@ class AppContainer extends Component {
       this.addSongsToPlaylist(this.state.userData.userID, this.state.playlistID, this.state.savedTracks)
     })
     .then(() => this.openPlaylistAddedModal())
+    .then(() => this.closeNameYourPlaylistModal())
   }
   
 
@@ -679,15 +692,25 @@ class AppContainer extends Component {
     })
   }
 
+  openNameYourPlaylistModal = () => {
+    this.setState({nameYourPlaylistModalOpen: true})
+  }
+
   openPlaylistAddedModal = () => {
-    this.setState({playlistAddedModalOpen: true})
+    this.setState({
+      playlistAddedModalOpen: true
+    })
+  }
+
+  closeNameYourPlaylistModal = () => {
+    this.setState({nameYourPlaylistModalOpen: false})
   }
 
   closePlaylistAddedModal = () => {
     this.setState({
       playlistAddedModalOpen: false,
       playlistDescription: 'My Reaction Radio Playlist',
-      playlistName: 'My Reaction Radio Playlist',
+      playlistName: '',
       playlistID: '',
       playlistUrl: ''
     })
