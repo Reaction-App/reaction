@@ -11,8 +11,6 @@ import FontIcon from 'material-ui/FontIcon';
 
 import './playlist.css';
 
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import FlipMove from 'react-flip-move';
 
 // if (props.savedTracks.length === 0) {

@@ -5,7 +5,6 @@ import Home from "../../pages/Home";
 import Playlist from "../../pages/Playlist";
 import LoginPage from "../../pages/LoginPage";
 import querystring from 'querystring';
-import axios from 'axios';
 import Spotify from '../../utils/SpotifyRoutes';
 
 
@@ -250,14 +249,11 @@ class AppContainer extends Component {
   // API call for finding a track
   searchSpotify(searchOption, query) {
 
-    this.setState({
-      noSongFound: false
-    })
-    console.log('searchOption: ' + searchOption)
+    this.setState({ noSongFound: false })
+    
     if (searchOption === 'artist') { query = `artist:${query}` }
     if (searchOption === 'album') { query = `album:${query}` }
 
-    console.log('query: ' + query);
     // URL constructor for search
     const BASE_URL = 'https://api.spotify.com/v1/search';
     const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10`;
@@ -636,10 +632,10 @@ class AppContainer extends Component {
 
   // emotion functions
   showEmotion = (valence, energy) => {
-    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/sx0jyqekv/happy.png" /></div>)};
-    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/5pav3pnhb/sad.png" /></div>)};
-    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/mptrcfatb/angry.png" /></div>)};
-    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
+    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} alt="happy" src="https://s17.postimg.org/sx0jyqekv/happy.png" /></div>)};
+    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="sad" src="https://s17.postimg.org/5pav3pnhb/sad.png" /></div>)};
+    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} alt="angry" src="https://s17.postimg.org/mptrcfatb/angry.png" /></div>)};
+    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="relaxed" src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
   }
 
   // When hovering over a playlist track, show tooltip on chart
