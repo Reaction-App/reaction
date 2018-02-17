@@ -17,8 +17,8 @@ const Nav = props => (
     iconElementLeft = {
       <div>
 
-        <img 
-          src='https://s17.postimg.org/xgsvell33/logo2.png' 
+        <img
+          src='https://s17.postimg.org/xgsvell33/logo2.png'
           alt="Logo"
           onClick={() => props.handlePageChange("Home")}
           style={{
@@ -32,7 +32,7 @@ const Nav = props => (
 
     iconElementRight={
       <div>
-        <div className={props.currentSongPlayingTrack ? "player-visible" : "player-hidden"} style={{display: 'inline-block', width: "30%", position: 'absolute', left: "50%", right: "50%", backgroundColor: '#F7F9FF'}}>
+        <div className={props.currentSongPlayingTrack ? "player-visible" : "player-hidden"} style={{ width: "30%", backgroundColor: '#F7F9FF', position: 'fixed', left: 0, right: 0, margin: '0 auto', marginTop: -10 }}>
           <IconButton
             style={{ margin: '0 auto', left: 0, right: 0, display: 'block'}}
             disabled={!props.currentSongPlayingTrack ? true : false}
@@ -44,8 +44,8 @@ const Nav = props => (
           </FontIcon>
 
           </IconButton>
-          <p style={{marginTop: 0, marginBottom: 0, fontFamily: 'Montserrat', textAlign: 'center', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'white'}}>
-            {props.currentSongPlayingTrack.trackName} | {props.currentSongPlayingTrack.artist}
+          <p style={{fontFamily: 'Montserrat', textAlign: 'center', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontSize: 14, marginTop: 3, padding: "0 20px", color: '#454448' }}>
+            {props.currentSongPlayingTrack.trackName} - {props.currentSongPlayingTrack.artist}
 
           </p>
         </div>
@@ -54,19 +54,19 @@ const Nav = props => (
           className={ props.currentPage === "Home" ? "menu-item selected" : "menu-item" }
           label="Search"
           onClick={() => props.handlePageChange("Home")}
-          style={{marginTop: 14, fontFamily: 'Montserrat'}} 
+          style={{marginTop: 14, fontFamily: 'Montserrat'}}
         />
         <FlatButton
           className={ props.currentPage === "Playlist" ? "menu-item selected" : "menu-item" }
           label="Playlist"
           onClick={() => props.handlePageChange("Playlist")}
-          style={{marginTop: 14, fontFamily: 'Montserrat'}} 
+          style={{marginTop: 14, fontFamily: 'Montserrat'}}
         />
         <FlatButton
           className="menu-item"
           label="Log Out"
           onClick={() => props.logOut()}
-          style={{marginTop: 14, fontFamily: 'Montserrat'}} 
+          style={{marginTop: 14, fontFamily: 'Montserrat'}}
         />
 
           {/*Responsive Nav*/}

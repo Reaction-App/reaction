@@ -65,7 +65,7 @@ const Playlist = props => {
 
       <div className="song-container">
         {props.savedTracks.length ? (
-          <List className="list" style={{marginTop: '-20px', overflow: 'scroll'}}>
+          <List className="list" style={{marginTop: '-20px'}}>
             <FlipMove duration={750} easing="ease-out">
             {props.savedTracks.map((track, index) => {
               return (
