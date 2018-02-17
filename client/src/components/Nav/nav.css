@@ -22,6 +22,15 @@ color: #454448;
 letter-spacing: 1px !important;
 }
 
+.player-visible {
+  display: inline-block;
+}
+
+.player-hidden {
+  display: none;
+}
+
+
 @media only screen and (max-width: 600px) {
   .menu-item {
     display: none !important;

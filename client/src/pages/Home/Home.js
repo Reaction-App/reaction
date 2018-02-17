@@ -80,6 +80,7 @@ const Home = props => {
         className="search-drop-down"
          value={props.searchOption} onChange={props.handleSearchOption}
          hintText="Title"
+         style = {{backgroundColor:'#FFFFFF'}}
         >
         <MenuItem value={'title'} primaryText="Title" />
         <MenuItem value={'artist'} primaryText="Artist" />
