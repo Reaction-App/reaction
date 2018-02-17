@@ -30,8 +30,7 @@ const Nav = props => (
 
     iconElementRight={
       <div>
-        <div style={{display: 'inline-block', marginRight: 30, marginTop: 10, width: 330, backgroundColor: '#F7F9FF'}}>
-
+        <div className={props.currentSongPlayingTrack ? "player-visible" : "player-hidden"} style={{marginRight: 30, marginTop: 10, width: 330, backgroundColor: '#F7F9FF'}}>
           <IconButton
             style={{top: -4, float: 'left'}}
             disabled={!props.currentSongPlayingTrack ? true : false}
@@ -48,7 +47,7 @@ const Nav = props => (
             {props.currentSongPlayingTrack.trackName}
           </p>
           <p style={{marginTop: 2, marginBottom: 0, paddingBottom: 1, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
-            {props.currentSongPlayingTrack ? (props.currentSongPlayingTrack.artist + " | " + props.currentSongPlayingTrack.album) : <p>Preview Player</p>}
+            {props.currentSongPlayingTrack.artist + " | " + props.currentSongPlayingTrack.album}
           </p>
         </div>
 
