@@ -7,6 +7,7 @@ import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import SelectField from 'material-ui/SelectField';
 import {
   Table,
   TableBody,
@@ -36,12 +37,14 @@ const Home = props => {
   // buttons for the modal
   const actions = [
     <FlatButton
+      className="modal-button modal-outline"
       label="Add More Songs"
       primary={true}
       onClick={() => props.handleClose()}
       style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
     />,
     <FlatButton
+      className="modal-button"
       backgroundColor={'#5A66E3'}
       label="View My Playlist"
       primary={true}
@@ -72,16 +75,20 @@ const Home = props => {
 
       <form>
 
-      <DropDownMenu value={props.searchOption} onChange={props.handleSearchOption}>
+      <SelectField
+        className="search-drop-down"
+         value={props.searchOption} onChange={props.handleSearchOption}
+         hintText="Title"
+        >
         <MenuItem value={'title'} primaryText="Title" />
         <MenuItem value={'artist'} primaryText="Artist" />
         <MenuItem value={'album'} primaryText="Album" />
-      </DropDownMenu>
+      </SelectField>
 
       <TextField
         className="search-field"
         underlineShow={false}
-        hintText="Search for a song..."
+        hintText="Search by song title, artist, or album..."
         name="query"
         value={props.query}
         onChange={props.handleInputChange}
@@ -90,7 +97,7 @@ const Home = props => {
           height: 60,
           fontSize: 20,
           fontFamily: 'Montserrat',
-          width: '50%'
+          width: '35%'
         }}
       />
 
@@ -184,7 +191,7 @@ const Home = props => {
                 {props.noSongFound ? (
                   <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, that song does not exist! Please search for another song.</h2>
                 ):(
-                  <h2 className="empty-state-text" style={{ fontFamily: 'Montserrat' }}>Start by searching for a song. Then click “Add Song” to begin curating your playlist.</h2>
+                  <h2 className="empty-state-text" style={{ fontFamily: 'Montserrat' }}>Start by searching for a song, album, or artist. Then click “Add Song” to begin curating your playlist.</h2>
                 )}
             </div>
           )}

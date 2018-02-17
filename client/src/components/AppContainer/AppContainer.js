@@ -13,7 +13,7 @@ import Spotify from '../../utils/SpotifyRoutes';
 let parsed = querystring.parse(window.location.hash);
 let accessToken = parsed['#access_token'];
 
-// function removeHash () { 
+// function removeHash () {
 //     window.history.pushState("", document.title, window.location.pathname + window.location.search);
 // }
 
@@ -86,11 +86,11 @@ class AppContainer extends Component {
   }
 
   handlePageChange = page => {
-    this.setState({ 
+    this.setState({
       currentPage: page,
       highlightSongOnGraph: null,
       tracks:{},
-      query: '' 
+      query: ''
     });
     this.handleClose();
   }
@@ -185,11 +185,11 @@ class AppContainer extends Component {
                 userID: data.id
               }
             });
-          
+
           // check if user record exists in DB and update
           // if not exist, create one
           // then add DB _id to state.userData
-          // Uses object.assign to get current userData object then add _id to the object 
+          // Uses object.assign to get current userData object then add _id to the object
           API
           .upsertUser({
             userName: data.display_name,
@@ -230,6 +230,8 @@ class AppContainer extends Component {
       [name]: value
     });
   }
+
+  // handleChange = (event, index, value) => this.setState({value});
 
   handleFormSubmit = event => {
 
@@ -361,7 +363,7 @@ class AppContainer extends Component {
   loadTracks = () => {
 
     // Load tracks from DB.
-    // NOTE: Requires loadSpotifyUserData to be complete so that user id is available 
+    // NOTE: Requires loadSpotifyUserData to be complete so that user id is available
     API.getUser(this.state.userData._id)
         .then(res => {
           let newTracks = res.data.tracks;
@@ -660,12 +662,12 @@ class AppContainer extends Component {
     })
     .then(() => this.openPlaylistAddedModal())
   }
-  
+
 
   addSongsToPlaylist(userID, playlistID, tracksToAdd) {
 
-    const trackURIs = tracksToAdd.map(track => { 
-      return track.trackURI 
+    const trackURIs = tracksToAdd.map(track => {
+      return track.trackURI
     });
 
     console.log(trackURIs);

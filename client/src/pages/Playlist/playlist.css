@@ -34,6 +34,13 @@
   position: inherit;
 }
 
+.chart-copy {
+  position: absolute;
+  left: 27%;
+  top: -50px;
+  font-family: 'Montserrat', sans-serif;
+}
+
 .action-icons img {
   height: 20px;
   float: right;
@@ -89,6 +96,6 @@
   }
   .chart {
     margin: initial;
-    top: 130px;
+    top: 80px;
   }
 }
