@@ -33,7 +33,7 @@ class AppContainer extends Component {
         userID: ''
     },
     // Search form
-    searchOption: 'title',
+    searchOption: "title",
     query: '',
     noSongFound: false,
     tracks: {
@@ -101,7 +101,7 @@ class AppContainer extends Component {
     if (this.state.currentPage === "Home") {
       return <Home
         userData = {this.state.userData}
-        searchOption = {this.searchOption}
+        searchOption = {this.state.searchOption}
         handleSearchOption = {this.handleSearchOption}
         query = {this.state.query}
         handleOpen = {this.handleOpen}
@@ -226,8 +226,8 @@ class AppContainer extends Component {
   }
 
   handleSearchOption = (event, index, value) => {
-    this.setState({ searchOption: value });
-    console.log('searchOption' + this.state.searchOption)
+
+      this.setState({ searchOption: value });
   }
 
   handleInputChange = event => {
@@ -253,7 +253,7 @@ class AppContainer extends Component {
     this.setState({
       noSongFound: false
     })
-
+    console.log('searchOption: ' + searchOption)
     if (searchOption === 'artist') { query = `artist:${query}` }
     if (searchOption === 'album') { query = `album:${query}` }
 

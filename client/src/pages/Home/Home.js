@@ -5,7 +5,6 @@ import './home.css';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
-import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import {
@@ -53,6 +52,8 @@ const Home = props => {
     />,
   ];
 
+console.log()
+
  return(
 
   <div>
@@ -79,12 +80,11 @@ const Home = props => {
       <SelectField
         className="search-drop-down"
          value={props.searchOption} onChange={props.handleSearchOption}
-         hintText="Title"
          style = {{backgroundColor:'#FFFFFF'}}
-        >
-        <MenuItem value={'title'} primaryText="Title" />
-        <MenuItem value={'artist'} primaryText="Artist" />
-        <MenuItem value={'album'} primaryText="Album" />
+      >
+        <MenuItem value={"title"} primaryText="Title" />
+        <MenuItem value={"artist"} primaryText="Artist" />
+        <MenuItem value={"album"} primaryText="Album" />
       </SelectField>
 
       <TextField
