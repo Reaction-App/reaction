@@ -15,6 +15,7 @@ import './nav.css';
 
 const Nav = props => (
   <AppBar
+    className="nav"
     title="Reaction Radio"
     iconElementLeft = {
       <div>
@@ -23,7 +24,7 @@ const Nav = props => (
       style={{
         height: '80px',
         marginTop: '-8px',
-        marginLeft: '-8px'
+        marginLeft: '-8px',
       }}
     />
 
@@ -35,22 +36,20 @@ const Nav = props => (
 
       <div>
 
-        <div style={{display: 'inline-block', marginRight: 30, marginTop: 10, width: 330, backgroundColor: '#F7F9FF'}}>
+        <div style={{display: 'inline-block', width: "30%", position: 'absolute', left: "50%", right: "50%", backgroundColor: '#F7F9FF'}}>
           <IconButton
-            style={{top: -4, float: 'left'}}
+            style={{ margin: '0 auto', left: 0, right: 0, display: 'block'}}
             disabled={!props.currentSongPlayingTrack ? true : false}
             tooltip={!props.currentSongPlayingTrack ? 'Not Available' : false}
             onClick={() => props.playTrack(props.currentSongPlayingTrack)}
           >
-            <FontIcon className="material-icons">
-              {props.songPlaying ? "play_circle_filled" : "play_circle_outline"}
-            </FontIcon>
+          <FontIcon className="material-icons">
+            {props.songPlaying ? "play_circle_filled" : "play_circle_outline"}
+          </FontIcon>
+
           </IconButton>
-          <p style={{marginTop: 0, marginBottom: 0, fontFamily: 'Montserrat', maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
-            {props.currentSongPlayingTrack.trackName}
-          </p>
-          <p style={{marginTop: 2, marginBottom: 0, paddingBottom: 1, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
-            {props.currentSongPlayingTrack ? (props.currentSongPlayingTrack.artist + " | " + props.currentSongPlayingTrack.album) : <p>Preview Player</p>}
+          <p style={{marginTop: 0, marginBottom: 0, fontFamily: 'Montserrat', textAlign: 'center', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'white'}}>
+            {props.currentSongPlayingTrack.trackName} | {props.currentSongPlayingTrack.artist}
           </p>
         </div>
 
@@ -84,7 +83,7 @@ const Nav = props => (
       </div>
     }
     style={{
-      backgroundColor: 'transparent',
+      backgroundColor: 'white',
       height: '80px',
       color: 'black'
     }}
