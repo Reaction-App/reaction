@@ -27,6 +27,7 @@ const Playlist = props => {
   return (
 
     <div style={{margin: '0 auto', padding: 20, maxWidth: 1200, position: 'relative'}}>
+
     <PlaylistModal {...props}/>
       <div className="chart">
           {props.chartData.length ? (
@@ -41,18 +42,6 @@ const Playlist = props => {
     <div className="playlist-container">
 
       <div>
-        <DropDownMenu value={props.sortDropDown} onChange={props.handlePlaylistSort} style={{ width: '50%'}}>
-          <MenuItem value={0} primaryText="Sort by" />
-          <MenuItem value={1} primaryText="Title" />
-          <MenuItem value={2} primaryText="Artist" />
-          <MenuItem value={3} primaryText="Album" />
-          <MenuItem value={4} primaryText="Positivity - Descending" />
-          <MenuItem value={5} primaryText="Positivity - Ascending" />
-          <MenuItem value={6} primaryText="Energy - Descending" />
-          <MenuItem value={7} primaryText="Energy - Ascending" />
-          <MenuItem value={8} primaryText="Recently Added" />
-        </DropDownMenu>
-
         <DropDownMenu value={props.moodDropDown} onChange={props.handleMoodSort} style={{width: '50%'}}>
           <MenuItem value={0} primaryText="Choose a Mood" />
           <MenuItem value={1} primaryText="Happy" />
@@ -78,7 +67,7 @@ const Playlist = props => {
                       style={{top: -8}}
                       disabled={track.trackURL === null ? true : false}
                       tooltip={track.trackURL === null ? 'Not Available' : false}
-                      onClick={() => props.playTrack(track.trackURL, track.trackID)}
+                      onClick={() => props.playTrack(track)}
                     >
                       <FontIcon className="material-icons">
                       {props.currentSongPlayingID === track.trackID && props.songPlaying === true ? "play_circle_filled" : "play_circle_outline"}
