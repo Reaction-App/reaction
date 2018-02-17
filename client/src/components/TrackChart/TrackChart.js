@@ -62,20 +62,60 @@ class Chart extends Component {
     // }
 
     const config = {
-      // responsive: {
-      //   rules: [{
-      //     condition: {
-      //       minWidth: 900,
-
-      //     },
-      //     chartOptions: {
-      //       chart: {
-      //         width: 355,
-
-      //       }
-      //     }
-      //   }]
-      // },
+        responsive: {
+            rules: [
+            {
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    chart: {
+                        height: 333
+                    }
+                }
+            },
+            {
+                condition: {
+                    maxWidth: 400
+                },
+                chartOptions: {
+                    chart: {
+                        height: 266
+                    }
+                }
+            },
+            {
+                condition: {
+                    maxWidth: 300
+                },
+                chartOptions: {
+                    chart: {
+                        height: 200
+                    }
+                }
+            },
+            {
+                condition: {
+                    maxWidth: 200
+                },
+                chartOptions: {
+                    chart: {
+                        height: 133
+                    }
+                }
+            },            
+            {
+                condition: {
+                    maxWidth: 100
+                },
+                chartOptions: {
+                    chart: {
+                        height: 66
+                    }
+                }
+            },  
+            ]
+        },
 
 
       // responsive: {
@@ -90,7 +130,6 @@ class Chart extends Component {
       //     }
       //   }]
       // }
-
       credits: {
         enabled: false
       },
@@ -103,7 +142,7 @@ class Chart extends Component {
         }
       },
       chart: {
-        width: 600,
+        // width: 600,
         type: 'scatter',
         backgroundColor: 'transparent',
       },
