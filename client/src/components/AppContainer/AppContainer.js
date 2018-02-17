@@ -699,19 +699,11 @@ class AppContainer extends Component {
     })
   }
 
-  openNameYourPlaylistModal = () => {
-    this.setState({nameYourPlaylistModalOpen: true})
-  }
+  openNameYourPlaylistModal = () => { this.setState( {nameYourPlaylistModalOpen: true} ) }
 
-  openPlaylistAddedModal = () => {
-    this.setState({
-      playlistAddedModalOpen: true
-    })
-  }
+  openPlaylistAddedModal = () => { this.setState( {playlistAddedModalOpen: true} ) }
 
-  closeNameYourPlaylistModal = () => {
-    this.setState({nameYourPlaylistModalOpen: false})
-  }
+  closeNameYourPlaylistModal = () => { this.setState( {nameYourPlaylistModalOpen: false} ) }
 
   closePlaylistAddedModal = () => {
     this.setState({
@@ -723,8 +715,17 @@ class AppContainer extends Component {
     })
   }
 
-  viewPlaylist = () => {
-    window.open(this.state.playlistUrl)
+  viewPlaylist = () => { window.open(this.state.playlistUrl) }
+
+  logOut = () => { 
+    let logOutPage = window.open('https://www.spotify.com/us/logout/');
+    setTimeout(function() {
+      document.location.href="/";
+    }, 1500);
+    setTimeout(function() {
+      logOutPage.close();
+    }, 1500);
+    return false;
   }
 
   render() {
@@ -738,6 +739,7 @@ class AppContainer extends Component {
           currentSongPlayingUrl = {this.state.currentSongPlayingUrl}
           currentSongPlayingTrack = {this.state.currentSongPlayingTrack}
           songPlaying = {this.state.songPlaying}
+          logOut = {this.logOut}
         />
         {this.renderPage()}
       </div>

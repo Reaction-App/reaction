@@ -31,16 +31,19 @@ const Nav = props => (
     iconElementRight={
       <div>
         <div style={{display: 'inline-block', marginRight: 30, marginTop: 10, width: 330, backgroundColor: '#F7F9FF'}}>
+
           <IconButton
             style={{top: -4, float: 'left'}}
             disabled={!props.currentSongPlayingTrack ? true : false}
             tooltip={!props.currentSongPlayingTrack ? 'Not Available' : false}
             onClick={() => props.playTrack(props.currentSongPlayingTrack)}
           >
+        
             <FontIcon className="material-icons">
               {props.songPlaying ? "play_circle_filled" : "play_circle_outline"}
             </FontIcon>
           </IconButton>
+
           <p style={{marginTop: 0, marginBottom: 0, fontFamily: 'Montserrat', maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
             {props.currentSongPlayingTrack.trackName}
           </p>
@@ -49,16 +52,25 @@ const Nav = props => (
           </p>
         </div>
 
+
         <FlatButton
           className={ props.currentPage === "Home" ? "menu-item selected" : "menu-item" }
           label="Search"
           onClick={() => props.handlePageChange("Home")}
-          style={{marginTop: 14, fontFamily: 'Montserrat'}} />
+          style={{marginTop: 14, fontFamily: 'Montserrat'}} 
+        />
         <FlatButton
           className={ props.currentPage === "Playlist" ? "menu-item selected" : "menu-item" }
           label="Playlist"
           onClick={() => props.handlePageChange("Playlist")}
-          style={{marginTop: 14, fontFamily: 'Montserrat'}} />
+          style={{marginTop: 14, fontFamily: 'Montserrat'}} 
+        />
+        <FlatButton
+          className="menu-item"
+          label="Log Out"
+          onClick={() => props.logOut()}
+          style={{marginTop: 14, fontFamily: 'Montserrat'}} 
+        />
 
           {/*Responsive Nav*/}
           <Toolbar className="responsive-nav">
@@ -72,6 +84,7 @@ const Nav = props => (
               >
                 <MenuItem primaryText="Search" onClick={() => props.handlePageChange("Home")} />
                 <MenuItem primaryText="Playlist" onClick={() => props.handlePageChange("Playlist")} />
+                <MenuItem primaryText="Log Out" onClick={() => props.logOut()} />
               </IconMenu>
             </ToolbarGroup>
           </Toolbar>
