@@ -5,7 +5,6 @@ import Home from "../../pages/Home";
 import Playlist from "../../pages/Playlist";
 import LoginPage from "../../pages/LoginPage";
 import querystring from 'querystring';
-import axios from 'axios';
 import Spotify from '../../utils/SpotifyRoutes';
 
 
@@ -33,7 +32,7 @@ class AppContainer extends Component {
         userID: ''
     },
     // Search form
-    searchOption: 'title',
+    searchOption: "title",
     query: '',
     noSongFound: false,
     tracks: {
@@ -101,7 +100,7 @@ class AppContainer extends Component {
     if (this.state.currentPage === "Home") {
       return <Home
         userData = {this.state.userData}
-        searchOption = {this.searchOption}
+        searchOption = {this.state.searchOption}
         handleSearchOption = {this.handleSearchOption}
         query = {this.state.query}
         handleOpen = {this.handleOpen}
@@ -226,8 +225,8 @@ class AppContainer extends Component {
   }
 
   handleSearchOption = (event, index, value) => {
-    this.setState({ searchOption: value });
-    console.log('searchOption' + this.state.searchOption)
+
+      this.setState({ searchOption: value });
   }
 
   handleInputChange = event => {
@@ -250,14 +249,11 @@ class AppContainer extends Component {
   // API call for finding a track
   searchSpotify(searchOption, query) {
 
-    this.setState({
-      noSongFound: false
-    })
-
+    this.setState({ noSongFound: false })
+    
     if (searchOption === 'artist') { query = `artist:${query}` }
     if (searchOption === 'album') { query = `album:${query}` }
 
-    console.log('query: ' + query);
     // URL constructor for search
     const BASE_URL = 'https://api.spotify.com/v1/search';
     const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10`;
@@ -636,10 +632,10 @@ class AppContainer extends Component {
 
   // emotion functions
   showEmotion = (valence, energy) => {
-    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/sx0jyqekv/happy.png" /></div>)};
-    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/5pav3pnhb/sad.png" /></div>)};
-    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/mptrcfatb/angry.png" /></div>)};
-    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
+    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} alt="happy" src="https://s17.postimg.org/sx0jyqekv/happy.png" /></div>)};
+    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="sad" src="https://s17.postimg.org/5pav3pnhb/sad.png" /></div>)};
+    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} alt="angry" src="https://s17.postimg.org/mptrcfatb/angry.png" /></div>)};
+    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="relaxed" src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
   }
 
   // When hovering over a playlist track, show tooltip on chart
@@ -699,19 +695,11 @@ class AppContainer extends Component {
     })
   }
 
-  openNameYourPlaylistModal = () => {
-    this.setState({nameYourPlaylistModalOpen: true})
-  }
+  openNameYourPlaylistModal = () => { this.setState( {nameYourPlaylistModalOpen: true} ) }
 
-  openPlaylistAddedModal = () => {
-    this.setState({
-      playlistAddedModalOpen: true
-    })
-  }
+  openPlaylistAddedModal = () => { this.setState( {playlistAddedModalOpen: true} ) }
 
-  closeNameYourPlaylistModal = () => {
-    this.setState({nameYourPlaylistModalOpen: false})
-  }
+  closeNameYourPlaylistModal = () => { this.setState( {nameYourPlaylistModalOpen: false} ) }
 
   closePlaylistAddedModal = () => {
     this.setState({
@@ -723,8 +711,17 @@ class AppContainer extends Component {
     })
   }
 
-  viewPlaylist = () => {
-    window.open(this.state.playlistUrl)
+  viewPlaylist = () => { window.open(this.state.playlistUrl) }
+
+  logOut = () => { 
+    let logOutPage = window.open('https://www.spotify.com/us/logout/');
+    setTimeout(function() {
+      document.location.href="/";
+    }, 1500);
+    setTimeout(function() {
+      logOutPage.close();
+    }, 1500);
+    return false;
   }
 
   render() {
@@ -738,6 +735,7 @@ class AppContainer extends Component {
           currentSongPlayingUrl = {this.state.currentSongPlayingUrl}
           currentSongPlayingTrack = {this.state.currentSongPlayingTrack}
           songPlaying = {this.state.songPlaying}
+          logOut = {this.logOut}
         />
         {this.renderPage()}
       </div>

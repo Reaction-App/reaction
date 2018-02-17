@@ -5,7 +5,6 @@ import './home.css';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
-import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import {
@@ -53,6 +52,8 @@ const Home = props => {
     />,
   ];
 
+console.log()
+
  return(
 
   <div>
@@ -80,11 +81,11 @@ const Home = props => {
       <SelectField
         className="search-drop-down"
          value={props.searchOption} onChange={props.handleSearchOption}
-         hintText="Title"
-        >
-        <MenuItem value={'title'} primaryText="Title" />
-        <MenuItem value={'artist'} primaryText="Artist" />
-        <MenuItem value={'album'} primaryText="Album" />
+         style = {{backgroundColor:'#FFFFFF'}}
+      >
+        <MenuItem value={"title"} primaryText="Title" />
+        <MenuItem value={"artist"} primaryText="Artist" />
+        <MenuItem value={"album"} primaryText="Album" />
       </SelectField>
 
       <TextField
@@ -164,9 +165,9 @@ const Home = props => {
                 <TableRowColumn>
                   <div>
                     <FlatButton
-                      backgroundColor={props.savedTracks.findIndex(x => x.trackID === track.trackID) == -1 ? '#5A66E3' : '#ACAEB2'}
-                      label={props.savedTracks.findIndex(x => x.trackID === track.trackID) == -1 ? "Add Song" : "Added"}
-                      disabled={props.savedTracks.findIndex(x => x.trackID === track.trackID) == -1 ? false : true}
+                      backgroundColor={props.savedTracks.findIndex(x => x.trackID === track.trackID) === -1 ? '#5A66E3' : '#ACAEB2'}
+                      label={props.savedTracks.findIndex(x => x.trackID === track.trackID) === -1 ? "Add Song" : "Added"}
+                      disabled={props.savedTracks.findIndex(x => x.trackID === track.trackID) === -1 ? false : true}
                       onClick={() => props.handleSaveTrack(track)}
                       style={{ float: 'right',  fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', width: 112 }} />
                     <Dialog
