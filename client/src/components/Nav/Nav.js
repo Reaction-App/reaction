@@ -11,10 +11,12 @@ import './nav.css';
 
 const Nav = props => (
   <AppBar
+    className="nav"
     title="Reaction Radio"
 
     iconElementLeft = {
       <div>
+
         <img 
           src='https://s17.postimg.org/xgsvell33/logo2.png' 
           alt="Logo"
@@ -30,27 +32,23 @@ const Nav = props => (
 
     iconElementRight={
       <div>
-        <div className={props.currentSongPlayingTrack ? "player-visible" : "player-hidden"} style={{marginRight: 30, marginTop: 10, width: 330, backgroundColor: '#F7F9FF'}}>
+        <div className={props.currentSongPlayingTrack ? "player-visible" : "player-hidden"} style={{display: 'inline-block', width: "30%", position: 'absolute', left: "50%", right: "50%", backgroundColor: '#F7F9FF'}}>
           <IconButton
-            style={{top: -4, float: 'left'}}
+            style={{ margin: '0 auto', left: 0, right: 0, display: 'block'}}
             disabled={!props.currentSongPlayingTrack ? true : false}
             tooltip={!props.currentSongPlayingTrack ? 'Not Available' : false}
             onClick={() => props.playTrack(props.currentSongPlayingTrack)}
           >
-        
-            <FontIcon className="material-icons">
-              {props.songPlaying ? "play_circle_filled" : "play_circle_outline"}
-            </FontIcon>
-          </IconButton>
+          <FontIcon className="material-icons">
+            {props.songPlaying ? "play_circle_filled" : "play_circle_outline"}
+          </FontIcon>
 
-          <p style={{marginTop: 0, marginBottom: 0, fontFamily: 'Montserrat', maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
-            {props.currentSongPlayingTrack.trackName}
-          </p>
-          <p style={{marginTop: 2, marginBottom: 0, paddingBottom: 1, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
-            {props.currentSongPlayingTrack.artist + " | " + props.currentSongPlayingTrack.album}
+          </IconButton>
+          <p style={{marginTop: 0, marginBottom: 0, fontFamily: 'Montserrat', textAlign: 'center', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'white'}}>
+            {props.currentSongPlayingTrack.trackName} | {props.currentSongPlayingTrack.artist}
+
           </p>
         </div>
-
 
         <FlatButton
           className={ props.currentPage === "Home" ? "menu-item selected" : "menu-item" }
@@ -91,7 +89,7 @@ const Nav = props => (
       </div>
     }
     style={{
-      backgroundColor: 'transparent',
+      backgroundColor: 'white',
       height: '80px',
       color: 'black'
     }}

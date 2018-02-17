@@ -1,55 +1,22 @@
-/*.playlist-container {
-  margin: 0 auto;
-  padding: 20px;
-  max-w: 1200px;
-   position: relative;
+::-webkit-scrollbar {
+display: none;
 }
-*/
+
+.nav {
+  position: fixed !important;
+}
 .list {
     width: 100%;
+    margin-top: 40px !important;
   }
 
-.playlist-header {
-  margin-right: initial !important;
-  width: calc(100% - 18px);
-}
-
-.playlist-header a {
-  font-size: 12px;
-  float: right;
-  margin-top: 7px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-.playlist-container {
-  margin-top: 420px;
-  margin-bottom: 150px;
-  }
-
-.chart {
-  margin: 0 auto;
-  width: 630px;
-  display: block;
-  position: inherit;
-}
 
 .chart-copy {
-  position: absolute;
-  left: 27%;
-  top: -50px;
   font-family: 'Montserrat', sans-serif;
 }
 
-.action-icons img {
-  height: 20px;
-  float: right;
-  clear: both;
-  padding: 5px 0 5px;
-}
-
 .action-icons {
-  margin: -7px 0 7px;
+  float: right;
 }
 
 .addToPlaylistButton {
@@ -77,25 +44,61 @@
   .delete {
     margin-right: 3px;
   }
-
-  .meep {
-    margin-bottom: -15px !important;
-  }
 }
 
 @media only screen and (min-width: 1100px) {
 
   .playlist-container {
-    float: right;
     width: 420px;
-    margin-top: 0px;
+    padding-top: 80px;
+    background-color: #F7F9FF;
+    padding-bottom: 50px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
   }
   .playlist-header {
-    width: 402px;
+    width: 400px;
     font-size: 24px !important;
+    position: fixed;
+    z-index: 100;
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px;
+    background-color: #5A66E3;
+    color: #FFFFFF;
+    margin-top: 0;
   }
+
+  .playlist-sort {
+    width: 200px !important;
+    position: fixed !important;
+    z-index: 100000;
+    left: 230px;
+    top: 76px;
+    font-family: 'Montserrat', sans-serif !important;
+    color: #FFFFFF !important;
+    text-align: right;
+  }
+
+  .playlist-sort div {
+    color: #FFFFFF !important;
+  }
+
   .chart {
-    margin: initial;
-    top: 80px;
+    position: absolute;
+    left: 450px;
+    top: 130px;
+  }
+
+  .addToPlaylistButton {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    width: 420px;
+    text-align: center;
+    height: 60px;
+  }
+
+  .addToPlaylistButton:hover {
+    background-color: #454448;
+    transition: all 0.3s ease;
   }
 }

@@ -62,7 +62,8 @@ console.log()
       backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
       width: "100%",
       backgroundSize: 'cover',
-      marginBottom: 50
+      marginBottom: 50,
+      paddingTop: 80
     }}>
       <h3 style={{
         marginTop: 0,

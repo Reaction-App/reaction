@@ -103,7 +103,7 @@ class Chart extends Component {
         }
       },
       chart: {
-        // width: 355,
+        width: 600,
         type: 'scatter',
         backgroundColor: 'transparent',
       },
@@ -120,7 +120,10 @@ class Chart extends Component {
         labels: {
           formatter: function() {
             return this.value+'%';
-          }
+          },
+          style: {
+            fontFamily: 'Montserrat',
+          },
         },
         title: {
           enabled: true,
@@ -150,7 +153,10 @@ class Chart extends Component {
         labels: {
           formatter: function() {
             return this.value+'%';
-          }
+          },
+          style: {
+            fontFamily: 'Montserrat',
+          },
         },
         title: {
           text: 'Energy',
@@ -231,7 +237,6 @@ class Chart extends Component {
           <p style={{position: 'absolute', top: '56%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
           <p style={{position: 'absolute', top: '56%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
         </div>
-        <div><p className="chart-copy">Click on any point below to sort by song.</p></div>
       </div>
     )
   }
