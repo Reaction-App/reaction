@@ -9,32 +9,27 @@ import MenuItem from 'material-ui/MenuItem';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import './nav.css';
 
-// const styles = {
-
-// };
-
 const Nav = props => (
   <AppBar
     title="Reaction Radio"
+
     iconElementLeft = {
       <div>
-
-      <img src='https://s17.postimg.org/xgsvell33/logo2.png' alt="Logo"
-      style={{
-        height: '80px',
-        marginTop: '-8px',
-        marginLeft: '-8px'
-      }}
-    />
-
-
-    </div>
-  }
+        <img 
+          src='https://s17.postimg.org/xgsvell33/logo2.png' 
+          alt="Logo"
+          onClick={() => props.handlePageChange("Home")}
+          style={{
+            height: '80px',
+            marginTop: '-8px',
+            marginLeft: '-8px'
+          }}
+        />
+      </div>
+    }
 
     iconElementRight={
-
       <div>
-
         <div style={{display: 'inline-block', marginRight: 30, marginTop: 10, width: 330, backgroundColor: '#F7F9FF'}}>
           <IconButton
             style={{top: -4, float: 'left'}}
