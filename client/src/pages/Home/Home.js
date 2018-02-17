@@ -26,8 +26,10 @@ import FlatButton from 'material-ui/FlatButton';
     },
     overlayStyle: {
       opacity: .2
-    }
+    },
   }
+
+
 
 
 // Home Page
@@ -81,7 +83,8 @@ console.log()
       <SelectField
         className="search-drop-down"
          value={props.searchOption} onChange={props.handleSearchOption}
-         style = {{backgroundColor:'#FFFFFF'}}
+         style = {{backgroundColor:'#FFFFFF', height: 60}}
+         underlineShow={false}
       >
         <MenuItem value={"title"} primaryText="Title" />
         <MenuItem value={"artist"} primaryText="Artist" />

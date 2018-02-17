@@ -104,7 +104,7 @@ display: none;
 
   .song-container {
     overflow: scroll;
-        height: 100%;
+    height: calc(100% - 140px);
     position: fixed;
     background-color: #F7F9FF;
     width: 420px;
