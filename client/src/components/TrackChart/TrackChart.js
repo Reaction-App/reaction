@@ -27,7 +27,7 @@ class Chart extends Component {
     chart.showLoading(message)
     setTimeout(() => {
       chart.hideLoading()
-    }, 1250)      
+    }, 1250)
   }
 
   componentDidLoad() {
@@ -108,9 +108,13 @@ class Chart extends Component {
         backgroundColor: 'transparent',
       },
       title: {
-        text: '[Click on a point to sort by track.]',
+        text: 'My Song Chart',
         style: {
-            fontSize: '14px',
+            fontSize: '30px',
+            fontFamily: 'Montserrat',
+            color: '#454448',
+            fontWeight: 'bold',
+            color: '#5A66E3'
           }
       },
       xAxis: {
@@ -123,7 +127,13 @@ class Chart extends Component {
           enabled: true,
           text: 'Positivity',
           style: {
-            fontSize: '18px'
+            fontSize: '18px',
+            fontFamily: 'Montserrat',
+            color: '#454448',
+            textTransform: 'uppercase',
+            letterSpacing: '4px',
+            fontWeight: 'bold',
+            marginTop: '20px',
           }
         },
         startOnTick: true,
@@ -146,7 +156,13 @@ class Chart extends Component {
         title: {
           text: 'Energy',
           style: {
-            fontSize: '20px'
+            fontSize: '18px',
+            fontFamily: 'Montserrat',
+            color: '#454448',
+            textTransform: 'uppercase',
+            letterSpacing: '4px',
+            fontWeight: 'bold',
+            marginTop: '20px',
           }
         },
         min: 0,
@@ -208,12 +224,15 @@ class Chart extends Component {
       series: data
     };
     return (
-      <div style={{position: 'absolute', left: 0}}>
-      <ReactHighcharts config={config} ref="chart"/>
-        <p style={{position: 'absolute', top: '12%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
-        <p style={{position: 'absolute', top: '12%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
-        <p style={{position: 'absolute', top: '56%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
-        <p style={{position: 'absolute', top: '56%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
+      <div>
+        <div style={{position: 'absolute', left: 0}}>
+        <ReactHighcharts config={config} ref="chart"/>
+          <p style={{position: 'absolute', top: '12%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
+          <p style={{position: 'absolute', top: '12%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
+          <p style={{position: 'absolute', top: '56%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
+          <p style={{position: 'absolute', top: '56%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
+        </div>
+        <div><p className="chart-copy">Click on any point below to sort by song.</p></div>
       </div>
     )
   }
