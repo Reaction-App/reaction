@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SortFunctions from "../../utils/SortFunctions";
+
 // import $ from "jquery";
 const ReactHighcharts = require('react-highcharts');
 
@@ -112,7 +112,6 @@ class Chart extends Component {
         style: {
             fontSize: '30px',
             fontFamily: 'Montserrat',
-            color: '#454448',
             fontWeight: 'bold',
             color: '#5A66E3'
           }

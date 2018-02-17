@@ -164,9 +164,9 @@ console.log()
                 <TableRowColumn>
                   <div>
                     <FlatButton
-                      backgroundColor={props.savedTracks.findIndex(x => x.trackID === track.trackID) == -1 ? '#5A66E3' : '#ACAEB2'}
-                      label={props.savedTracks.findIndex(x => x.trackID === track.trackID) == -1 ? "Add Song" : "Added"}
-                      disabled={props.savedTracks.findIndex(x => x.trackID === track.trackID) == -1 ? false : true}
+                      backgroundColor={props.savedTracks.findIndex(x => x.trackID === track.trackID) === -1 ? '#5A66E3' : '#ACAEB2'}
+                      label={props.savedTracks.findIndex(x => x.trackID === track.trackID) === -1 ? "Add Song" : "Added"}
+                      disabled={props.savedTracks.findIndex(x => x.trackID === track.trackID) === -1 ? false : true}
                       onClick={() => props.handleSaveTrack(track)}
                       style={{ float: 'right',  fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', width: 112 }} />
                     <Dialog
