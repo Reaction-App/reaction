@@ -1,0 +1,31 @@
+.headlineStyle {
+    width: 400px;
+    font-size: 30px !important;
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px;
+    background-color: #5A66E3;
+    color: #FFFFFF;
+}
+
+.authorDiv {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 180px;
+}
+
+.author {
+  padding: 30px;
+}
+
+.authorImage {
+  float: left;
+  margin-bottom: 40px;
+}
+
+.authorImage img {
+  max-width: 175px;
+  box-shadow: 10px 10px 5px 0px rgba(112,106,112,1);
+  /*border-radius: 50%;*/
+}
+
+

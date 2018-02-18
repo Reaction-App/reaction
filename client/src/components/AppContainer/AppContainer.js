@@ -4,6 +4,7 @@ import Nav from "../Nav";
 import Home from "../../pages/Home";
 import Playlist from "../../pages/Playlist";
 import LoginPage from "../../pages/LoginPage";
+import Authors from "../../pages/Authors";
 import querystring from 'querystring';
 import Spotify from '../../utils/SpotifyRoutes';
 
@@ -153,6 +154,10 @@ class AppContainer extends Component {
         closePlaylistAddedModal = {this.closePlaylistAddedModal}
         viewPlaylist = {this.viewPlaylist}
       />;
+    } else if (this.state.currentPage === "Authors") {
+      return <Authors
+        handlePageChange = {this.handlePageChange}
+        />;
     } else {
       return <LoginPage />;
     }
