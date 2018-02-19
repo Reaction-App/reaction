@@ -3,6 +3,10 @@
   text-align: center;
 }
 
+.authorContainer {
+  display: inline;
+}
+
 .headlineStyle {
     width: 400px;
     font-size: 30px !important;
@@ -42,26 +46,22 @@ a, a:visited {
   color: #5A66E3;
 }
 
-/*.authorDiv {
-  max-width: 80%;
-  margin: 0 auto;
-  padding: 180px;
-}*/
+@media only screen and (min-width: 700px) {
 
-/*.author {
-  padding: 30px;
+  .mobileOnly {
+    display: none
+  }
 }
-*/
-/*.authorImage {
-  float: left;
-  margin-bottom: 40px;
-  position: relative;
-  width: 100%;
-}*/
 
-/*.authorImage img {
-  max-width: 175px;
-  box-shadow: 10px 10px 5px 0px rgba(112,106,112,1);
-  /*border-radius: 50%;
-}*/
+@media only screen and (max-width: 701px) {
+
+  .mobileOnly {
+    display: block;
+    text-decoration: none;
+  }
+
+  .GitHub, .email {
+    display: none;
+  }
+}
 

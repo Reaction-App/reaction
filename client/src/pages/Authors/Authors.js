@@ -27,8 +27,10 @@ const Authors = props => {
 		    	<div className="authorInfo">
 		    		<h3><b>Victoria Palacios</b></h3>
 		    		<hr className="rule"></hr>
-		    		<p><i className="myIcon devicon-github-plain colored"></i><a target="_blank" href="https://github.com/victoriapalacios">@victoriapalacios</a></p>
-		            <p><FontIcon className="material-icons myIcon">mail_outline</FontIcon>email@email.com</p>
+		    		<p className="GitHub"><i className="myIcon devicon-github-plain colored"></i><a target="_blank" href="https://github.com/victoriapalacios">@victoriapalacios</a></p>
+		    		<p className="mobileOnly"><a target="_blank" href="https://github.com/victoriapalacios"><i className="myIcon devicon-github-plain colored"></i></a></p>
+		            <p className="email"><FontIcon className="material-icons myIcon">mail_outline</FontIcon>email@email.com</p>
+		    		<p className="mobileOnly"><a href="mailto:email@email.com"><FontIcon className="material-icons myIcon">mail_outline</FontIcon></a></p>
 
 		    	</div>
 		    </Paper>
@@ -40,8 +42,10 @@ const Authors = props => {
 				<div className="authorInfo">
 		    		<h3><b>Juliette Rapala</b></h3>
 		    		<hr className="rule"></hr>
-		    		<p><i className="myIcon devicon-github-plain colored"></i><a target="_blank" href="https://github.com/jrapala">@jrapala</a></p>
-		            <p><FontIcon className="material-icons myIcon">mail_outline</FontIcon>jrapala@gmail.com</p>
+		    		<p className="GitHub"><i className="myIcon devicon-github-plain colored"></i><a target="_blank" href="https://github.com/jrapala">@jrapala</a></p>
+		            <p className="mobileOnly"><a target="_blank" href="https://github.com/jrapala"><i className="myIcon devicon-github-plain colored"></i></a></p>
+		            <p className="email"><FontIcon className="material-icons myIcon">mail_outline</FontIcon>jrapala@gmail.com</p>
+		    		<p className="mobileOnly"><a href="mailto:email@email.com"><FontIcon className="material-icons myIcon">mail_outline</FontIcon></a></p>
 		            {/*<p><FontIcon className="material-icons myIcon">computer</FontIcon><a href="http://www.julietterapala.com">www.julietterapala.com</a></p>*/}
 		    	</div>
 		    </Paper>
@@ -53,8 +57,10 @@ const Authors = props => {
 		    	<div className="authorInfo">
 		    		<h3><b>Mark Walker</b></h3>
 		    		<hr className="rule"></hr>
-		    		<p><i className="myIcon devicon-github-plain colored"></i><a target="_blank" href="https://github.com/markwalkernz">@markwalkernz</a></p>
-		    		<p><FontIcon className="material-icons myIcon">mail_outline</FontIcon>email@email.com</p>
+		    		<p className="GitHub"><i className="myIcon devicon-github-plain colored"></i><a target="_blank" href="https://github.com/markwalkernz">@markwalkernz</a></p>
+					<p className="mobileOnly"><a target="_blank" href="https://github.com/markwalkernz"><i className="myIcon devicon-github-plain colored"></i></a></p>		    		
+		    		<p className="email"><FontIcon className="material-icons myIcon">mail_outline</FontIcon>email@email.com</p>
+		    		<p className="mobileOnly"><a href="mailto:email@email.com"><FontIcon className="material-icons myIcon">mail_outline</FontIcon></a></p>
 		    	</div>
 		    </Paper>
 		  <div style={{textAlign: 'center'}}>
