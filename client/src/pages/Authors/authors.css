@@ -42,6 +42,18 @@
   right: 5px;
 }
 
+
+.email span {
+    display: inline-block;
+
+    &::before {
+      content: "\A";
+      white-space: pre;
+    }
+}
+
+
+
 a, a:visited {
   color: #5A66E3;
 }
