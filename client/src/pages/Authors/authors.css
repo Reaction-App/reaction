@@ -1,3 +1,8 @@
+.authorDiv {
+  padding-top: 120px;
+  text-align: center;
+}
+
 .headlineStyle {
     width: 400px;
     font-size: 30px !important;
@@ -5,27 +10,58 @@
     padding: 10px;
     background-color: #5A66E3;
     color: #FFFFFF;
+    border-radius: 5px;
 }
 
-.authorDiv {
-  max-width: 80%;
-  margin: 0 auto;
-  padding: 180px;
+.authorInfo {
+  padding: 2px 16px;
+  text-align: center;
 }
 
-.author {
-  padding: 30px;
+.rule {
+  width: 80%;
+  height: 2px;
+  background-color: #5A66E3;
+}
+.authorImage {
+  border-radius: 5px;
 }
 
 .authorImage {
+  width: 100%;
+}
+
+.myIcon {
+  font-size: 30px;
+  position: relative;
+  top: 5px;
+  right: 5px;
+}
+
+a, a:visited {
+  color: #5A66E3;
+}
+
+/*.authorDiv {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 180px;
+}*/
+
+/*.author {
+  padding: 30px;
+}
+*/
+/*.authorImage {
   float: left;
   margin-bottom: 40px;
-}
+  position: relative;
+  width: 100%;
+}*/
 
-.authorImage img {
+/*.authorImage img {
   max-width: 175px;
   box-shadow: 10px 10px 5px 0px rgba(112,106,112,1);
-  /*border-radius: 50%;*/
-}
-
+  /*border-radius: 50%;
+}*/
 
