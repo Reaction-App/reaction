@@ -35,18 +35,7 @@ display: none;
 }
 
 
-@media only screen and (min-width: 1000px) {
 
-  .sort {
-    height: 15px !important;
-  }
-
-  .delete {
-    margin-right: 3px;
-  }
-}
-
-@media only screen and (min-width: 1100px) {
 
   .playlist-container {
     width: 420px;
@@ -108,5 +97,33 @@ display: none;
     position: fixed;
     background-color: #F7F9FF;
     width: 420px;
+  }
+
+
+
+@media only screen and (max-width: 950px) {
+  .playlist-container {
+    padding: 100px 20px 20px;
+    width: 100%;
+    box-shadow: none;
+  }
+  .song-container, .addToPlaylistButton, .playlist-header {
+    width: calc(100% - 40px);
+  }
+  .playlist-sort {
+    position: absolute !important;
+    right: 0 !important;
+    left: inherit;
+    margin-top: 20px;
+  }
+  .addToPlaylistButton {
+    margin-bottom: 20px
+  }
+  .song-container {
+    height: calc(100% - 180px);
+  }
+  .playlist-header {
+    padding: 0;
+    height: 50px;
   }
 }
