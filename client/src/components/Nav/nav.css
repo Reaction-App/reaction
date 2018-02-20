@@ -16,6 +16,10 @@ background-color: transparent !important;
 color: #5A66E3;
 }
 
+.logo:hover {
+  cursor: pointer;
+}
+
 .menu-item, .menu-item span {
 font-weight: bold !important;
 color: #454448;
