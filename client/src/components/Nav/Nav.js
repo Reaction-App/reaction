@@ -20,6 +20,7 @@ const Nav = props => (
         <img
           src='https://s17.postimg.org/xgsvell33/logo2.png'
           alt="Logo"
+          className="logo"
           onClick={() => props.handlePageChange("Home")}
           style={{
             height: '80px',
