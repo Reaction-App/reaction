@@ -94,7 +94,7 @@ console.log()
       <TextField
         className="search-field"
         underlineShow={false}
-        hintText="Search by song title, artist, or album..."
+        hintText={props.searchHintText}
         name="query"
         value={props.query}
         onChange={props.handleInputChange}
@@ -195,9 +195,9 @@ console.log()
         : ( <div style={{ margin: '0 auto', marginTop: 80, display: 'block', textAlign: 'center', maxWidth: 600, color: '#454448' }}>
                 <img style={{ width: 150 }} src='https://s17.postimg.org/vobidfu3z/start-searaching.png' alt="Start Searching" />
                 {props.noSongFound ? (
-                  <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, that song does not exist! Please search for another song.</h2>
+                  <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, no results found! Please try another search.</h2>
                 ):(
-                  <h2 className="empty-state-text" style={{ fontFamily: 'Montserrat' }}>Start by searching for a song, album, or artist. Then click “Add Song” to begin curating your playlist.</h2>
+                  <h2 className="empty-state-text" style={{ fontFamily: 'Montserrat' }}>Start by searching for a song, artist or album. Then click “Add Song” to begin curating your playlist.</h2>
                 )}
             </div>
           )}
