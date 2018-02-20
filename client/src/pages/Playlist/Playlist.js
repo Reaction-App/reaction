@@ -59,8 +59,6 @@ const Playlist = props => {
         </DropDownMenu>
       </div>
 
-      {/*<button className="addToPlaylistButton" onClick={() => props.openNameYourPlaylistModal()}>Export to Spotify</button>*/}
-
       <div className="song-container">
         {props.savedTracks.length ? (
           <List className="list" style={{marginTop: '-20px'}}>

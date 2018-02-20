@@ -62,78 +62,6 @@ class Chart extends Component {
     // }
 
     const config = {
-        // responsive: {
-        //     rules: [
-        //       {condition: {maxWidth: 1800}, // 1800
-        //         chartOptions: {chart: {height: 1200}}
-        //       },
-        //       {condition: {maxWidth: 1700}, // 1700
-        //         chartOptions: {chart: {height: 1333}}
-        //       },
-        //       {condition: {maxWidth: 1600}, // 1600
-        //         chartOptions: {chart: {height: 1066}}
-        //       },
-        //       {condition: {maxWidth: 1500}, // 1500
-        //         chartOptions: {chart: {height: 1000}}
-        //       },
-        //       {condition: {maxWidth: 1400}, // 1400
-        //         chartOptions: {chart: {height: 933}}
-        //       },
-        //       {condition: {maxWidth: 1300}, // 1300
-        //         chartOptions: {chart: {height: 866}}
-        //       },
-        //       {condition: {maxWidth: 1200}, // 1200
-        //         chartOptions: {chart: {height: 800}}
-        //       },
-
-        //       {condition: {maxWidth: 1100}, // 1100
-        //         chartOptions: {chart: {height: 733}}
-        //       },
-        //       {condition: {maxWidth: 1000}, // 1000
-        //         chartOptions: {chart: {height: 666}}
-        //       },
-        //       {condition: {maxWidth: 900}, // 900
-        //         chartOptions: {chart: {height: 600}}
-        //       },
-        //       {condition: {maxWidth: 800}, // 800
-        //         chartOptions: {chart: {height: 533}}
-        //       },
-        //       {condition: {maxWidth: 700}, // 700
-        //         chartOptions: {chart: {height: 466}}
-        //       },
-        //       {condition: {maxWidth: 600}, // 600
-        //         chartOptions: {chart: {height: 400}}
-        //       },
-        //       {condition: {maxWidth: 500}, // 500
-        //         chartOptions: {chart: {height: 333}}
-        //       },            
-        //       {condition: {maxWidth: 400}, // 400
-        //         chartOptions: {chart: {height: 266}}
-        //       },
-        //       {condition: {maxWidth: 300}, // 300
-        //         chartOptions: {chart: {height: 200}}
-        //       },
-        //       {condition: {maxWidth: 200}, // 200
-        //         chartOptions: {chart: {height: 133}}
-        //       },
-        //       {condition: {maxWidth: 100}, // 100
-        //         chartOptions: {chart: {height: 166}}
-        //       },
-        //     ]
-        // },
-
-      // responsive: {
-      //   rules: [{
-      //     condition: {
-      //       maxWidth: 500
-      //     },
-      //     chartOptions: {
-      //       chart: {
-      //         width: 355
-      //       }
-      //     }
-      //   }]
-      // }
       credits: {
         enabled: false
       },
@@ -220,7 +148,6 @@ class Chart extends Component {
             width: 1,
             value: 50
         }]
-
       },
       legend: {
         enabled: false
@@ -252,14 +179,6 @@ class Chart extends Component {
               marker: {
                 enabled: false
               },
-              // halo: {
-              //   size: 10,
-              //   attributes: {
-              //       fill: 'black',
-              //       'stroke-width': 2,
-              //       stroke: 'black'
-              //   }
-              // }
             },
           },
           tooltip: {
