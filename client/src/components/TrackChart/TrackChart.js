@@ -65,45 +65,45 @@ class Chart extends Component {
         responsive: {
             rules: [
             {
+            condition: {
+              maxWidth: 1500
+            },
+              chartOptions: {
+                chart: {
+                  width: 600
+                }
+              }
+            },
+            {
+              condition: {
+                maxWidth: 1400
+              },
+              chartOptions: {
+                chart: {
+                  height: 400
+                }
+              }
+            },
+            {
                 condition: {
-                    maxWidth: 500
+                  maxWidth: 300
                 },
                 chartOptions: {
                     chart: {
-                        height: 333
+                      height: 200
                     }
                 }
             },
             {
                 condition: {
-                    maxWidth: 400
+                  maxWidth: 200
                 },
                 chartOptions: {
                     chart: {
-                        height: 266
+                      height: 133
                     }
                 }
             },
-            {
-                condition: {
-                    maxWidth: 300
-                },
-                chartOptions: {
-                    chart: {
-                        height: 200
-                    }
-                }
-            },
-            {
-                condition: {
-                    maxWidth: 200
-                },
-                chartOptions: {
-                    chart: {
-                        height: 133
-                    }
-                }
-            },            
             {
                 condition: {
                     maxWidth: 100
@@ -113,7 +113,7 @@ class Chart extends Component {
                         height: 66
                     }
                 }
-            },  
+            },
             ]
         },
 

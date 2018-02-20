@@ -32,7 +32,7 @@ const Playlist = props => {
   return (
 
     <div>
-{/*      <div><p className="chart-copy">Click on any point below to sort by song.</p></div>*/}
+      {/*<div><p className="chart-copy">Click on any point below to sort by song.</p></div>*/}
 
     <PlaylistModal {...props}/>
       <div className="chart">
