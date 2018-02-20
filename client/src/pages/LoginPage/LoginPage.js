@@ -13,8 +13,6 @@ import './styles.css';
 	// IF USING HEORKU, USE THIS URL
 	// const REDIRECT_URI = encodeURIComponent('https://reaction-radio.herokuapp.com/home/');
 
-	// Spotify scopes: https://developer.spotify.com/web-api/using-scopes/
-
 	const SCOPE = '&scope=playlist-modify-public';
 	const RESPONSE_TYPE = '&response_type=token'
 	const STATE = '&state=3125606776';
@@ -24,31 +22,22 @@ import './styles.css';
 class LoginPage extends React.Component {
 
 	render() {
-return (
-<div>
-  <div>
-  <NavClean />
-  </div>
-  <div className="background">
-    <h1>search music and curate your own playlist based on your mood</h1>
-    <button className="login-button" onClick={ () => window.location=REDIRECT_URL}>Log In</button>
-    <span className="spotify-callout"><p>Powered by</p> <img src="https://s17.postimg.org/rjpi4vcv3/Spotify_logo_with_text.svg.png" alt="Spotify" /></span>
-  </div>
-</div>
-)
-};
+		return (
+			<div>
+  				<div>
+  					<NavClean />
+  				</div>
+	  			<div className="background">
+	    			<h1>search music and curate your own playlist based on your mood</h1>
+	    			<button className="login-button" onClick={ () => window.location=REDIRECT_URL}>Log In</button>
+	    			<span className="spotify-callout">
+	    				<p>Powered by</p> <img src="https://s17.postimg.org/rjpi4vcv3/Spotify_logo_with_text.svg.png" alt="Spotify" />
+	    			</span>
+	  			</div>
+			</div>
+		)
+	};
 }
 
 export default LoginPage;
 
-
-
-
-
-	// Trying to utilize env variables..
-
-	// Redirect
-	// let REDIRECT_UNENCODED = process.env.REDIRECT_URL || 'http://localhost:3000/home/callback';
-	// let REDIRECT_URI = encodeURIComponent(REDIRECT_UNENCODED);
-
-	// Heroku: REDIRECT_URL set to 'https://desolate-caverns-55074.herokuapp.com/home/callback'

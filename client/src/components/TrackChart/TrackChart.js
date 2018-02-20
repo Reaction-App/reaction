@@ -62,61 +62,65 @@ class Chart extends Component {
     // }
 
     const config = {
-        responsive: {
-            rules: [
-            {
-            condition: {
-              maxWidth: 1500
-            },
-              chartOptions: {
-                chart: {
-                  width: 600
-                }
-              }
-            },
-            {
-              condition: {
-                maxWidth: 1400
-              },
-              chartOptions: {
-                chart: {
-                  height: 400
-                }
-              }
-            },
-            {
-                condition: {
-                  maxWidth: 300
-                },
-                chartOptions: {
-                    chart: {
-                      height: 200
-                    }
-                }
-            },
-            {
-                condition: {
-                  maxWidth: 200
-                },
-                chartOptions: {
-                    chart: {
-                      height: 133
-                    }
-                }
-            },
-            {
-                condition: {
-                    maxWidth: 100
-                },
-                chartOptions: {
-                    chart: {
-                        height: 66
-                    }
-                }
-            },
-            ]
-        },
+        // responsive: {
+        //     rules: [
+        //       {condition: {maxWidth: 1800}, // 1800
+        //         chartOptions: {chart: {height: 1200}}
+        //       },
+        //       {condition: {maxWidth: 1700}, // 1700
+        //         chartOptions: {chart: {height: 1333}}
+        //       },
+        //       {condition: {maxWidth: 1600}, // 1600
+        //         chartOptions: {chart: {height: 1066}}
+        //       },
+        //       {condition: {maxWidth: 1500}, // 1500
+        //         chartOptions: {chart: {height: 1000}}
+        //       },
+        //       {condition: {maxWidth: 1400}, // 1400
+        //         chartOptions: {chart: {height: 933}}
+        //       },
+        //       {condition: {maxWidth: 1300}, // 1300
+        //         chartOptions: {chart: {height: 866}}
+        //       },
+        //       {condition: {maxWidth: 1200}, // 1200
+        //         chartOptions: {chart: {height: 800}}
+        //       },
 
+        //       {condition: {maxWidth: 1100}, // 1100
+        //         chartOptions: {chart: {height: 733}}
+        //       },
+        //       {condition: {maxWidth: 1000}, // 1000
+        //         chartOptions: {chart: {height: 666}}
+        //       },
+        //       {condition: {maxWidth: 900}, // 900
+        //         chartOptions: {chart: {height: 600}}
+        //       },
+        //       {condition: {maxWidth: 800}, // 800
+        //         chartOptions: {chart: {height: 533}}
+        //       },
+        //       {condition: {maxWidth: 700}, // 700
+        //         chartOptions: {chart: {height: 466}}
+        //       },
+        //       {condition: {maxWidth: 600}, // 600
+        //         chartOptions: {chart: {height: 400}}
+        //       },
+        //       {condition: {maxWidth: 500}, // 500
+        //         chartOptions: {chart: {height: 333}}
+        //       },            
+        //       {condition: {maxWidth: 400}, // 400
+        //         chartOptions: {chart: {height: 266}}
+        //       },
+        //       {condition: {maxWidth: 300}, // 300
+        //         chartOptions: {chart: {height: 200}}
+        //       },
+        //       {condition: {maxWidth: 200}, // 200
+        //         chartOptions: {chart: {height: 133}}
+        //       },
+        //       {condition: {maxWidth: 100}, // 100
+        //         chartOptions: {chart: {height: 166}}
+        //       },
+        //     ]
+        // },
 
       // responsive: {
       //   rules: [{
@@ -142,7 +146,7 @@ class Chart extends Component {
         }
       },
       chart: {
-        // width: 600,
+        maxWidth: 600,
         type: 'scatter',
         backgroundColor: 'transparent',
       },
@@ -269,13 +273,13 @@ class Chart extends Component {
     };
     return (
       <div>
-        <div style={{position: 'absolute', left: 0}}>
+        {/*<div style={{position: 'absolute', left: 0}}>*/}
         <ReactHighcharts config={config} ref="chart"/>
           <p style={{position: 'absolute', top: '12%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
           <p style={{position: 'absolute', top: '12%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
           <p style={{position: 'absolute', top: '56%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
           <p style={{position: 'absolute', top: '56%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
-        </div>
+        {/*</div>*/}
       </div>
     )
   }
