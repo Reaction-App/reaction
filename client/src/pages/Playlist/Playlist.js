@@ -38,7 +38,7 @@ const Playlist = props => {
           {props.chartData.length ? (
             <div>
               <TrackChart chartData={props.chartData} graphClick={props.graphClick} highlightSongOnGraph={props.highlightSongOnGraph}/>
-              {/*<div><p className="chart-copy">Click on any point below to sort by song.</p></div>*/}
+              <div><p className="chart-copy">Click on a point on the chart to sort by song.</p></div>
             </div>
           ) : (<div></div>)}
       </div>

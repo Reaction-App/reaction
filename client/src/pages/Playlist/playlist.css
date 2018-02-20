@@ -10,11 +10,6 @@ display: none;
     margin-top: 40px !important;
   }
 
-
-.chart-copy {
-  font-family: 'Montserrat', sans-serif;
-}
-
 .action-icons {
   float: right;
 }
@@ -88,6 +83,14 @@ display: none;
     top: 130px;
   }
   
+.chart-copy {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 80%;
+  text-align: center;
+  font-style: italic;
+  margin-left: 20px;
+}
+
 
 /*  .content-wrapper {
     position: fixed;
