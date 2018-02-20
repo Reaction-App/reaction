@@ -34,6 +34,7 @@ class AppContainer extends Component {
     },
     // Search form
     searchOption: "title",
+    searchHintText: "Search by song title...",
     query: '',
     noSongFound: false,
     tracks: {
@@ -102,6 +103,7 @@ class AppContainer extends Component {
       return <Home
         userData = {this.state.userData}
         searchOption = {this.state.searchOption}
+        searchHintText = {this.state.searchHintText}
         handleSearchOption = {this.handleSearchOption}
         query = {this.state.query}
         handleOpen = {this.handleOpen}
@@ -232,6 +234,10 @@ class AppContainer extends Component {
   handleSearchOption = (event, index, value) => {
 
       this.setState({ searchOption: value });
+
+      if (value === 'title') {this.setState({ searchHintText: 'Search for a song title...'})};
+      if (value === 'artist') {this.setState({ searchHintText: 'Search for an artist...'})};
+      if (value === 'album') {this.setState({ searchHintText: 'Search for an album...'})};
   }
 
   handleInputChange = event => {
