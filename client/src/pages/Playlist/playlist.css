@@ -10,11 +10,6 @@ display: none;
     margin-top: 40px !important;
   }
 
-
-.chart-copy {
-  font-family: 'Montserrat', sans-serif;
-}
-
 .action-icons {
   float: right;
 }
@@ -72,10 +67,21 @@ display: none;
   }
 
   .chart {
-    position: absolute;
+    display: table-cell;
+    width:50%;
+    position:absolute;
     left: 450px;
     top: 130px;
   }
+  
+.chart-copy {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 80%;
+  text-align: center;
+  font-style: italic;
+  margin-left: 20px;
+}
+
 
   .addToPlaylistButton {
     position: fixed;
@@ -101,29 +107,55 @@ display: none;
 
 
 
-@media only screen and (max-width: 950px) {
-  .playlist-container {
-    padding: 100px 20px 20px;
+@media only screen and (max-width: 768px) {
+
+
+
+  .chart {
     width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 100px;
+  }
+  
+  .playlist-container {
+    position: static;
+    padding-top: 550px;
     box-shadow: none;
+    width: 100%;
+    padding-bottom: 0px;
   }
-  .song-container, .addToPlaylistButton, .playlist-header {
-    width: calc(100% - 40px);
+
+  .playlist-header, .song-container {
+    position: static;
+    width: 100%;
   }
+
+  .playlist-header {
+    line-height: 50px;
+  }
+
+  .addToPlaylistButton {
+    position: static;
+    width: 100%;
+  }
+
   .playlist-sort {
     position: absolute !important;
     right: 0 !important;
     left: inherit;
-    margin-top: 20px;
+    margin-top: 8px;
+    top: 550px;
   }
-  .addToPlaylistButton {
-    margin-bottom: 20px
+
+  .list {
+    margin-top: 0px !important;
   }
-  .song-container {
-    height: calc(100% - 180px);
-  }
+
   .playlist-header {
-    padding: 0;
     height: 50px;
   }
+
+
+
 }

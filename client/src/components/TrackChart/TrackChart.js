@@ -62,74 +62,6 @@ class Chart extends Component {
     // }
 
     const config = {
-        responsive: {
-            rules: [
-            {
-            condition: {
-              maxWidth: 1500
-            },
-              chartOptions: {
-                chart: {
-                  width: 600
-                }
-              }
-            },
-            {
-              condition: {
-                maxWidth: 1400
-              },
-              chartOptions: {
-                chart: {
-                  height: 400
-                }
-              }
-            },
-            {
-                condition: {
-                  maxWidth: 300
-                },
-                chartOptions: {
-                    chart: {
-                      height: 200
-                    }
-                }
-            },
-            {
-                condition: {
-                  maxWidth: 200
-                },
-                chartOptions: {
-                    chart: {
-                      height: 133
-                    }
-                }
-            },
-            {
-                condition: {
-                    maxWidth: 100
-                },
-                chartOptions: {
-                    chart: {
-                        height: 66
-                    }
-                }
-            },
-            ]
-        },
-
-
-      // responsive: {
-      //   rules: [{
-      //     condition: {
-      //       maxWidth: 500
-      //     },
-      //     chartOptions: {
-      //       chart: {
-      //         width: 355
-      //       }
-      //     }
-      //   }]
-      // }
       credits: {
         enabled: false
       },
@@ -142,7 +74,7 @@ class Chart extends Component {
         }
       },
       chart: {
-        // width: 600,
+        maxWidth: 600,
         type: 'scatter',
         backgroundColor: 'transparent',
       },
@@ -216,7 +148,6 @@ class Chart extends Component {
             width: 1,
             value: 50
         }]
-
       },
       legend: {
         enabled: false
@@ -248,14 +179,6 @@ class Chart extends Component {
               marker: {
                 enabled: false
               },
-              // halo: {
-              //   size: 10,
-              //   attributes: {
-              //       fill: 'black',
-              //       'stroke-width': 2,
-              //       stroke: 'black'
-              //   }
-              // }
             },
           },
           tooltip: {
@@ -269,13 +192,11 @@ class Chart extends Component {
     };
     return (
       <div>
-        <div style={{position: 'absolute', left: 0}}>
         <ReactHighcharts config={config} ref="chart"/>
-          <p style={{position: 'absolute', top: '12%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
-          <p style={{position: 'absolute', top: '12%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
-          <p style={{position: 'absolute', top: '56%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
-          <p style={{position: 'absolute', top: '56%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
-        </div>
+          <p style={{position: 'absolute', top: '15%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
+          <p style={{position: 'absolute', top: '15%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
+          <p style={{position: 'absolute', top: '48%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
+          <p style={{position: 'absolute', top: '48%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
       </div>
     )
   }

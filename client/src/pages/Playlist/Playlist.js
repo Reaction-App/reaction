@@ -31,19 +31,17 @@ const Playlist = props => {
 
   return (
 
-    <div>
-      {/*<div><p className="chart-copy">Click on any point below to sort by song.</p></div>*/}
+    <div className="contentWrapper">
 
-    <PlaylistModal {...props}/>
+      <PlaylistModal {...props}/>
       <div className="chart">
           {props.chartData.length ? (
             <div>
               <TrackChart chartData={props.chartData} graphClick={props.graphClick} highlightSongOnGraph={props.highlightSongOnGraph}/>
+              <div><p className="chart-copy">Click on a point on the chart to sort by song.</p></div>
             </div>
           ) : (<div></div>)}
-    </div>
-
-
+      </div>
 
     <div className="playlist-container">
       <h2 className="playlist-header">My Playlist</h2>
@@ -60,8 +58,6 @@ const Playlist = props => {
           <MenuItem value={4} primaryText="Relaxing" />
         </DropDownMenu>
       </div>
-
-      <button className="addToPlaylistButton" onClick={() => props.openNameYourPlaylistModal()}>Export to Spotify</button>
 
       <div className="song-container">
         {props.savedTracks.length ? (
@@ -121,10 +117,15 @@ const Playlist = props => {
             )}
             )}
           </ FlipMove>
+      <button className="addToPlaylistButton" onClick={() => props.openNameYourPlaylistModal()}>Export to Spotify</button>
         </List>
       ) : (<p style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', width: 380, maxHeight: 518, overflow: 'scroll', float: 'left', padding: 20}}>Once you start adding songs, they will show up here in your playlist.</p>)}
       </div>
     </div>
+
+
+
+
     </div>
   )
 }
