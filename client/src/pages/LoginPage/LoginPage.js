@@ -11,8 +11,7 @@ import './styles.css';
 	const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home');
 
 	// IF USING HEORKU, USE THIS URL
-	// const REDIRECT_URI = encodeURIComponent('https://reaction-music.herokuapp.com/home/');
-
+	// const REDIRECT_URI = encodeURIComponent('https://reaction-radio.herokuapp.com/home/');
 
 	// Spotify scopes: https://developer.spotify.com/web-api/using-scopes/
 
