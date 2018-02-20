@@ -112,7 +112,7 @@ display: none;
 
 
   .chart {
-    width: 100%;
+    width: 98%;
     position: absolute;
     left: 0px;
     top: 100px;
@@ -133,6 +133,7 @@ display: none;
 
   .playlist-header {
     line-height: 50px;
+    margin-bottom: 0px !important;
   }
 
   .addToPlaylistButton {
@@ -148,8 +149,9 @@ display: none;
     top: 550px;
   }
 
-  .list {
+  .list:first-child {
     margin-top: 0px !important;
+    padding-top: 0px !important;
   }
 
   .playlist-header {
