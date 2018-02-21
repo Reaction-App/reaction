@@ -1,5 +1,5 @@
 .button-search {
-  padding: 20px 50px;
+  padding: 22px 50px;
   font-size: 16px;
   margin: 0 auto;
   text-align: center;
@@ -12,6 +12,10 @@
   border: 0;
   cursor: pointer;
   height: 60px;
+}
+
+.search-icon {
+  display: none;
 }
 
 .button-search:focus {
@@ -86,13 +90,26 @@
 
 .info {
   font-size: 30px !important;
-  padding-right: 10px;
 }
 
 @media only screen and (max-width: 600px) {
-  .button-search {
-    padding: 20px 30px;
+
+  .search-drop-down {
+    width: 40% !important;
+    margin-right: 0;
   }
+  
+  .button-search {
+    padding: 0px 20px 13px 20px;
+  }
+
+  .search-field {
+    width: 70% !important;
+    margin-top: 20px;
+    font-size: 20px !important;
+    margin-bottom: 40px;
+  }
+
   .empty-state-text {
     font-size: 16px;
     padding: 0 20px;
@@ -102,4 +119,21 @@
     overflow-x: auto;
     white-space: nowrap
   }
+
+  .search-icon {
+    display: inline;
+  }
+
+  .search-word {
+    display: none;
+  }
+
+
 }
+
+
+
+
+
+
+
