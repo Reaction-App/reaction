@@ -79,7 +79,15 @@ const Home = props => {
        <button
         className="button-search"
         onClick={props.handleFormSubmit}>
-        Search
+        <span className="search-word">Search</span>
+        <span className="search-icon"> 
+          <FontIcon 
+            className="material-icons"
+            style={{fontSize: '30px'}}
+            color="#00000"
+          >search
+        </FontIcon>
+        </span>
       </button>
 
       </form>
