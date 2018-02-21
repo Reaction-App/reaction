@@ -68,12 +68,12 @@ display: none;
 
   .chart {
     display: table-cell;
-    width:50%;
+    width:55%;
     position:absolute;
     left: 450px;
     top: 130px;
   }
-  
+
 .chart-copy {
   font-family: 'Montserrat', sans-serif;
   font-size: 80%;
@@ -107,9 +107,7 @@ display: none;
 
 
 
-@media only screen and (max-width: 768px) {
-
-
+@media only screen and (max-width: 1000px) {
 
   .chart {
     width: 98%;
@@ -117,7 +115,7 @@ display: none;
     left: 0px;
     top: 100px;
   }
-  
+
   .playlist-container {
     position: static;
     padding-top: 550px;
