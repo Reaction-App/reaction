@@ -105,7 +105,9 @@ display: none;
     width: 420px;
   }
 
-
+#songItem {
+  cursor: default !important;
+}  
 
 @media only screen and (max-width: 1000px) {
 
