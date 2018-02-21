@@ -55,6 +55,10 @@
   border: 0;
 }
 
+.button-search span.material-icons {
+  top: 8px !important;
+}
+
 .search-field div {
   top: 19px !important;
   left: 20px !important;
@@ -92,22 +96,28 @@
   font-size: 30px !important;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
 
   .search-drop-down {
-    width: 40% !important;
-    margin-right: 0;
+    width: 82% !important;
+    /*margin-right: 0;*/
+    margin: 0 auto;
+
   }
-  
+
   .button-search {
     padding: 0px 20px 13px 20px;
   }
 
   .search-field {
-    width: 70% !important;
+    width: 68% !important;
     margin-top: 20px;
     font-size: 20px !important;
     margin-bottom: 40px;
+  }
+
+  .button-search {
+    width: 16% !important;
   }
 
   .empty-state-text {
