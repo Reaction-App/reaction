@@ -13,11 +13,11 @@ import Spotify from '../../utils/SpotifyRoutes';
 let parsed = querystring.parse(window.location.hash);
 let accessToken = parsed['#access_token'];
 
-// function removeHash () {
-//     window.history.pushState("", document.title, window.location.pathname + window.location.search);
-// }
+function removeHash () {
+    window.history.pushState("", document.title, window.location.pathname + window.location.search);
+}
 
-// removeHash();
+removeHash();
 
 
 class AppContainer extends Component {
