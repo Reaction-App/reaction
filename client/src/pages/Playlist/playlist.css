@@ -54,7 +54,7 @@ display: none;
   .playlist-sort {
     width: 200px !important;
     position: fixed !important;
-    z-index: 100000;
+    z-index: 101;
     left: 230px;
     top: 76px;
     font-family: 'Montserrat', sans-serif !important;
