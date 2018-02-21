@@ -1,29 +1,161 @@
+::-webkit-scrollbar {
+display: none;
+}
+
+.nav {
+  position: fixed !important;
+}
 .list {
+    width: 100%;
+    margin-top: 40px !important;
+  }
+
+.action-icons {
+  float: right;
+}
+
+.addToPlaylistButton {
+  font-size: 14px;
+  padding-top: 6px;
+  margin: 0 auto;
+  text-align: right;
+  text-transform: uppercase;
+  background-color: #5A66E3;
+  color: #FFFFFF;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border: 0;
+  cursor: pointer;
+  float: right;
+}
+
+
+
+
+  .playlist-container {
+    width: 420px;
+    padding-top: 80px;
+    /*background-color: #F7F9FF;*/
+    padding-bottom: 50px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  }
+  .playlist-header {
+    width: 400px;
+    font-size: 24px !important;
+    position: fixed;
+    z-index: 100;
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px;
+    background-color: #5A66E3;
+    color: #FFFFFF;
+    margin-top: 0;
+  }
+
+  .playlist-sort {
+    width: 200px !important;
+    position: fixed !important;
+    z-index: 101;
+    left: 230px;
+    top: 76px;
+    font-family: 'Montserrat', sans-serif !important;
+    color: #FFFFFF !important;
+    text-align: right;
+  }
+
+  .playlist-sort div {
+    color: #FFFFFF !important;
+  }
+
+  .chart {
+    display: table-cell;
+    width:55%;
+    position:absolute;
+    left: 450px;
+    top: 130px;
+  }
+
+.chart-copy {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 80%;
+  text-align: center;
+  font-style: italic;
+  margin-left: 20px;
+}
+
+
+  .addToPlaylistButton {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    width: 420px;
+    text-align: center;
+    height: 60px;
+  }
+
+  .addToPlaylistButton:hover {
+    background-color: #454448;
+    transition: all 0.3s ease;
+  }
+
+  .song-container {
+    overflow: scroll;
+    height: calc(100% - 140px);
+    position: fixed;
+    background-color: #F7F9FF;
+    width: 420px;
+  }
+
+
+
+@media only screen and (max-width: 1000px) {
+
+  .chart {
+    width: 98%;
+    position: absolute;
+    left: 0px;
+    top: 100px;
+  }
+
+  .playlist-container {
+    position: static;
+    padding-top: 550px;
+    box-shadow: none;
+    width: 100%;
+    padding-bottom: 0px;
+  }
+
+  .playlist-header, .song-container {
+    position: static;
     width: 100%;
   }
 
-.playlist-header {
-  margin-right: initial !important;
-}
-.playlist-container {
-  margin-top: 420px;
-  }
-
-.chart {
-  display: inline-block;
-}
-
-@media only screen and (min-width: 1000px) {
-  .playlist-container {
-    float: right;
-    width: 420px;
-    margin-top: 0px;
-  }
   .playlist-header {
-    width: 402px;
-    font-size: 24px !important;
+    line-height: 50px;
+    margin-bottom: 0px !important;
   }
-  .chart {
-  top: 130px;
-}
+
+  .addToPlaylistButton {
+    position: static;
+    width: 100%;
+  }
+
+  .playlist-sort {
+    position: absolute !important;
+    right: 0 !important;
+    left: inherit;
+    margin-top: 8px;
+    top: 550px;
+  }
+
+  .list:first-child {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+  }
+
+  .playlist-header {
+    height: 50px;
+  }
+
+
+
 }

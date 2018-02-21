@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SortFunctions from "../../utils/SortFunctions";
+
 // import $ from "jquery";
 const ReactHighcharts = require('react-highcharts');
 
@@ -27,7 +27,7 @@ class Chart extends Component {
     chart.showLoading(message)
     setTimeout(() => {
       chart.hideLoading()
-    }, 600)      
+    }, 1250)
   }
 
   componentDidLoad() {
@@ -62,35 +62,6 @@ class Chart extends Component {
     // }
 
     const config = {
-      // responsive: {
-      //   rules: [{
-      //     condition: {
-      //       minWidth: 900,
-
-      //     },
-      //     chartOptions: {
-      //       chart: {
-      //         width: 355,
-
-      //       }
-      //     }
-      //   }]
-      // },
-
-
-      // responsive: {
-      //   rules: [{
-      //     condition: {
-      //       maxWidth: 500
-      //     },
-      //     chartOptions: {
-      //       chart: {
-      //         width: 355
-      //       }
-      //     }
-      //   }]
-      // }
-
       credits: {
         enabled: false
       },
@@ -103,23 +74,41 @@ class Chart extends Component {
         }
       },
       chart: {
-        // width: 355,
+        maxWidth: 600,
         type: 'scatter',
         backgroundColor: 'transparent',
       },
       title: {
-        text: ''
+        text: 'My Song Chart',
+        style: {
+            fontSize: '30px',
+            fontFamily: 'Montserrat',
+            fontWeight: 'bold',
+            color: '#5A66E3'
+          }
       },
       xAxis: {
         labels: {
           formatter: function() {
             return this.value+'%';
-          }
+          },
+          style: {
+            fontFamily: 'Montserrat',
+          },
         },
         title: {
           enabled: true,
-          text: 'Positivity'
-          },
+          text: 'Positivity',
+          style: {
+            fontSize: '18px',
+            fontFamily: 'Montserrat',
+            color: '#454448',
+            textTransform: 'uppercase',
+            letterSpacing: '4px',
+            fontWeight: 'bold',
+            marginTop: '20px',
+          }
+        },
         startOnTick: true,
         endOnTick: true,
         showLastLabel: true,
@@ -135,10 +124,22 @@ class Chart extends Component {
         labels: {
           formatter: function() {
             return this.value+'%';
-          }
+          },
+          style: {
+            fontFamily: 'Montserrat',
+          },
         },
         title: {
-          text: 'Energy'
+          text: 'Energy',
+          style: {
+            fontSize: '18px',
+            fontFamily: 'Montserrat',
+            color: '#454448',
+            textTransform: 'uppercase',
+            letterSpacing: '4px',
+            fontWeight: 'bold',
+            marginTop: '20px',
+          }
         },
         min: 0,
         max: 100,
@@ -147,7 +148,6 @@ class Chart extends Component {
             width: 1,
             value: 50
         }]
-
       },
       legend: {
         enabled: false
@@ -159,7 +159,7 @@ class Chart extends Component {
           events: {
             click: (event) => {
               componentScope.props.graphClick(event);
-              this.graphLoading("Sorting by track...")
+              this.graphLoading("Sorting by song...")
             }
           },
           cursor: 'pointer'
@@ -179,32 +179,24 @@ class Chart extends Component {
               marker: {
                 enabled: false
               },
-              // halo: {
-              //   size: 10,
-              //   attributes: {
-              //       fill: 'black',
-              //       'stroke-width': 2,
-              //       stroke: 'black'
-              //   }
-              // }
             },
           },
           tooltip: {
-            allowHTML: true,
-            headerFormat: '<b>{point.key}</b><br>',
-            pointFormat: 'Positivity: {point.x}%, Energy: {point.y}%'
+            useHTML: true,
+            headerFormat: '<b>{point.key}</b><br><table>',
+            pointFormat: 'Positivity: {point.x}%, Energy: {point.y}%',
           }
         }
       },
       series: data
     };
     return (
-      <div style={{position: 'absolute', left: 0}}>
-      <ReactHighcharts config={config} ref="chart"/>
-        <p style={{position: 'absolute', top: '12%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
-        <p style={{position: 'absolute', top: '12%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
-        <p style={{position: 'absolute', top: '56%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
-        <p style={{position: 'absolute', top: '56%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
+      <div>
+        <ReactHighcharts config={config} ref="chart"/>
+          <p style={{position: 'absolute', top: '15%', left: '23%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Angry</p>
+          <p style={{position: 'absolute', top: '15%', left: '70%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Happy</p>
+          <p style={{position: 'absolute', top: '48%', left: '25%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Sad</p>
+          <p style={{position: 'absolute', top: '48%', left: '68%', fontFamily: 'Montserrat', fontSize: '36px', fontWeight: 'bold', color: '#DCDFFA', zIndex: -1}}>Relaxed</p>
       </div>
     )
   }

@@ -11,9 +11,36 @@
   letter-spacing: 2;
   border: 0;
   cursor: pointer;
-  margin-top: 0;
-  margin-bottom: 20;
   height: 60px;
+}
+
+.button-search:focus {
+  outline: 0;
+}
+
+.button-search:hover {
+  background-color: #454448;
+  /*color: #5A66E3;*/
+  transition: all 0.3s ease;
+}
+
+.search-drop-down {
+  width: 20% !important;
+  margin-right: 10px;
+  vertical-align: top;
+  text-align: left;
+  font-family: 'Montserrat', sans-serif !important;
+  color: #5A66E3;
+  padding-left: 20px;
+  font-size: 20px !important;
+}
+
+.search-drop-down div {
+  top: 1px !important;
+}
+
+.search-drop-down button {
+  top: 4px !important;
 }
 
 .search-field {
@@ -24,10 +51,42 @@
   border: 0;
 }
 
+.search-field div {
+  top: 19px !important;
+  left: 20px !important;
+}
+
 .table-styles {
   max-width: 80%;
   margin: 0 auto;
   padding: 20px;
+}
+
+.modal-button {
+  border-radius: 0 !important;
+  border-color: #5A66E3;
+}
+
+.modal-button:hover {
+  background-color: #454448 !important;
+}
+
+.modal-outline:hover span {
+  color: #FFFFFF !important;
+}
+
+.modal-outline:hover {
+  border: 1px solid #454448 !important;
+}
+
+.modal-button span {
+  font-weight: bold !important;
+  letter-spacing: 1px !important;
+}
+
+.info {
+  font-size: 30px !important;
+  padding-right: 10px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -39,8 +98,8 @@
     padding: 0 20px;
   }
   .table-styles {
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap
-}
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap
+  }
 }

@@ -7,21 +7,13 @@ import './styles.css';
 	const CLIENT_ID = '6f49983391014a5a99a289c59c92d0af';
 	const REDIRECT_PARAM = '&redirect_uri=';
 
-	// Redirect
-	// let REDIRECT_UNENCODED = process.env.REDIRECT_URL || 'http://localhost:3000/home/callback';
-	// let REDIRECT_URI = encodeURIComponent(REDIRECT_UNENCODED);
+	// IF USING LOCALHOST, USE THIS URL
+	const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home');
 
-	// Heroku: REDIRECT_URL set to 'https://desolate-caverns-55074.herokuapp.com/home/callback'
+	// IF USING HEORKU, USE THIS URL
+	// const REDIRECT_URI = encodeURIComponent('https://reaction-radio.herokuapp.com/home/');
 
-	// Local Redirect
-	// const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home/callback');
-
-	// Heroku Redirect
-	const REDIRECT_URI = encodeURIComponent('https://reaction-music.herokuapp.com/home/callback');
-
-	// Spotify scopes: https://developer.spotify.com/web-api/using-scopes/
-
-	const SCOPE = '&scope=user-read-private%20user-read-email%20playlist-modify-public';
+	const SCOPE = '&scope=playlist-modify-public';
 	const RESPONSE_TYPE = '&response_type=token'
 	const STATE = '&state=3125606776';
 
@@ -30,18 +22,22 @@ import './styles.css';
 class LoginPage extends React.Component {
 
 	render() {
-return (
-<div>
-  <div>
-  <NavClean />
-  </div>
-  <div className="background">
-    <h1>search music and curate your own playlist based on your mood</h1>
-    <button className="login-button" onClick={ () => window.location=REDIRECT_URL}>Log in to Spotify</button>
-  </div>
-</div>
-)
-};
+		return (
+			<div>
+  				<div>
+  					<NavClean />
+  				</div>
+	  			<div className="background">
+	    			<h1>search music and curate your own playlist based on your mood</h1>
+	    			<button className="login-button" onClick={ () => window.location=REDIRECT_URL}>Log In</button>
+	    			<span className="spotify-callout">
+	    				<p>Powered by</p> <img src="https://s17.postimg.org/rjpi4vcv3/Spotify_logo_with_text.svg.png" alt="Spotify" />
+	    			</span>
+	  			</div>
+			</div>
+		)
+	};
 }
 
 export default LoginPage;
+

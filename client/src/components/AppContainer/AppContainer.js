@@ -4,12 +4,21 @@ import Nav from "../Nav";
 import Home from "../../pages/Home";
 import Playlist from "../../pages/Playlist";
 import LoginPage from "../../pages/LoginPage";
+import Authors from "../../pages/Authors";
 import querystring from 'querystring';
+import Spotify from '../../utils/SpotifyRoutes';
 
 
 // Get Access Token
 let parsed = querystring.parse(window.location.hash);
 let accessToken = parsed['#access_token'];
+
+// function removeHash () {
+//     window.history.pushState("", document.title, window.location.pathname + window.location.search);
+// }
+
+// removeHash();
+
 
 class AppContainer extends Component {
   state = {
@@ -24,11 +33,14 @@ class AppContainer extends Component {
         userID: ''
     },
     // Search form
+    searchOption: "title",
+    searchHintText: "Search by song title...",
     query: '',
     noSongFound: false,
     tracks: {
       trackID: '',
       trackName: '',
+      trackURI: '',
       artist: '',
       album: '',
       trackURL: '',
@@ -36,7 +48,7 @@ class AppContainer extends Component {
       valence: 0
     },
     selected: [],
-    // Playlist
+    // App Playlist
     savedTracks: [],
     selectedPlaylistTrack: [], // the index of the savedTrack that is currently selected
     open: false,
@@ -55,7 +67,15 @@ class AppContainer extends Component {
     chartData: [],
     songPlaying: false,
     currentSongPlayingID: "",
-    currentSongPlayingAudio: null
+    currentSongPlayingAudio: null,
+    currentSongPlayingTrack: "",
+    // Spotify Playlist
+    playlistID: '',
+    playlistUrl: '',
+    playlistDescription: 'My Reaction Radio Playlist',
+    playlistName: '',
+    nameYourPlaylistModalOpen: false,
+    playlistAddedModalOpen: false
   }
 
   componentDidMount() {
@@ -65,14 +85,15 @@ class AppContainer extends Component {
     } else {
       this.setState({accessToken: accessToken})
       this.loadSpotifyUserData()
-      //this.loadTracks() can't load tracks until loadSpotifyUserData is complete
     }
   }
 
   handlePageChange = page => {
-    this.setState({ 
+    this.setState({
       currentPage: page,
-      highlightSongOnGraph: null 
+      highlightSongOnGraph: null,
+      tracks:{},
+      query: ''
     });
     this.handleClose();
   }
@@ -81,6 +102,9 @@ class AppContainer extends Component {
     if (this.state.currentPage === "Home") {
       return <Home
         userData = {this.state.userData}
+        searchOption = {this.state.searchOption}
+        searchHintText = {this.state.searchHintText}
+        handleSearchOption = {this.handleSearchOption}
         query = {this.state.query}
         handleOpen = {this.handleOpen}
         handleClose = {this.handleClose}
@@ -108,6 +132,9 @@ class AppContainer extends Component {
         moodDropDown = {this.state.moodDropDown}
         handleMoodSort = {this.handleMoodSort}
         savedTracks = {this.state.savedTracks}
+        handleInputChange = {this.handleInputChange}
+        handleFormSubmit = {this.handleFormSubmit}
+        playlistName = {this.state.playlistName}
         selectedPlaylistTrack = {this.state.selectedPlaylistTrack}
         handlePlaylistRowSelection = {this.handlePlaylistRowSelection}
         playlistRowIsSelected = {this.playlistRowIsSelected}
@@ -120,7 +147,19 @@ class AppContainer extends Component {
         showEmotion = {this.showEmotion}
         highlightSongOnGraph = {this.state.highlightSongOnGraph}
         highlightThis = {this.highlightThis}
+        postPlaylistToSpotify = {this.postPlaylistToSpotify}
+        nameYourPlaylistModalOpen = {this.state.nameYourPlaylistModalOpen}
+        playlistAddedModalOpen = {this.state.playlistAddedModalOpen}
+        openNameYourPlaylistModal = {this.openNameYourPlaylistModal}
+        openPlaylistAddedModal = {this.openPlaylistAddedModal}
+        closeNameYourPlaylistModal = {this.closeNameYourPlaylistModal}
+        closePlaylistAddedModal = {this.closePlaylistAddedModal}
+        viewPlaylist = {this.viewPlaylist}
       />;
+    } else if (this.state.currentPage === "Authors") {
+      return <Authors
+        handlePageChange = {this.handlePageChange}
+        />;
     } else {
       return <LoginPage />;
     }
@@ -160,11 +199,11 @@ class AppContainer extends Component {
                 userID: data.id
               }
             });
-          
+
           // check if user record exists in DB and update
           // if not exist, create one
           // then add DB _id to state.userData
-          // Uses object.assign to get current userData object then add _id to the object 
+          // Uses object.assign to get current userData object then add _id to the object
           API
           .upsertUser({
             userName: data.display_name,
@@ -188,10 +227,17 @@ class AppContainer extends Component {
   handleClose = () => {
     this.loadTracks();
     this.setState({
-      open: false,
-      tracks:{},
-      query: ''
+      open: false
     });
+  }
+
+  handleSearchOption = (event, index, value) => {
+
+      this.setState({ searchOption: value });
+
+      if (value === 'title') {this.setState({ searchHintText: 'Search for a song title...'})};
+      if (value === 'artist') {this.setState({ searchHintText: 'Search for an artist...'})};
+      if (value === 'album') {this.setState({ searchHintText: 'Search for an album...'})};
   }
 
   handleInputChange = event => {
@@ -203,19 +249,21 @@ class AppContainer extends Component {
     });
   }
 
+  // handleChange = (event, index, value) => this.setState({value});
+
   handleFormSubmit = event => {
 
     event.preventDefault();
-    this.searchSpotify(this.state.query);
+    this.searchSpotify(this.state.searchOption, this.state.query);
   }
 
-
   // API call for finding a track
-  searchSpotify(query) {
+  searchSpotify(searchOption, query) {
 
-    this.setState({
-      noSongFound: false
-    })
+    this.setState({ noSongFound: false })
+    
+    if (searchOption === 'artist') { query = `artist:${query}` }
+    if (searchOption === 'album') { query = `album:${query}` }
 
     // URL constructor for search
     const BASE_URL = 'https://api.spotify.com/v1/search';
@@ -247,6 +295,7 @@ class AppContainer extends Component {
             return {
               trackID: item.id,
               trackName: item.name,
+              trackURI: item.uri,
               artist: item.artists[0].name,
               album: item.album.name,
               trackURL: item.preview_url
@@ -312,6 +361,7 @@ class AppContainer extends Component {
             album: fullTrackDetails.album,
             trackID: fullTrackDetails.trackID,
             trackURL: fullTrackDetails.trackURL,
+            trackURI: fullTrackDetails.trackURI,
             valence: fullTrackDetails.valence,
             energy: fullTrackDetails.energy
           }
@@ -328,7 +378,7 @@ class AppContainer extends Component {
   loadTracks = () => {
 
     // Load tracks from DB.
-    // NOTE: Requires loadSpotifyUserData to be complete so that user id is available 
+    // NOTE: Requires loadSpotifyUserData to be complete so that user id is available
     API.getUser(this.state.userData._id)
         .then(res => {
           let newTracks = res.data.tracks;
@@ -359,7 +409,9 @@ class AppContainer extends Component {
       .catch(err => console.log(err));
   }
 
-  playTrack = (url, id) => {
+  playTrack = (track) => {
+      let url = track.trackURL;
+      let id = track.trackID;
       let audioObject = new Audio(url);
 
       if (!this.state.songPlaying) {
@@ -367,7 +419,8 @@ class AppContainer extends Component {
         this.setState({
           songPlaying: true,
           currentSongPlayingID: id,
-          currentSongPlayingAudio: audioObject
+          currentSongPlayingAudio: audioObject,
+          currentSongPlayingTrack: track
         })
       } else {
         if (this.state.currentSongPlayingID === id) {
@@ -381,7 +434,8 @@ class AppContainer extends Component {
           this.setState({
             songPlaying: true,
             currentSongPlayingID: id,
-            currentSongPlayingAudio: audioObject
+            currentSongPlayingAudio: audioObject,
+            currentSongPlayingTrack: track
           })
         }
       }
@@ -450,6 +504,7 @@ class AppContainer extends Component {
   handlePlaylistSort = (event, index, value) => {
 
     this.setState({ sortDropDown: value });
+    console.log('sortDropDown ' + this.state.sortDropDown);
     this.setState({ moodDropDown: 0 });
 
     let sortedTracks = this.state.savedTracks.slice()
@@ -588,33 +643,110 @@ class AppContainer extends Component {
 
   // emotion functions
   showEmotion = (valence, energy) => {
-    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/sx0jyqekv/happy.png" /></div>)};
-    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/5pav3pnhb/sad.png" /></div>)};
-    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/mptrcfatb/angry.png" /></div>)};
-    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
+    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} alt="happy" src="https://s17.postimg.org/sx0jyqekv/happy.png" /></div>)};
+    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="sad" src="https://s17.postimg.org/5pav3pnhb/sad.png" /></div>)};
+    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} alt="angry" src="https://s17.postimg.org/mptrcfatb/angry.png" /></div>)};
+    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="relaxed" src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
   }
 
+  // When hovering over a playlist track, show tooltip on chart
   highlightThis = id => {
-    let foundTrack = null;
     let nameString = '';
 
-    this.state.savedTracks.forEach((track) => {
-      if (id === track.trackID) {
-        nameString = '"' + track.trackName + '" by ' + track.artist;
-      }
-    });
-
+    // If id is not null, create namestring for chart componenent
+    if (id != null) {
+      this.state.savedTracks.forEach((track) => {
+        if (id === track.trackID) {
+          nameString = '"' + track.trackName + '" by ' + track.artist;
+        }
+      });
+    }
     this.setState({highlightSongOnGraph: nameString})
   }
 
+  // Export playlist to  Spotify
+  postPlaylistToSpotify = () => {
+
+    let playlistName = this.state.playlistName
+    if (playlistName.length <= 0) {
+      playlistName = 'My Reaction Radio Playlist'
+    }
+
+    const playlistData = { description: 'My Reaction Radio Playlist', name: playlistName, public: 'true' };
+
+    Spotify.createPlaylist(this.state.accessToken, this.state.userData.userID, playlistData)
+    .then(response => {
+      this.setState({
+        playlistID: response.data.id,
+        playlistUrl: response.data.external_urls.spotify
+      });
+    })
+    .then(() => {
+      this.addSongsToPlaylist(this.state.userData.userID, this.state.playlistID, this.state.savedTracks)
+    })
+    .then(() => this.openPlaylistAddedModal())
+    .then(() => this.closeNameYourPlaylistModal())
+  }
+
+
+  addSongsToPlaylist(userID, playlistID, tracksToAdd) {
+
+    const trackURIs = tracksToAdd.map(track => {
+      return track.trackURI
+    });
+
+    console.log(trackURIs);
+
+    return Spotify.addTracksToPlaylist(this.state.accessToken, userID, playlistID, trackURIs)
+    .then(response => {
+      return {
+        data: response.data,
+        status: response.status
+      }
+    })
+  }
+
+  openNameYourPlaylistModal = () => { this.setState( {nameYourPlaylistModalOpen: true} ) }
+
+  openPlaylistAddedModal = () => { this.setState( {playlistAddedModalOpen: true} ) }
+
+  closeNameYourPlaylistModal = () => { this.setState( {nameYourPlaylistModalOpen: false} ) }
+
+  closePlaylistAddedModal = () => {
+    this.setState({
+      playlistAddedModalOpen: false,
+      playlistDescription: 'My Reaction Radio Playlist',
+      playlistName: '',
+      playlistID: '',
+      playlistUrl: ''
+    })
+  }
+
+  viewPlaylist = () => { window.open(this.state.playlistUrl) }
+
+  logOut = () => { 
+    let logOutPage = window.open('https://www.spotify.com/us/logout/');
+    setTimeout(function() {
+      document.location.href="/";
+    }, 1500);
+    setTimeout(function() {
+      logOutPage.close();
+    }, 1500);
+    return false;
+  }
 
   render() {
-
     return (
       <div>
         <Nav
           currentPage={this.state.currentPage}
           handlePageChange={this.handlePageChange}
+          playTrack = {this.playTrack}
+          currentSongPlayingID = {this.state.currentSongPlayingID}
+          currentSongPlayingUrl = {this.state.currentSongPlayingUrl}
+          currentSongPlayingTrack = {this.state.currentSongPlayingTrack}
+          songPlaying = {this.state.songPlaying}
+          logOut = {this.logOut}
         />
         {this.renderPage()}
       </div>

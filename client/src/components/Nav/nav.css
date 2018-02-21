@@ -2,7 +2,40 @@
   display: none !important;
 }
 
-@media only screen and (max-width: 600px) {
+.selected span {
+  border-bottom: 3px solid #5A66E3;
+  font-weight: bold !important;
+}
+
+.menu-item span {
+  padding: 0 0 3px !important;
+  margin: 20px;
+}
+.menu-item:hover {
+background-color: transparent !important;
+color: #5A66E3;
+}
+
+.logo:hover {
+  cursor: pointer;
+}
+
+.menu-item, .menu-item span {
+font-weight: bold !important;
+color: #454448;
+letter-spacing: 1px !important;
+}
+
+.player-visible {
+  display: inline-block;
+}
+
+.player-hidden {
+  display: none;
+}
+
+
+@media only screen and (max-width: 718px) {
   .menu-item {
     display: none !important;
   }

@@ -5,6 +5,8 @@ import './home.css';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
+import MenuItem from 'material-ui/MenuItem';
+import SelectField from 'material-ui/SelectField';
 import {
   Table,
   TableBody,
@@ -14,48 +16,25 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 
-  const style = {
-    dialoguetitle: {
-      fontFamily: 'Montserrat',
-      fontSize: 24
-    },
-    overlayStyle: {
-      opacity: .2
-    }
-  }
+import FlatButton from 'material-ui/FlatButton';
+import SearchModal from "../../components/SearchModal";
+
 
 
 // Home Page
 const Home = props => {
 
-  // buttons for the modal
-  const actions = [
-    <FlatButton
-      label="Add More Songs"
-      primary={true}
-      onClick={() => props.handleClose()}
-      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
-    />,
-    <FlatButton
-      backgroundColor={'#5A66E3'}
-      label="View My Playlist"
-      primary={true}
-      onClick={() => props.handlePageChange('Playlist')}
-      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, width: 200 }}
-    />,
-  ];
-
  return(
 
   <div>
+
     <div style={{
       backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
       width: "100%",
       backgroundSize: 'cover',
-      marginBottom: 50
+      marginBottom: 50,
+      paddingTop: 80
     }}>
       <h3 style={{
         marginTop: 0,
@@ -67,11 +46,24 @@ const Home = props => {
       </h3>
 
     <div style={{margin: '0 auto', display: 'block', textAlign: 'center'}}>
+
       <form>
+
+      <SelectField
+        className="search-drop-down"
+         value={props.searchOption} onChange={props.handleSearchOption}
+         style = {{backgroundColor:'#FFFFFF', height: 60}}
+         underlineShow={false}
+      >
+        <MenuItem value={"title"} primaryText="Title" />
+        <MenuItem value={"artist"} primaryText="Artist" />
+        <MenuItem value={"album"} primaryText="Album" />
+      </SelectField>
+
       <TextField
         className="search-field"
         underlineShow={false}
-        hintText="Search Song..."
+        hintText={props.searchHintText}
         name="query"
         value={props.query}
         onChange={props.handleInputChange}
@@ -80,7 +72,7 @@ const Home = props => {
           height: 60,
           fontSize: 20,
           fontFamily: 'Montserrat',
-          width: '50%'
+          width: '35%'
         }}
       />
 
@@ -89,6 +81,7 @@ const Home = props => {
         onClick={props.handleFormSubmit}>
         Search
       </button>
+
       </form>
     </div>
 
@@ -129,7 +122,7 @@ const Home = props => {
                     disabled={track.trackURL === null ? true : false}
                     tooltip={track.trackURL === null ? 'Not Available' : false}
                     tooltipPosition='bottom-right'
-                    onClick={() => props.playTrack(track.trackURL, track.trackID)}
+                    onClick={() => props.playTrack(track)}
                   >
                     <FontIcon className="material-icons">
                     {props.currentSongPlayingID === track.trackID && props.songPlaying === true ? "play_circle_filled" : "play_circle_outline"}
@@ -144,22 +137,12 @@ const Home = props => {
                 <TableRowColumn>
                   <div>
                     <FlatButton
-                      backgroundColor={props.savedTracks.findIndex(x => x.trackID === track.trackID) == -1 ? '#5A66E3' : '#ACAEB2'}
-                      label={props.savedTracks.findIndex(x => x.trackID === track.trackID) == -1 ? "Add Song" : "Added"}
-                      disabled={props.savedTracks.findIndex(x => x.trackID === track.trackID) == -1 ? false : true}
+                      backgroundColor={props.savedTracks.findIndex(x => x.trackID === track.trackID) === -1 ? '#5A66E3' : '#ACAEB2'}
+                      label={props.savedTracks.findIndex(x => x.trackID === track.trackID) === -1 ? "Add Song" : "Added"}
+                      disabled={props.savedTracks.findIndex(x => x.trackID === track.trackID) === -1 ? false : true}
                       onClick={() => props.handleSaveTrack(track)}
                       style={{ float: 'right',  fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', width: 112 }} />
-                    <Dialog
-                      title="Song Added"
-                      titleStyle={style.dialoguetitle}
-                      overlayStyle={style.overlayStyle}
-                      actions={actions}
-                      modal={false}
-                      open={props.open}
-                      onRequestClose={props.handleClose}
-                    >
-                      <p style={{fontFamily: 'Montserrat', fontSize: 18 }}>Would you like to keep adding songs or view your playlist?</p>
-                    </Dialog>
+                    <SearchModal {...props} />
                   </div>
                 </TableRowColumn>
               </TableRow>
@@ -168,16 +151,32 @@ const Home = props => {
         </TableBody>
         </Table>
         )
-        : ( <div style={{ margin: '0 auto', marginTop: 80, display: 'block', textAlign: 'center', maxWidth: 500 }}>
+        : ( <div style={{ margin: '0 auto', marginTop: 80, display: 'block', textAlign: 'center', maxWidth: 600, color: '#454448' }}>
                 <img style={{ width: 150 }} src='https://s17.postimg.org/vobidfu3z/start-searaching.png' alt="Start Searching" />
                 {props.noSongFound ? (
-                  <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, that song does not exist! Please search for another song.</h2>
+                  <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, no results found! Please try another search.</h2>
                 ):(
-                  <h2 className="empty-state-text" style={{ fontFamily: 'Montserrat' }}>Start by searching for a song. Then click “Add Song” to begin curating your playlist.</h2>
+                  <h2 className="empty-state-text" style={{ fontFamily: 'Montserrat' }}>Start by searching for a song, artist or album. Then click “Add Song” to begin curating your playlist.</h2>
                 )}
             </div>
           )}
         </div>
+        <footer style={{ margin: '0 auto', display: 'block', textAlign: 'right', color: '#454448'}}>
+          <IconButton
+            style={{marginTop: 14, color: '#5A66E3'}}
+            tooltip='Meet the Team!'
+            tooltipPosition = 'top-left'
+            onClick={() => props.handlePageChange('Authors')}
+          >
+            <FontIcon 
+              style={{fontSize: '200px'}}
+              color="#454448"
+              hoverColor="#5A66E3"
+              className="material-icons info">
+                info_outline
+            </FontIcon>
+          </IconButton>
+        </footer>
       </div>
       )}
 
