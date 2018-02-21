@@ -643,10 +643,10 @@ class AppContainer extends Component {
 
   // emotion functions
   showEmotion = (valence, energy) => {
-    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} alt="happy" src="https://s17.postimg.org/sx0jyqekv/happy.png" /></div>)};
-    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="sad" src="https://s17.postimg.org/5pav3pnhb/sad.png" /></div>)};
-    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} alt="angry" src="https://s17.postimg.org/mptrcfatb/angry.png" /></div>)};
-    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="relaxed" src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
+    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} alt="happy" src="https://s17.postimg.org/sx0jyqekv/happy.png" /><span className="tooltiptext">This song is happy!</span></div>)};
+    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="sad" src="https://s17.postimg.org/5pav3pnhb/sad.png" /><span className="tooltiptext">This song is sad..</span></div>)};
+    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} alt="angry" src="https://s17.postimg.org/mptrcfatb/angry.png" /><span className="tooltiptext">This song is angry!</span></div>)};
+    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="relaxed" src="https://s17.postimg.org/4zs2res3j/relaxed.png" /><span className="tooltiptext">This song is relaxing.</span></div>)};
   }
 
   // When hovering over a playlist track, show tooltip on chart
