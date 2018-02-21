@@ -159,7 +159,7 @@ class Chart extends Component {
           events: {
             click: (event) => {
               componentScope.props.graphClick(event);
-              this.graphLoading("Sorting by track...")
+              this.graphLoading("Sorting by song...")
             }
           },
           cursor: 'pointer'

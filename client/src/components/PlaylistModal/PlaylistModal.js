@@ -2,6 +2,7 @@ import React from "react";
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+// import './PlayListModal.css';
 
 
 const PlaylistModal = props => {
@@ -17,7 +18,7 @@ const PlaylistModal = props => {
     }
 
   const customContentStyle = {
-  width: '50%',
+  width: '62%',
   maxWidth: 'none',
 };
 
@@ -27,7 +28,7 @@ const PlaylistModal = props => {
       className="modal-button modal-outline"
       primary={true}
       onClick={() => props.closeNameYourPlaylistModal()}
-      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
+      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, marginLeft: 5, marginRight: 5, width: '30%', minWidth: 200,  border: '1px solid #5A66E3' }}
     />,
     <FlatButton
       backgroundColor={'#5A66E3'}
@@ -35,7 +36,8 @@ const PlaylistModal = props => {
       label="Export to Spotify"
       primary={true}
       onClick={() => props.postPlaylistToSpotify()}
-      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, width: 200, height: 60, 'line-height': '20px' }}
+      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 5, marginRight: 5, height: 60, width: '30%', minWidth: 200}}
+     
     />,
   ];
 
@@ -45,7 +47,7 @@ const PlaylistModal = props => {
       className="modal-button modal-outline"
       primary={true}
       onClick={() => props.closePlaylistAddedModal()}
-      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
+      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: '30%', marginLeft: 5, marginRight: 5, minWidth: 230, border: '1px solid #5A66E3' }}
     />,
     <FlatButton
       backgroundColor={'#5A66E3'}
@@ -53,7 +55,8 @@ const PlaylistModal = props => {
       label="View Spotify Playlist"
       primary={true}
       onClick={() => props.viewPlaylist()}
-      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, 'line-height': '20px' }}
+      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 5, marginRight: 5, height: 60, width: '30%', minWidth: 230}}
+  
     />,
   ];
 

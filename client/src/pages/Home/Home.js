@@ -16,45 +16,14 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-import Dialog from 'material-ui/Dialog';
+
 import FlatButton from 'material-ui/FlatButton';
-
-  const style = {
-    dialoguetitle: {
-      fontFamily: 'Montserrat',
-      fontSize: 24
-    },
-    overlayStyle: {
-      opacity: .2
-    },
-  }
-
+import SearchModal from "../../components/SearchModal";
 
 
 
 // Home Page
 const Home = props => {
-
-  // buttons for the modal
-  const actions = [
-    <FlatButton
-      className="modal-button modal-outline"
-      label="Add More Songs"
-      primary={true}
-      onClick={() => props.handleClose()}
-      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, width: 200, border: '1px solid #5A66E3' }}
-    />,
-    <FlatButton
-      className="modal-button"
-      backgroundColor={'#5A66E3'}
-      label="View My Playlist"
-      primary={true}
-      onClick={() => props.handlePageChange('Playlist')}
-      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 10, height: 60, width: 200 }}
-    />,
-  ];
-
-console.log()
 
  return(
 
@@ -173,17 +142,7 @@ console.log()
                       disabled={props.savedTracks.findIndex(x => x.trackID === track.trackID) === -1 ? false : true}
                       onClick={() => props.handleSaveTrack(track)}
                       style={{ float: 'right',  fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', width: 112 }} />
-                    <Dialog
-                      title="Song Added"
-                      titleStyle={style.dialoguetitle}
-                      overlayStyle={style.overlayStyle}
-                      actions={actions}
-                      modal={false}
-                      open={props.open}
-                      onRequestClose={props.handleClose}
-                    >
-                      <p style={{fontFamily: 'Montserrat', fontSize: 18 }}>Would you like to keep adding songs or view your playlist?</p>
-                    </Dialog>
+                    <SearchModal {...props} />
                   </div>
                 </TableRowColumn>
               </TableRow>
