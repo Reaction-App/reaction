@@ -277,8 +277,13 @@ class AppContainer extends Component {
 
     this.setState({ noSongFound: false })
 
-    if (searchOption === 'artist') { query = `artist:${query}` }
-    if (searchOption === 'album') { query = `album:${query}` }
+    if (searchOption === 'artist' && query != '') { query = `artist:${query}` }
+    if (searchOption === 'album' && query != '') { query = `album:${query}` }
+    
+    // Dummy data for blank request
+    if (query === "") {
+      query = "zyzyzyz";
+    }
 
     let offset;
 
@@ -310,6 +315,7 @@ class AppContainer extends Component {
     // API call with header
     fetch(FETCH_URL, request_params)
       .then(response => {
+        console.log(response)
         switch (response.status) {
           case 500: console.error('Some server error'); break;
           case 400: console.error('Missing token'); document.location.href="/"; break;
