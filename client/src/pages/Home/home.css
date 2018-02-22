@@ -59,6 +59,25 @@
   top: 8px !important;
 }
 
+.page-button-left {
+  color: '#5A66E3';
+  position: inline-block;
+  float: left;
+  height: 80px !important;
+}
+
+.page-button-right {
+  color: '#5A66E3';
+  position: inline-block;
+  float: right;
+  height: 80px !important;
+  padding-right: 140px !important;
+}
+
+.last-row {
+  height: 60px !important;
+}
+
 .search-field div {
   top: 19px !important;
   left: 20px !important;
@@ -119,6 +138,15 @@
   .button-search {
     width: 16% !important;
   }
+
+  .page-button-left {
+  padding-left: 0px !important;
+
+}
+
+.page-button-right {
+  padding-left: 12px !important;
+}
 
   .empty-state-text {
     font-size: 16px;
