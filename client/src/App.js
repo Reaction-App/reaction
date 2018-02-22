@@ -2,6 +2,7 @@ import React from "react";
 import LoginPage from "./pages/LoginPage";
 import { Container } from "./components/Grid";
 import AppContainer from "./components/AppContainer";
+import './App.css';
 
 import {
   BrowserRouter as Router,

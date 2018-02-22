@@ -37,6 +37,7 @@ class AppContainer extends Component {
     searchHintText: "Search by song title...",
     query: '',
     noSongFound: false,
+    searchPage: 1,
     tracks: {
       trackID: '',
       trackName: '',
@@ -109,6 +110,8 @@ class AppContainer extends Component {
         handleOpen = {this.handleOpen}
         handleClose = {this.handleClose}
         handlePageChange = {this.handlePageChange}
+        searchPage = {this.state.searchPage}
+        handleSearchResultsPage = {this.handleSearchResultsPage}
         open = {this.state.open}
         actions = {this.actions}
         handleInputChange = {this.handleInputChange}
@@ -254,20 +257,51 @@ class AppContainer extends Component {
   handleFormSubmit = event => {
 
     event.preventDefault();
+    this.setState({ searchPage: 1 })
     this.searchSpotify(this.state.searchOption, this.state.query);
   }
+
+
+  handleSearchResultsPage = page => {
+    this.setState(
+      { searchPage: page },
+      () => {
+        this.searchSpotify(this.state.searchOption, this.state.query)
+      }
+    );
+  }
+
 
   // API call for finding a track
   searchSpotify(searchOption, query) {
 
     this.setState({ noSongFound: false })
+
+    if (searchOption === 'artist' && query !== '') { query = `artist:${query}` }
+    if (searchOption === 'album' && query !== '') { query = `album:${query}` }
     
-    if (searchOption === 'artist') { query = `artist:${query}` }
-    if (searchOption === 'album') { query = `album:${query}` }
+    // Dummy data for blank request
+    if (query === "") {
+      query = "zyzyzyz";
+    }
+
+    let offset;
+
+    switch(this.state.searchPage) {
+      case 2:
+        offset ="10";
+        break;
+      case 3:
+        offset ="20";
+        break;
+      default:
+        offset ="0";    
+        break;
+    }
 
     // URL constructor for search
     const BASE_URL = 'https://api.spotify.com/v1/search';
-    const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10`;
+    const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10&offset=${offset}`;
     const request_params = {
       method: 'GET',
       headers: {
@@ -303,7 +337,8 @@ class AppContainer extends Component {
           })
         })):(
           this.setState({
-            noSongFound: true
+            noSongFound: true,
+            tracks: {}
           }))}
         )
       }
@@ -391,7 +426,6 @@ class AppContainer extends Component {
   }
 
   getGraphData = () => {
-
 
     // Load tracks from DB
     API.getUser(this.state.userData._id)
@@ -643,10 +677,10 @@ class AppContainer extends Component {
 
   // emotion functions
   showEmotion = (valence, energy) => {
-    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} alt="happy" src="https://s17.postimg.org/sx0jyqekv/happy.png" /></div>)};
-    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="sad" src="https://s17.postimg.org/5pav3pnhb/sad.png" /></div>)};
-    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} alt="angry" src="https://s17.postimg.org/mptrcfatb/angry.png" /></div>)};
-    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="relaxed" src="https://s17.postimg.org/4zs2res3j/relaxed.png" /></div>)};
+    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} alt="happy" src="https://s17.postimg.org/sx0jyqekv/happy.png" /><span className="tooltiptext">This song is happy!</span></div>)};
+    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="sad" src="https://s17.postimg.org/5pav3pnhb/sad.png" /><span className="tooltiptext">This song is sad..</span></div>)};
+    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} alt="angry" src="https://s17.postimg.org/mptrcfatb/angry.png" /><span className="tooltiptext">This song is angry!</span></div>)};
+    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="relaxed" src="https://s17.postimg.org/4zs2res3j/relaxed.png" /><span className="tooltiptext">This song is relaxing.</span></div>)};
   }
 
   // When hovering over a playlist track, show tooltip on chart

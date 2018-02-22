@@ -50,6 +50,7 @@ const Playlist = props => {
         <DropDownMenu value={props.moodDropDown} onChange={props.handleMoodSort}
         className="playlist-sort"
         underlineStyle={style.dropdownStyles}
+        tooltip="Sort your playlist by a mood of your choice."
         >
           <MenuItem value={0} primaryText="Sort by Mood" />
           <MenuItem value={1} primaryText="Happy" />
@@ -73,7 +74,7 @@ const Playlist = props => {
                     <IconButton
                       style={{marginTop: 14}}
                       disabled={track.trackURL === null ? true : false}
-                      tooltip={track.trackURL === null ? 'Not Available' : false}
+                      tooltip={track.trackURL === null ? 'Not Available' : "Preview"}
                       onClick={() => props.playTrack(track)}
                     >
                       <FontIcon className="material-icons">
@@ -109,7 +110,7 @@ const Playlist = props => {
                   <p style={{marginTop: 0, marginBottom: 0, paddingBottom: 5, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'inline-block', color: '#454448'}}>
                     Positivity: {track.valence}% | Energy: {track.energy}%
                   </p>
-                  <div style={{display: 'inline-block', marginLeft: 10, marginTop: -15, verticalAlign: 'middle'}}>{props.showEmotion(track.valence,track.energy)}
+                  <div className="tooltip" style={{display: 'inline-block', marginLeft: 10, marginTop: -15, verticalAlign: 'middle'}}>{props.showEmotion(track.valence,track.energy)}
                   </div>
                 </div>
 
