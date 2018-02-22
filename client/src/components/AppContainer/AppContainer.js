@@ -282,6 +282,7 @@ class AppContainer extends Component {
 
     let offset;
 
+    console.log(this.state.searchPage);
     switch(this.state.searchPage) {
       case 2:
         offset ="10";

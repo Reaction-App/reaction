@@ -179,7 +179,7 @@ const Home = props => {
                 </IconButton>
                 ) : (<div></div>)}
 
-          {props.searchPage === 1 || props.searchPage === 2 ? (
+          {props.tracks.length >= 10 && (props.searchPage === 1 || props.searchPage === 2) ? (
                 <IconButton
                   className ="page-button-right"
                   tooltip='More Results'
