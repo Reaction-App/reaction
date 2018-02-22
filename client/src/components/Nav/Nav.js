@@ -54,12 +54,14 @@ const Nav = props => (
         <FlatButton
           className={ props.currentPage === "Home" ? "menu-item selected" : "menu-item" }
           label="Search"
+          disabled={props.currentPage === "Home" ? true : false}
           onClick={() => props.handlePageChange("Home")}
           style={{marginTop: 14, fontFamily: 'Montserrat'}}
         />
         <FlatButton
           className={ props.currentPage === "Playlist" ? "menu-item selected" : "menu-item" }
           label="Playlist"
+          disabled={props.currentPage === "Playlist" ? true : false}
           onClick={() => props.handlePageChange("Playlist")}
           style={{marginTop: 14, fontFamily: 'Montserrat'}}
         />
