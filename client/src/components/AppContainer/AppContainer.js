@@ -49,10 +49,18 @@ class AppContainer extends Component {
       valence: 0
     },
     selected: [],
+    // Home Modals
+    songAddedModalOpen: false,
+    importPlaylistModalOpen: false,
+    // Importing Spotify Playlists
+    noSpotifyPlaylistsFound: false,
+    spotifyPlaylists: {
+      spotifyPlaylistID: '',
+      spotifyPlaylistName: '',
+    },
     // App Playlist
     savedTracks: [],
     selectedPlaylistTrack: [], // the index of the savedTrack that is currently selected
-    open: false,
     sortDropDown: 0, // the current value of the 'sort by' dropdown list
     moodDropDown: 0, // moodDropDown is the current value of the 'mood' dropdown list
     currentSort: "Recently Added",
@@ -70,7 +78,7 @@ class AppContainer extends Component {
     currentSongPlayingID: "",
     currentSongPlayingAudio: null,
     currentSongPlayingTrack: "",
-    // Spotify Playlist
+    // Exporting Spotify Playlist
     playlistID: '',
     playlistUrl: '',
     playlistDescription: 'My Reaction Radio Playlist',
@@ -96,7 +104,7 @@ class AppContainer extends Component {
       tracks:{},
       query: ''
     });
-    this.handleClose();
+    this.closeSongAddedModal();
   }
 
   renderPage = () => {
@@ -107,12 +115,15 @@ class AppContainer extends Component {
         searchHintText = {this.state.searchHintText}
         handleSearchOption = {this.handleSearchOption}
         query = {this.state.query}
-        handleOpen = {this.handleOpen}
-        handleClose = {this.handleClose}
+        openSongAddedModal = {this.openSongAddedModal}
+        closeSongAddedModal = {this.closeSongAddedModal}
+        openImportPlaylistModal = {this.openImportPlaylistModal}
+        closeImportPlaylistModal = {this.closeImportPlaylistModal}
+        importPlaylistModalOpen = {this.state.importPlaylistModalOpen}
         handlePageChange = {this.handlePageChange}
         searchPage = {this.state.searchPage}
         handleSearchResultsPage = {this.handleSearchResultsPage}
-        open = {this.state.open}
+        songAddedModalOpen = {this.state.songAddedModalOpen}
         actions = {this.actions}
         handleInputChange = {this.handleInputChange}
         handleFormSubmit = {this.handleFormSubmit}
@@ -126,6 +137,11 @@ class AppContainer extends Component {
         currentSongPlayingID = {this.state.currentSongPlayingID}
         songPlaying = {this.state.songPlaying}
         noSongFound = {this.state.noSongFound}
+        noSpotifyPlaylistsFound = {this.state.noSpotifyPlaylistsFound}
+        spotifyPlaylists = {this.state.spotifyPlaylists}
+        getUsersSpotifyPlaylists = {this.getUsersSpotifyPlaylists}
+        handlePlaylistChoice = {this.handlePlaylistChoice}
+        getSpotifyPlaylistTracks = {this.getSpotifyPlaylistTracks}
       />;
     } else if (this.state.currentPage === "Playlist") {
       return <Playlist
@@ -216,6 +232,7 @@ class AppContainer extends Component {
                 { userData: Object.assign({}, this.state.userData, {_id: res.data._id}) }
               )
               this.loadTracks();
+              this.getUsersSpotifyPlaylists();
           })
         })
       }
@@ -223,14 +240,14 @@ class AppContainer extends Component {
   }
 
   // handle dialog open and close
-  handleOpen = () => {
-    this.setState({open: true});
+  openSongAddedModal = () => {
+    this.setState({songAddedModalOpen: true});
   }
 
-  handleClose = () => {
+  closeSongAddedModal = () => {
     this.loadTracks();
     this.setState({
-      open: false
+      songAddedModalOpen: false
     });
   }
 
@@ -402,7 +419,7 @@ class AppContainer extends Component {
         })
       )
       //Below line triggers modal
-      .then(this.handleOpen())
+      .then(this.openSongAddedModal())
       .then(res => {
         this.loadTracks()
       })
@@ -587,14 +604,42 @@ class AppContainer extends Component {
   getUsersSpotifyPlaylists = () => { 
     Spotify.getUserPlaylists(this.state.accessToken, this.state.userID)
     .then(response => {
-      console.log(response)
+      {response.data.items.length > 0 ? (
+        this.setState({
+          spotifyPlaylists: response.data.items.map(item => {
+            return {
+              spotifyPlaylistID: item.id,
+              spotifyPlaylistName: item.name
+            }
+          })
+        })):(
+        this.setState({
+          noSpotifyPlaylistsFound: true,
+        }))
+      }
     })
+  }
+
+  openImportPlaylistModal = () => { this.setState( {importPlaylistModalOpen: true} ) }
+  closeImportPlaylistModal = () => { this.setState( {importPlaylistModalOpen: false} ) }
+
+  // handle search form on home page
+  handlePlaylistChoice = (event, index, value) => {
+      this.setState({ spotifyPlaylistID: value });
+  }
+
+  getSpotifyPlaylistTracks = (stuff) => {
+    console.log(stuff);
+    //Spotify.getPlaylistTracks(this.state.accessToken, this.state.userID, this.state.spotifyPlaylistID)
   }
 
   // getPlaylistTracks: (access_token, userID, playlistID) => {
   //   const config = { headers: { 'Authorization': 'Bearer ' + access_token } };
   //     return axios.get(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, data, config);
   //   }
+
+
+
 
 
   // Export playlist to  Spotify
@@ -640,9 +685,7 @@ class AppContainer extends Component {
   }
 
   openNameYourPlaylistModal = () => { this.setState( {nameYourPlaylistModalOpen: true} ) }
-
   openPlaylistAddedModal = () => { this.setState( {playlistAddedModalOpen: true} ) }
-
   closeNameYourPlaylistModal = () => { this.setState( {nameYourPlaylistModalOpen: false} ) }
 
   closePlaylistAddedModal = () => {

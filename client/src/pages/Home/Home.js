@@ -1,6 +1,7 @@
 import React from "react";
 import './home.css';
 import SearchModal from "../../components/SearchModal";
+import ImportModal from "../../components/ImportModal";
 
 // Material UI components
 import TextField from 'material-ui/TextField';
@@ -213,13 +214,14 @@ const Home = props => {
                   label="You may also import a playlist from Spotify" 
                   style={{color: '#5f54eb', fontFamily: 'Montserrat', height: 80, lineHeight: 1}}
                   icon={<FontIcon className="material-icons">cloud_download</FontIcon>}
+                  onClick={() => props.openImportPlaylistModal()}
                 />
               </div>
             )}
           </div>
         )}
       </div>
-
+      <ImportModal {...props}/>
       <footer style={{ margin: '0 auto', display: 'block', textAlign: 'right', color: '#454448'}}>
         <IconButton
           style={{marginTop: 14, color: '#5A66E3'}}
