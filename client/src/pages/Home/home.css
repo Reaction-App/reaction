@@ -140,13 +140,12 @@
   }
 
   .page-button-left {
-  
+  padding-left: 0px !important;
 
 }
 
 .page-button-right {
-  padding-left: 60px !important;
-
+  padding-left: 12px !important;
 }
 
   .empty-state-text {
