@@ -207,7 +207,14 @@ const Home = props => {
             {props.noSongFound ? (
               <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, no results found! Please try another search.</h2>
             ):
-            ( <h2 className="empty-state-text" style={{ fontFamily: 'Montserrat' }}>Start by searching for a song, artist or album. Then click “Add Song” to begin curating your playlist.</h2>
+            ( <div>
+              <h2 className="empty-state-text" style={{ fontFamily: 'Montserrat' }}>Start by searching for a song, artist or album. Then click “Add Song” to begin curating your playlist.</h2>
+                <FlatButton 
+                  label="You may also import a playlist from Spotify" 
+                  style={{color: '#5f54eb', fontFamily: 'Montserrat', height: 80, lineHeight: 1}}
+                  icon={<FontIcon className="material-icons">cloud_download</FontIcon>}
+                />
+              </div>
             )}
           </div>
         )}

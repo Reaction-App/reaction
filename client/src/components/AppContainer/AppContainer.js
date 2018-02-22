@@ -583,6 +583,20 @@ class AppContainer extends Component {
     this.setState({highlightSongOnGraph: nameString})
   }
 
+  // Import Spotify playlists
+  getUsersSpotifyPlaylists = () => { 
+    Spotify.getUserPlaylists(this.state.accessToken, this.state.userID)
+    .then(response => {
+      console.log(response)
+    })
+  }
+
+  // getPlaylistTracks: (access_token, userID, playlistID) => {
+  //   const config = { headers: { 'Authorization': 'Bearer ' + access_token } };
+  //     return axios.get(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, data, config);
+  //   }
+
+
   // Export playlist to  Spotify
   postPlaylistToSpotify = () => {
 

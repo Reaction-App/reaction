@@ -22,15 +22,26 @@ export default {
   		return axios.get(`https://api.spotify.com/v1/search?q=${query}&type=track&limit=10`, config);
 	},
 
+	createPlaylist: (access_token, userID, data) => {
+  		const config = { headers: { 'Authorization': 'Bearer ' + access_token } };
+  		return axios.post(`https://api.spotify.com/v1/users/${userID}/playlists`, data, config);
+	},
+
 	addTracksToPlaylist: (access_token, userID, playlistID, data) => {
 	  const config = { headers: { 'Authorization': 'Bearer ' + access_token } };
 	  return axios.post(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, data, config);
 	},
 
-	createPlaylist: (access_token, userID, data) => {
-  		const config = { headers: { 'Authorization': 'Bearer ' + access_token } };
-  		return axios.post(`https://api.spotify.com/v1/users/${userID}/playlists`, data, config);
-	}
+	getUserPlaylists: (access_token, userID) => {
+   		const config = { headers: { 'Authorization': 'Bearer ' + access_token } };
+     	return axios.get(`https://api.spotify.com/v1/users/${userID}/playlists`, config);
+  	},
+
+  	getPlaylistTracks: (access_token, userID, playlistID) => {
+   		const config = { headers: { 'Authorization': 'Bearer ' + access_token } };
+     	return axios.get(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, config);
+   	}
+
 }
 
 
