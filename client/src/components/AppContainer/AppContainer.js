@@ -7,7 +7,7 @@ import LoginPage from "../../pages/LoginPage";
 import Authors from "../../pages/Authors";
 import querystring from 'querystring';
 import Spotify from '../../utils/SpotifyRoutes';
-
+import sortFunction from  '../../utils/SortFunctions';
 
 // Get Access Token
 let parsed = querystring.parse(window.location.hash);
@@ -34,7 +34,7 @@ class AppContainer extends Component {
     },
     // Search form
     searchOption: "title",
-    searchHintText: "Search by song title...",
+    searchHintText: "Search for a song title...",
     query: '',
     noSongFound: false,
     searchPage: 1,
@@ -234,6 +234,7 @@ class AppContainer extends Component {
     });
   }
 
+  // handle search form on home page
   handleSearchOption = (event, index, value) => {
 
       this.setState({ searchOption: value });
@@ -251,8 +252,6 @@ class AppContainer extends Component {
       [name]: value
     });
   }
-
-  // handleChange = (event, index, value) => this.setState({value});
 
   handleFormSubmit = event => {
 
@@ -365,7 +364,7 @@ class AppContainer extends Component {
   }
 
 
-  // Row selection
+  // Row selection for search results table
   isSelected = (index) => {
       return this.state.selected.indexOf(index) !== -1;
     }
@@ -417,7 +416,7 @@ class AppContainer extends Component {
     API.getUser(this.state.userData._id)
         .then(res => {
           let newTracks = res.data.tracks;
-          newTracks = newTracks.sort(this.compareValues('_id','desc'));
+          newTracks = newTracks.sort(sortFunction.compareValues('_id','desc'));
           this.setState({ savedTracks: newTracks });
           this.getGraphData();
         })
@@ -479,17 +478,6 @@ class AppContainer extends Component {
       this.state.currentSongPlayingAudio.pause();
   }
 
-  // Row selection
-  playlistRowIsSelected = (index) => {
-      return this.state.selectedPlaylistTrack.indexOf(index) !== -1;
-  }
-
-  handlePlaylistRowSelection = (selectedRows) => {
-    this.setState({
-      selectedPlaylistTrack: selectedRows,
-    });
-  }
-
 
   handleDeleteTrack = id => {
     if (this.state.songPlaying) {
@@ -502,108 +490,7 @@ class AppContainer extends Component {
       .catch(err => console.log(err));
   }
 
-  // function for dynamic sorting
-  // compares two objects, a and b
-  // if the value of a[key] is greater than the value of b[key], comparison is 1
-  // if the value of a[key] is less than the value of b[key], comparison is -1
-  compareValues = (key, order='asc') => {
-    return function(a, b) {
-      if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-        // property doesn't exist on either object
-          return 0;
-      }
-
-      // if values are strings, convert to upper case
-      const varA = (typeof a[key] === 'string') ?
-        a[key].toUpperCase() : a[key];
-      const varB = (typeof b[key] === 'string') ?
-        b[key].toUpperCase() : b[key];
-
-      // compare values
-      let comparison = 0;
-      if (varA > varB) {
-        comparison = 1;
-      } else if (varA < varB) {
-        comparison = -1;
-      }
-
-      // if sorting in descending order, multiply comparison by -1 to get the inverse
-      return (
-        (order === 'desc') ? (comparison * -1) : comparison
-      );
-    };
-  }
-
   // Sorts playlist based on the 'sort by' dropdown list
-  handlePlaylistSort = (event, index, value) => {
-
-    this.setState({ sortDropDown: value });
-    console.log('sortDropDown ' + this.state.sortDropDown);
-    this.setState({ moodDropDown: 0 });
-
-    let sortedTracks = this.state.savedTracks.slice()
-    let newSort = ""
-
-    switch(value) {
-    case 1:
-        newSort ="Title";
-        sortedTracks = sortedTracks.sort(this.compareValues('trackName'));
-        break;
-    case 2:
-        newSort ="Artist";
-        sortedTracks = sortedTracks.sort(this.compareValues('artist'));
-        break;
-    case 3:
-        newSort ="Album";
-        sortedTracks = sortedTracks.sort(this.compareValues('album'));
-        break;
-    case 4:
-        newSort ="Positivity - Descending";
-        sortedTracks = sortedTracks.sort(this.compareValues('valence', 'desc'));
-        break;
-    case 5:
-        newSort ="Positivity - Ascending";
-        sortedTracks = sortedTracks.sort(this.compareValues('valence'));
-        break;
-    case 6:
-        newSort ="Energy - Descending";
-        sortedTracks = sortedTracks.sort(this.compareValues('energy', 'desc'));
-        break;
-    case 7:
-        newSort ="Energy - Ascending";
-        sortedTracks = sortedTracks.sort(this.compareValues('energy'));
-        break;
-    case 8:
-        newSort ="Recently Added";
-        sortedTracks = sortedTracks.sort(this.compareValues('_id', 'desc'));
-        break;
-    default:
-        break;
-    };
-
-    if (value>0) {
-      this.setState({ savedTracks: sortedTracks });
-      this.setState({ currentSort: newSort });
-    };
-  }
-
-  // Function used to sort by mood or by a selected track
-  calcDistance = (tracks, targetValence, targetEnergy) => {
-
-    let newTracks = tracks.slice();
-
-    if (targetValence >= 0 && targetEnergy >= 0) {
-      newTracks.forEach((track, index) => {
-        if (track.valence && track.energy) {
-          track.distance = Math.pow((targetValence - track.valence),2) + Math.pow((targetEnergy - track.energy),2);
-        };
-      });
-    };
-
-    return(newTracks);
-  }
-
-// Sorts playlist based on the 'sort by' dropdown list
   handleMoodSort = (event, index, value) => {
 
     this.setState({ sortDropDown: 0 });
@@ -615,23 +502,23 @@ class AppContainer extends Component {
     switch(value) {
     case 1:
         newSort ="Happy"
-        sortedTracks = this.calcDistance(sortedTracks,100,100);
-        sortedTracks = sortedTracks.sort(this.compareValues('distance'));
+        sortedTracks = sortFunction.calcDistance(sortedTracks,100,100);
+        sortedTracks = sortedTracks.sort(sortFunction.compareValues('distance'));
         break;
     case 2:
         newSort ="Sad"
-        sortedTracks = this.calcDistance(sortedTracks,0,0);
-        sortedTracks = sortedTracks.sort(this.compareValues('distance'));
+        sortedTracks = sortFunction.calcDistance(sortedTracks,0,0);
+        sortedTracks = sortedTracks.sort(sortFunction.compareValues('distance'));
         break;
     case 3:
         newSort ="Angry"
-        sortedTracks = this.calcDistance(sortedTracks,0,100);
-        sortedTracks = sortedTracks.sort(this.compareValues('distance'));
+        sortedTracks = sortFunction.calcDistance(sortedTracks,0,100);
+        sortedTracks = sortedTracks.sort(sortFunction.compareValues('distance'));
         break;
     case 4:
         newSort ="Relaxing"
-        sortedTracks = this.calcDistance(sortedTracks,100,0);
-        sortedTracks = sortedTracks.sort(this.compareValues('distance'));
+        sortedTracks = sortFunction.calcDistance(sortedTracks,100,0);
+        sortedTracks = sortedTracks.sort(sortFunction.compareValues('distance'));
         break;
     default:
         break;
@@ -649,13 +536,11 @@ class AppContainer extends Component {
     this.setState({ sortDropDown: 0 });
     this.setState({ moodDropDown: 0 });
 
-    //console.log(this.state.savedTracks[index].trackName);
-
     let sortedTracks = this.state.savedTracks.slice();
     let newSort = "Selected Track";
 
-    sortedTracks = this.calcDistance(sortedTracks,sortedTracks[index].valence,sortedTracks[index].energy);
-    sortedTracks = sortedTracks.sort(this.compareValues('distance'));
+    sortedTracks = sortFunction.calcDistance(sortedTracks,sortedTracks[index].valence,sortedTracks[index].energy);
+    sortedTracks = sortedTracks.sort(sortFunction.compareValues('distance'));
 
     this.setState({ savedTracks: sortedTracks });
     this.setState({ currentSort: newSort });
@@ -675,7 +560,7 @@ class AppContainer extends Component {
 
   // const happy = '<img src="https://s17.postimg.org/sx0jyqekv/happy.png" />';
 
-  // emotion functions
+  // display emoji on playlist
   showEmotion = (valence, energy) => {
     if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} alt="happy" src="https://s17.postimg.org/sx0jyqekv/happy.png" /><span className="tooltiptext">This song is happy!</span></div>)};
     if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="sad" src="https://s17.postimg.org/5pav3pnhb/sad.png" /><span className="tooltiptext">This song is sad..</span></div>)};
