@@ -14,6 +14,7 @@ import {
   TableHeaderColumn,
   TableRow,
   TableRowColumn,
+  TableFooter
 } from 'material-ui/Table';
 
 
@@ -157,7 +158,49 @@ const Home = props => {
             )
           })}
         </TableBody>
+        <TableFooter className="table-footer">
+        <TableRow>
+        <TableRowColumn colSpan={5} className="last-row">
+          {props.searchPage === 2 || props.searchPage === 3 ? (
+                <IconButton
+                  className ="page-button-left"
+                  tooltip='Previous Results'
+                  tooltipPosition = 'bottom-right'
+                  onClick={() => props.handleSearchResultsPage(props.searchPage - 1)}
+                  iconStyle={{fontSize: 60}}
+                >
+                  <FontIcon 
+                    hoverColor="#454448"
+                    color="#5A66E3"
+                    className="material-icons"
+                  >
+                    fast_rewind
+                  </FontIcon>
+                </IconButton>
+                ) : (<div></div>)}
+
+          {props.searchPage === 1 || props.searchPage === 2 ? (
+                <IconButton
+                  className ="page-button-right"
+                  tooltip='More Results'
+                  tooltipPosition = 'bottom-right'
+                  onClick={() => props.handleSearchResultsPage(props.searchPage + 1)}
+                  iconStyle={{fontSize: 60}}
+                >
+                  <FontIcon 
+                    hoverColor="#454448"
+                    color="#5A66E3"
+                    className="material-icons"
+                  >
+                    fast_forward
+                  </FontIcon>
+                </IconButton>
+                ) : (<div></div>)}
+        </TableRowColumn>
+        </TableRow>
+        </TableFooter>
         </Table>
+
         )
         : ( <div style={{ margin: '0 auto', marginTop: 80, display: 'block', textAlign: 'center', maxWidth: 600, color: '#454448' }}>
                 <img style={{ width: 150 }} src='https://s17.postimg.org/vobidfu3z/start-searaching.png' alt="Start Searching" />
@@ -169,6 +212,7 @@ const Home = props => {
             </div>
           )}
         </div>
+
         <footer style={{ margin: '0 auto', display: 'block', textAlign: 'right', color: '#454448'}}>
           <IconButton
             style={{marginTop: 14, color: '#5A66E3'}}

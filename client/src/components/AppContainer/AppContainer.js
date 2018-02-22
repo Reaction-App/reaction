@@ -37,6 +37,7 @@ class AppContainer extends Component {
     searchHintText: "Search by song title...",
     query: '',
     noSongFound: false,
+    searchPage: 1,
     tracks: {
       trackID: '',
       trackName: '',
@@ -109,6 +110,8 @@ class AppContainer extends Component {
         handleOpen = {this.handleOpen}
         handleClose = {this.handleClose}
         handlePageChange = {this.handlePageChange}
+        searchPage = {this.state.searchPage}
+        handleSearchResultsPage = {this.handleSearchResultsPage}
         open = {this.state.open}
         actions = {this.actions}
         handleInputChange = {this.handleInputChange}
@@ -254,20 +257,46 @@ class AppContainer extends Component {
   handleFormSubmit = event => {
 
     event.preventDefault();
+    this.setState({ searchPage: 1 })
     this.searchSpotify(this.state.searchOption, this.state.query);
   }
+
+
+  handleSearchResultsPage = page => {
+    this.setState(
+      { searchPage: page },
+      () => {
+        this.searchSpotify(this.state.searchOption, this.state.query)
+      }
+    );
+  }
+
 
   // API call for finding a track
   searchSpotify(searchOption, query) {
 
     this.setState({ noSongFound: false })
-    
+
     if (searchOption === 'artist') { query = `artist:${query}` }
     if (searchOption === 'album') { query = `album:${query}` }
 
+    let offset;
+
+    switch(this.state.searchPage) {
+      case 2:
+        offset ="10";
+        break;
+      case 3:
+        offset ="20";
+        break;
+      default:
+        offset ="0";    
+        break;
+    }
+
     // URL constructor for search
     const BASE_URL = 'https://api.spotify.com/v1/search';
-    const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10`;
+    const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10&offset=${offset}`;
     const request_params = {
       method: 'GET',
       headers: {
