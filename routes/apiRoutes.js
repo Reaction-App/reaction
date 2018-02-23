@@ -22,6 +22,11 @@ router.route("/users/tracks")
 router.route("/users/tracks/:id")
   .delete(usersController.removeTrack);
 
+// Matches with "/api/users/tracks/"
+router.route("/users/tracks/")
+  .delete(usersController.removeAllTracks);
+
+
 // Matches with "/api/tracks"
 router.route("/tracks")
   .get(tracksController.findAll)

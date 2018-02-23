@@ -13,23 +13,19 @@ import FontIcon from 'material-ui/FontIcon';
     overlayStyle: {
       opacity: .2
     },
+    menuStyle: {
+      marginRight: 10,
+      verticalAlign: 'top',
+      textAlign: 'left',
+      fontFamily: 'Montserrat',
+      color: '#5A66E3',
+      fontSize: 16
+    }
   }
 
   const customContentStyle = {
     width: '62%',
     maxWidth: 'none',
-  }
-
-  const menuStyle = {
-    width: '80%',
-    marginRight: 10,
-    verticalAlign: 'top',
-    textAlign: 'left',
-    fontFamily: 'Montserrat',
-    color: '#5A66E3',
-    paddingLeft: 20,
-    fontSize: 20,
-    textAlign: 'center'
   }
 
 
@@ -56,7 +52,7 @@ class ImportModal extends Component {
         label="Import Spotify Playlist"
         primary={true}
         icon={<FontIcon className="material-icons">cloud_download</FontIcon>}
-        onClick={() => this.props.handlePageChange('Playlist')}
+        onClick={() => this.props.getSpotifyPlaylistTracks(this.state.value)}
         style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 5, marginRight: 5, height: 60, width: '30%', minWidth: 300}}
       />
 

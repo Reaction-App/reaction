@@ -20,5 +20,10 @@ export default {
   // Deletes the track with the given id
   deleteTrack: function(id) {
     return axios.delete("/api/users/tracks/" + id);
+  },
+
+  // Deletes the track with the given id
+  deleteAllTracks: function() {
+    return axios.delete("/api/users/tracks/");
   }
 };

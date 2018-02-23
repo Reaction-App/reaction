@@ -49,6 +49,16 @@ class AppContainer extends Component {
       energy: 0,
       valence: 0
     },
+    spotifyPlaylistTracks: {
+      trackID: '',
+      trackName: '',
+      trackURI: '',
+      artist: '',
+      album: '',
+      trackURL: '',
+      energy: 0,
+      valence: 0
+    },
     selected: [],
     // Home Modals
     songAddedModalOpen: false,
@@ -141,7 +151,6 @@ class AppContainer extends Component {
         noSpotifyPlaylistsFound = {this.state.noSpotifyPlaylistsFound}
         spotifyPlaylists = {this.state.spotifyPlaylists}
         getUsersSpotifyPlaylists = {this.getUsersSpotifyPlaylists}
-        handlePlaylistChoice = {this.handlePlaylistChoice}
         getSpotifyPlaylistTracks = {this.getSpotifyPlaylistTracks}
         createPlaylistArray = {this.createPlaylistArray}
       />;
@@ -634,7 +643,13 @@ class AppContainer extends Component {
   }
 
   createPlaylistArray = () => {
-    const items = [<MenuItem value={1} key={1} primaryText={'Choose a playlist'} />];
+    const items = [
+      <MenuItem 
+        value={1} 
+        key={1} 
+        primaryText={'Choose a playlist'} 
+      />
+    ];
 
 
     this.state.spotifyPlaylists.forEach((playlist) => {
@@ -653,12 +668,33 @@ class AppContainer extends Component {
   openImportPlaylistModal = () => { this.setState( {importPlaylistModalOpen: true} ) }
   closeImportPlaylistModal = () => { this.setState( {importPlaylistModalOpen: false} ) }
 
-  // handle search form on home page
-  handlePlaylistChoice = (event, index, value) => {
-      this.setState({ spotifyPlaylistID: value });
-  }
 
-  getSpotifyPlaylistTracks = (stuff) => {
+  getSpotifyPlaylistTracks = (playlistID) => {
+    this.closeImportPlaylistModal()
+    API.deleteAllTracks()
+    .then(Spotify.getPlaylistTracks(this.state.accessToken, this.state.userData.userID, playlistID))
+    .then(response => {
+      // {response.data.items.length > 0 ? (
+        this.setState({
+          spotifyPlaylistTracks: response.data.items.map(item => {
+            return {
+              trackID: item.track.id,
+              trackName: item.track.name,
+              trackURI: item.track.uri,
+              artist: item.track.artists[0].name,
+              album: item.track.album.name,
+              trackURL: item.track.preview_url
+            }
+          })
+        }, 
+        () => this.state.spotifyPlaylistTracks.map(track =>
+              console.log(track)
+        //         this.handleSaveTrack(track)
+              )
+        )
+    })
+
+
     // console.log(stuff);
     //Spotify.getPlaylistTracks(this.state.accessToken, this.state.userID, this.state.spotifyPlaylistID)
   }

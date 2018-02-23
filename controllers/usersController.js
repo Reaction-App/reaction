@@ -48,5 +48,12 @@ module.exports = {
       {new:true}
     )
     .catch(err => res.status(422).json(err));
+  },
+
+  // delete all tracks in the tracks array of a user
+  removeAllTracks: function(req, res) {
+    console.log("removeAllTracks");
+    db.User.update({tracks: { } } )
+    .catch(err => res.status(422).json(err));
   }
 };
