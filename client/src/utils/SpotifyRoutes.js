@@ -34,7 +34,7 @@ export default {
 
 	getUserPlaylists: (access_token, userID) => {
    		const config = { headers: { 'Authorization': 'Bearer ' + access_token } };
-     	return axios.get(`https://api.spotify.com/v1/users/${userID}/playlists`, config);
+     	return axios.get(`https://api.spotify.com/v1/users/${userID}/playlists?limit=50`, config);
   	},
 
   	getPlaylistTracks: (access_token, userID, playlistID) => {

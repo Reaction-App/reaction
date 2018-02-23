@@ -231,14 +231,24 @@ class AppContainer extends Component {
             userID: data.id})
           .then(res => {
               this.setState(
-                { userData: Object.assign({}, this.state.userData, {_id: res.data._id}) }
-              )
-              this.loadTracks();
-              this.getUsersSpotifyPlaylists();
-          })
+                { userData: Object.assign({}, this.state.userData, {_id: res.data._id}) },
+              () => {this.getUsersSpotifyPlaylists()}
+              )})
+          .then(() => this.loadTracks())        
         })
       }
     })
+  }
+
+
+
+    handleSearchResultsPage = page => {
+    this.setState(
+      { searchPage: page },
+      () => {
+        this.searchSpotify(this.state.searchOption, this.state.query)
+      }
+    );
   }
 
   // handle dialog open and close
@@ -604,7 +614,7 @@ class AppContainer extends Component {
 
   // Import Spotify playlists
   getUsersSpotifyPlaylists = () => { 
-    Spotify.getUserPlaylists(this.state.accessToken, this.state.userID)
+    Spotify.getUserPlaylists(this.state.accessToken, this.state.userData.userID)
     .then(response => {
       {response.data.items.length > 0 ? (
         this.setState({
@@ -624,11 +634,18 @@ class AppContainer extends Component {
   }
 
   createPlaylistArray = () => {
-    const items = [];
+    const items = [<MenuItem value={1} key={1} primaryText={'Choose a playlist'} />];
+
 
     this.state.spotifyPlaylists.forEach((playlist) => {
-      items.push(<MenuItem value={playlist.spotifyPlaylistID} key={playlist.spotifyPlaylistID} primaryText={`${playlist.spotifyPlaylistName}`} />)
-        })
+      items.push(
+        <MenuItem 
+          value={playlist.spotifyPlaylistID} 
+          key={playlist.spotifyPlaylistID} 
+          primaryText={`${playlist.spotifyPlaylistName}`} 
+        />
+      )
+    })
     
     return items
   }
