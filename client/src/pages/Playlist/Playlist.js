@@ -106,14 +106,18 @@ const Playlist = props => {
                         <p style={{marginTop: 2, marginBottom: 0, paddingBottom: 1, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: '#454448'}}>
                           {track.artist}  |  {track.album}
                         </p>
-                        <div>
+
+
+
+                        <span>
                           <p style={{marginTop: 0, marginBottom: 0, paddingBottom: 5, fontFamily: 'Montserrat', fontSize: 12, maxWidth: 280, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'inline-block', color: '#454448'}}>
                             Positivity: {track.valence}% | Energy: {track.energy}%
                           </p>
                           <div className="tooltip" style={{display: 'inline-block', marginLeft: 10, marginTop: -15, verticalAlign: 'middle'}}>
                             {props.showEmotion(track.valence,track.energy)}
                           </div>
-                        </div>
+                        </span>
+
 
                       </ListItem>
                     )}
