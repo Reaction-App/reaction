@@ -8,6 +8,7 @@ import Authors from "../../pages/Authors";
 import querystring from 'querystring';
 import Spotify from '../../utils/SpotifyRoutes';
 import sortFunction from  '../../utils/SortFunctions';
+import MenuItem from 'material-ui/MenuItem';
 
 // Get Access Token
 let parsed = querystring.parse(window.location.hash);
@@ -53,7 +54,7 @@ class AppContainer extends Component {
     songAddedModalOpen: false,
     importPlaylistModalOpen: false,
     // Importing Spotify Playlists
-    noSpotifyPlaylistsFound: false,
+    noSpotifyPlaylistsFound: true,
     spotifyPlaylists: {
       spotifyPlaylistID: '',
       spotifyPlaylistName: '',
@@ -142,6 +143,7 @@ class AppContainer extends Component {
         getUsersSpotifyPlaylists = {this.getUsersSpotifyPlaylists}
         handlePlaylistChoice = {this.handlePlaylistChoice}
         getSpotifyPlaylistTracks = {this.getSpotifyPlaylistTracks}
+        createPlaylistArray = {this.createPlaylistArray}
       />;
     } else if (this.state.currentPage === "Playlist") {
       return <Playlist
@@ -611,13 +613,24 @@ class AppContainer extends Component {
               spotifyPlaylistID: item.id,
               spotifyPlaylistName: item.name
             }
-          })
+          }),
+          noSpotifyPlaylistsFound: false
         })):(
         this.setState({
           noSpotifyPlaylistsFound: true,
         }))
       }
     })
+  }
+
+  createPlaylistArray = () => {
+    const items = [];
+
+    this.state.spotifyPlaylists.forEach((playlist) => {
+      items.push(<MenuItem value={playlist.spotifyPlaylistID} key={playlist.spotifyPlaylistID} primaryText={`${playlist.spotifyPlaylistName}`} />)
+        })
+    
+    return items
   }
 
   openImportPlaylistModal = () => { this.setState( {importPlaylistModalOpen: true} ) }
@@ -629,7 +642,7 @@ class AppContainer extends Component {
   }
 
   getSpotifyPlaylistTracks = (stuff) => {
-    console.log(stuff);
+    // console.log(stuff);
     //Spotify.getPlaylistTracks(this.state.accessToken, this.state.userID, this.state.spotifyPlaylistID)
   }
 

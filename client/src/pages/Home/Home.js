@@ -221,7 +221,8 @@ const Home = props => {
           </div>
         )}
       </div>
-      <ImportModal {...props}/>
+      {props.spotifyPlaylists.length ? ( 
+      <ImportModal {...props}/> ) : (<div></div>)}
       <footer style={{ margin: '0 auto', display: 'block', textAlign: 'right', color: '#454448'}}>
         <IconButton
           style={{marginTop: 14, color: '#5A66E3'}}

@@ -7,12 +7,6 @@ import FontIcon from 'material-ui/FontIcon';
 
 
 const ImportModal = props => {
-
-  // const items = {};
-  // props.spotifyPlaylists.forEach((playlist) => {
-  //   return <MenuItem value={playlist.name} key={playlist.id} primaryText={`${playlist.name}`} />
-  // })
-
   
   const style = {
     dialoguetitle: {
@@ -65,10 +59,12 @@ const ImportModal = props => {
     <p style={{fontFamily: 'Montserrat', fontSize: 18 }}>Choose a Spotify playlist to import to Reaction Radio</p>
     <DropDownMenu 
       maxHeight={300} 
-      // value={this.state.value} 
+      value={this.value} 
       onChange={props.getSpotifyPlaylistTracks()}
     >
-      {/*{items}*/}
+
+    {!props.noSpotifyPlaylistsFound ? (props.createPlaylistArray()) : (<div></div>)}
+
     </DropDownMenu>
     <p>Warning: This will delete your current Reaction Radio playlist.</p>
     </Dialog>
