@@ -1,6 +1,5 @@
 const axios = require("axios");
 const router = require("express").Router();
-const tracksController = require("../controllers/tracksController");
 const usersController = require("../controllers/usersController");
 
 // Matches with "/api/users"
@@ -21,16 +20,5 @@ router.route("/users/tracks")
 // Matches with "/api/users/tracks/:id"
 router.route("/users/tracks/:id")
   .delete(usersController.removeTrack);
-
-// Matches with "/api/tracks"
-router.route("/tracks")
-  .get(tracksController.findAll)
-  .post(tracksController.create);
-
-// Matches with "/api/tracks/:id"
-router
-  .route("/tracks/:id")
-  .get(tracksController.findById)
-  .put(tracksController.update)
 
 module.exports = router;
