@@ -163,8 +163,6 @@ const Home = props => {
                   {props.searchPage === 2 || props.searchPage === 3 ? (
                     <IconButton
                       className ="page-button-left"
-                      tooltip='Previous Results'
-                      tooltipPosition = 'bottom-right'
                       onClick={() => props.handleSearchResultsPage(props.searchPage - 1)}
                       iconStyle={{fontSize: 60}}
                     >
@@ -173,7 +171,7 @@ const Home = props => {
                         color="#5A66E3"
                         className="material-icons"
                       >
-                        fast_rewind
+                        keyboard_arrow_left
                       </FontIcon>
                     </IconButton>
                   ) : (<div></div>)}
@@ -181,18 +179,10 @@ const Home = props => {
                   {props.tracks.length >= 10 && (props.searchPage === 1 || props.searchPage === 2) ? (
                     <IconButton
                       className ="page-button-right"
-                      tooltip='More Results'
-                      tooltipPosition = 'bottom-right'
                       onClick={() => props.handleSearchResultsPage(props.searchPage + 1)}
                       iconStyle={{fontSize: 60}}
                     >
-                      <FontIcon
-                        hoverColor="#454448"
-                        color="#5A66E3"
-                        className="material-icons"
-                      >
-                        fast_forward
-                      </FontIcon>
+                      <FontIcon hoverColor="#454448" color="#5A66E3" className="material-icons">keyboard_arrow_right </FontIcon>
                     </IconButton>
                   ) : (<div></div>)}
                 </TableRowColumn>
