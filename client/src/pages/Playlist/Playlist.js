@@ -43,7 +43,7 @@ const Playlist = props => {
         ) : (<div></div>)}
       </div>
 
-      
+
         {props.savedTracks.length ? (
           <div className="playlist-container">
             <h2 className="playlist-header">My Playlist</h2>
@@ -123,7 +123,14 @@ const Playlist = props => {
               </List>
             </div>
           </div>
-        ) : (<p style={{backgroundColor: '#F7F9FF', border: '1px solid #5A66E3', marginTop: '-20px', width: 380, maxHeight: 518, overflow: 'scroll', float: 'left', padding: 20}}>Once you start adding songs, they will show up here in your playlist.</p>)}
+        ) : (<div style={{ margin: '0 auto', paddingTop: '340px', display: 'block', textAlign: 'center', maxWidth: 650, color: '#454448' }}>
+            <img style={{ width: 150 }} src='https://s17.postimg.org/twc8xm1an/playlist-empty-state.png' alt="Start Searching" />
+            {props.noSongFound ? (
+              <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, no results found! Please try another search.</h2>
+            ):
+            ( <h2 className="empty-state-text" style={{ fontFamily: 'Montserrat' }}>You haven't added any songs yet! Once you add a song, it will show up here.</h2>
+            )}
+          </div>)}
 
     </div>
   )

@@ -78,8 +78,8 @@ const Home = props => {
               className="button-search"
               onClick={props.handleFormSubmit}>
               <span className="search-word">Search</span>
-              <span className="search-icon"> 
-                <FontIcon 
+              <span className="search-icon">
+                <FontIcon
                   className="material-icons"
                   style={{fontSize: '30px'}}
                   color="#00000"
@@ -168,7 +168,7 @@ const Home = props => {
                       onClick={() => props.handleSearchResultsPage(props.searchPage - 1)}
                       iconStyle={{fontSize: 60}}
                     >
-                      <FontIcon 
+                      <FontIcon
                         hoverColor="#454448"
                         color="#5A66E3"
                         className="material-icons"
@@ -186,7 +186,7 @@ const Home = props => {
                       onClick={() => props.handleSearchResultsPage(props.searchPage + 1)}
                       iconStyle={{fontSize: 60}}
                     >
-                      <FontIcon 
+                      <FontIcon
                         hoverColor="#454448"
                         color="#5A66E3"
                         className="material-icons"
@@ -201,8 +201,8 @@ const Home = props => {
           </Table>
 
         )
-        : 
-        ( <div style={{ margin: '0 auto', marginTop: 80, display: 'block', textAlign: 'center', maxWidth: 600, color: '#454448' }}>
+        :
+        ( <div style={{ margin: '0 auto', marginTop: 80, display: 'block', textAlign: 'center', maxWidth: 650, color: '#454448' }}>
             <img style={{ width: 150 }} src='https://s17.postimg.org/vobidfu3z/start-searaching.png' alt="Start Searching" />
             {props.noSongFound ? (
               <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, no results found! Please try another search.</h2>
@@ -220,7 +220,7 @@ const Home = props => {
           tooltipPosition = 'top-left'
           onClick={() => props.handlePageChange('Authors')}
         >
-          <FontIcon 
+          <FontIcon
             style={{fontSize: '200px'}}
             color="#454448"
             hoverColor="#5A66E3"
@@ -229,7 +229,7 @@ const Home = props => {
           </FontIcon>
         </IconButton>
       </footer>
-      
+
     </div>
   )}
 
