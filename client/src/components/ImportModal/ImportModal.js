@@ -3,14 +3,15 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import FontIcon from 'material-ui/FontIcon';
 
 
 const ImportModal = props => {
 
-  const items = {};
-  props.spotifyPlaylists.forEach((playlist) => {
-    return <MenuItem value={playlist.name} key={playlist.id} primaryText={`${playlist.name}`} />
-  })
+  // const items = {};
+  // props.spotifyPlaylists.forEach((playlist) => {
+  //   return <MenuItem value={playlist.name} key={playlist.id} primaryText={`${playlist.name}`} />
+  // })
 
   
   const style = {
@@ -23,22 +24,30 @@ const ImportModal = props => {
     },
   }
 
+  const customContentStyle = {
+    width: '62%',
+    maxWidth: 'none',
+  };
+
   const actions = [
     <FlatButton
       className="modal-button modal-outline"
       label="Cancel Import"
       primary={true}
       onClick={() => props.closeImportPlaylistModal()}
-      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, marginLeft: 5, marginRight: 5, width: 200, border: '1px solid #5A66E3' }}
+      style={{fontSize: 16, color: '#5A66E3', fontFamily: 'Montserrat', height: 60, marginLeft: 5, marginRight: 5, width: '30%', minWidth: 250,  border: '1px solid #5A66E3' }}
     />,
     <FlatButton
       className="modal-button"
       backgroundColor={'#5A66E3'}
       label="Import Spotify Playlist"
       primary={true}
+      icon={<FontIcon className="material-icons">cloud_download</FontIcon>}
       onClick={() => props.handlePageChange('Playlist')}
-      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 5, marginRight: 5, height: 60, width: 200 }}
-    />,
+      style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', marginLeft: 5, marginRight: 5, height: 60, width: '30%', minWidth: 300}}
+    />
+
+    ,
   ];
 
   return (
@@ -49,6 +58,7 @@ const ImportModal = props => {
       overlayStyle={style.overlayStyle}
       actions={actions}
       modal={false}
+      contentStyle={customContentStyle}
       open={props.importPlaylistModalOpen}
       onRequestClose={props.closeImportPlaylistModal}
     >
@@ -58,9 +68,9 @@ const ImportModal = props => {
       // value={this.state.value} 
       onChange={props.getSpotifyPlaylistTracks()}
     >
-      {items}
-
+      {/*{items}*/}
     </DropDownMenu>
+    <p>Warning: This will delete your current Reaction Radio playlist.</p>
     </Dialog>
   );
   }
