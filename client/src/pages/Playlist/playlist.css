@@ -107,7 +107,7 @@ display: none;
 
 #songItem {
   cursor: default !important;
-}  
+}
 
 @media only screen and (max-width: 1000px) {
 
@@ -160,4 +160,18 @@ display: none;
 
 
 
+}
+
+.page-button-right {
+    position: relative;
+    right: -90px;
+}
+
+.page-button-left {
+    position: relative;
+    right: 90px;
+}
+
+.last-row {
+  overflow: inherit !important;
 }
