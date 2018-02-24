@@ -121,10 +121,18 @@ You can easily deploy this application to a platform such as Heroku.
 
 ## Authors
 
-* **Victoria Palacios** - [https://github.com/victoriapalacios](https://github.com/victoriapalacios)
-* **Juliette Rapala** - [https://github.com/jrapala](https://github.com/jrapala)
-* **Mark Walker** - [https://github.com/markwalkernz](https://github.com/markwalkernz)
+* **Victoria Palacios**
+	* [GitHub](https://github.com/victoriapalacios)
+	* [LinkedIn](https://www.linkedin.com/in/victoriapalacios/)
 
+* **Juliette Rapala**
+	* [GitHub](https://github.com/jrapala)
+	* [LinkedIn](https://www.linkedin.com/in/julietterapala/)
+
+* **Mark Walker**
+	* [GitHub](https://github.com/markwalkernz)
+	* [LinkedIn](https://www.linkedin.com/in/mark-walker-5b25107/)
+	
 ## Acknowledgments
 
 * This app was inspired by Charlie Thompson's app [Sentify](http://www.rcharlie.net/sentify)
