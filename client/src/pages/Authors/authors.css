@@ -21,13 +21,14 @@
   display: inline-block !important;
 }
 
-.info {
+.infoPaper {
   width: 50% !important;
   /*height: '800px',*/
   margin: 10px !important;
   margin-top: 20 !important;
   display: inline-block !important;
   padding: 0 10px;
+  font-size: 20px;
 }
 
 
@@ -90,7 +91,7 @@ a, a:visited {
   text-align: center;
   }
 
-  .info {
+  .infoPaper {
   width: 80% !important;
   }
 
