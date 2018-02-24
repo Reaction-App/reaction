@@ -42,13 +42,13 @@ $ yarn start
 	
 	![Signing In](./img/reactionRadio02.png)
 	
-2. Once you have signed in, you may being to add songs to your Reaction Radio playlist! Search by either song title, artist, or album. When you find a song that you want to add, click ```Add Song```.
+2. Once you have signed in, you may begin to add songs to your Reaction Radio playlist! Search by either song title, artist, or album. When you find a song that you want to add, click ```Add Song```.
 
 	![Home Page](./img/reactionRadio03.png)
 	
 	![Adding Songs](./img/reactionRadio04.png)
 	
-3. Once you have added the songs you want, click ```View My Playlist`` to begin exploring your playlist.
+3. After adding songs that you like, click ```View My Playlist``` to begin exploring your playlist.
 
 	![Viewing Your Playlist](./img/reactionRadio05.png)
 	
@@ -56,13 +56,33 @@ $ yarn start
  
 	![Sorting and Deleting Songs](./img/reactionRadio06.gif)
 
-5. Once you're happy with your Reaction Radio playlist, go ahead and hit that Export button! Your playlist will be added to your Spotify account.
+5. Once you're happy with your Reaction Radio playlist, go ahead and hit that Export button. Your playlist will be added to your Spotify account.
 
 ![Exporting to Spotify](./img/reactionRadio07.png)
 ![Reaction Radio on Spotify](./img/reactionRadio08.png)
 
 ## Insights
-Coming soon!
+As a developer, Spotify provides a ton of useful analytical information about your app:
+
+* Daily Active Users
+* Monthly Active Users
+* How users are using your app 
+* Where your users are located in the world
+
+As our app grows and we add more features, we can see which features are being utilized by our users, so we can develop and improve them even more.
+
+![Spotify Analytics](./img/reactionRadio09.png)
+
+Our database collects information about the songs that our users are searching through our app (no emails or real names are collected). With enough information, we can do some interesting analytics of our own:
+
+* Most searched for songs
+* Happiest songs
+* Saddest songs
+* Angriest songs
+* Chillest songs
+* Average mood of specific artists and/or albums
+
+![Reaction Radio Database](./img/reactionRadio10.png)
 
 ## Deployment
 You can easily deploy this application to a platform such as Heroku.
