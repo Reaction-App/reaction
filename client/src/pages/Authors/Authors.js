@@ -57,9 +57,9 @@ const Authors = props => {
 		  		<div>
 		    		<Paper 
 		    			zDepth={2}
-		    			className="info"
+		    			className="infoPaper"
 		    		>
-		    			<h5>Check out the code behind this project at <a target="_blank" rel="noopener noreferrer" href="https://github.com/Reaction-App/reaction">GitHub</a></h5>
+		    			<p>Check out the code behind this project at <a target="_blank" rel="noopener noreferrer" href="https://github.com/Reaction-App/reaction">GitHub</a></p>
 		  			</Paper>
 		    	</div>
 		    </div>
