@@ -36,6 +36,33 @@ $ yarn start
 
 ## Using Reaction Radio
 
+1. To start using Reaction Radio, sign in to Spotify using our log in button.
+
+	![Landing Page](./img/reactionRadio01.png)
+	
+	![Signing In](./img/reactionRadio02.png)
+	
+2. Once you have signed in, you may being to add songs to your Reaction Radio playlist! Search by either song title, artist, or album. When you find a song that you want to add, click ```Add Song```.
+
+	![Home Page](./img/reactionRadio03.png)
+	
+	![Adding Songs](./img/reactionRadio04.png)
+	
+3. Once you have added the songs you want, click ```View My Playlist`` to begin exploring your playlist.
+
+	![Viewing Your Playlist](./img/reactionRadio05.png)
+	
+4. On your Playlist page, you may sort tracks by mood, or sort by specific track. Create the playlist you want to hear. See any songs that don't match the mood you're feeling? Delete them!
+ 
+	![Sorting and Deleting Songs](./img/reactionRadio06.gif)
+
+5. Once you're happy with your Reaction Radio playlist, go ahead and hit that Export button! Your playlist will be added to your Spotify account.
+
+![Exporting to Spotify](./img/reactionRadio07.png)
+![Reaction Radio on Spotify](./img/reactionRadio08.png)
+
+## Insights
+Coming soon!
 
 ## Deployment
 You can easily deploy this application to a platform such as Heroku.
