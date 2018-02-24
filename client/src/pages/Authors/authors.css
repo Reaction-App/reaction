@@ -3,9 +3,34 @@
   text-align: center;
 }
 
+.infoDiv {
+  padding-top: 20px;
+  text-align: center;
+}
+
 .authorContainer {
   display: inline;
 }
+
+
+.author {
+  width: 25% !important;
+  /*height: '800px',*/
+  margin: 10px !important;
+  margin-top: 20 !important;
+  display: inline-block !important;
+}
+
+.info {
+  width: 50% !important;
+  /*height: '800px',*/
+  margin: 10px !important;
+  margin-top: 20 !important;
+  display: inline-block !important;
+  padding: 0 10px;
+}
+
+
 
 .headlineStyle {
     width: 400px;
@@ -58,22 +83,16 @@ a, a:visited {
   color: #5A66E3;
 }
 
-@media only screen and (min-width: 700px) {
-
-  .mobileOnly {
-    display: none
-  }
-}
-
 @media only screen and (max-width: 701px) {
 
-  .mobileOnly {
-    display: block;
-    text-decoration: none;
+  .author {
+  width: 80% !important;
+  text-align: center;
   }
 
-  .GitHub, .email {
-    display: none;
+  .info {
+  width: 80% !important;
   }
+
 }
 
