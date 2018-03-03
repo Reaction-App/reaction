@@ -1,6 +1,6 @@
 import React from "react";
 import TrackChart from "../../components/TrackChart";
-import PlaylistModal from "../../components/PlaylistModal";
+import ExportPlaylistModal from "../../components/ExportPlaylistModal";
 import './playlist.css';
 import FlipMove from 'react-flip-move';
 
@@ -30,7 +30,7 @@ const Playlist = props => {
 
     <div className="contentWrapper">
 
-      <PlaylistModal {...props}/>
+      <ExportPlaylistModal {...props}/>
 
       <div className="chart">
         {props.chartData.length ? (

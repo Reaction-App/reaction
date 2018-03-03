@@ -1,6 +1,6 @@
 import React from "react";
 import './home.css';
-import SearchModal from "../../components/SearchModal";
+import SearchPageModal from "../../components/SearchPageModal";
 
 // Material UI components
 import TextField from 'material-ui/TextField';
@@ -150,7 +150,7 @@ const Home = props => {
                           disabled={props.savedTracks.findIndex(x => x.trackID === track.trackID) === -1 ? false : true}
                           onClick={() => props.handleSaveTrack(track)}
                           style={{ float: 'right',  fontSize: 16, color: '#FFFFFF', fontFamily: 'Montserrat', width: 112 }} />
-                        <SearchModal {...props} />
+                        <SearchPageModal {...props} />
                       </div>
                     </TableRowColumn>
                   </TableRow>
