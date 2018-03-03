@@ -105,8 +105,8 @@ class AppContainer extends Component {
         userData = {this.state.userData}
         searchOption = {this.state.searchOption}
         searchHintText = {this.state.searchHintText}
-        handleSearchOption = {this.handleSearchOption}
         query = {this.state.query}
+        handleSearchOption = {this.handleSearchOption}
         handleOpen = {this.handleOpen}
         handleClose = {this.handleClose}
         handlePageChange = {this.handlePageChange}
