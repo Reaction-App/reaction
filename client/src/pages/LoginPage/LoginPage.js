@@ -8,10 +8,10 @@ import './styles.css';
 	const REDIRECT_PARAM = '&redirect_uri=';
 
 	// IF USING LOCALHOST, USE THIS URL
-	// const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home');
+	const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home');
 
 	// IF USING HEORKU, USE THIS URL
-	const REDIRECT_URI = encodeURIComponent('https://reaction-radio.herokuapp.com/home');
+	// const REDIRECT_URI = encodeURIComponent('https://reaction-radio.herokuapp.com/home');
 
 	const SCOPE = '&scope=playlist-modify-public';
 	const RESPONSE_TYPE = '&response_type=token'
