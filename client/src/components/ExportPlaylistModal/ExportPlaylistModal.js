@@ -2,10 +2,8 @@ import React from "react";
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-// import './PlayListModal.css';
 
-
-const PlaylistModal = props => {
+const ExportPlaylistModal = props => {
 
   const style = {
       dialoguetitle: {
@@ -106,4 +104,4 @@ const PlaylistModal = props => {
   );
   }
 
-export default PlaylistModal;
+export default ExportPlaylistModal;

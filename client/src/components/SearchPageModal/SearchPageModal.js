@@ -2,8 +2,7 @@ import React from "react";
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
-
-const SearchModal = props => {
+const SearchPageModal = props => {
 
   const style = {
     dialoguetitle: {
@@ -49,4 +48,4 @@ const SearchModal = props => {
   );
   }
 
-export default SearchModal;
+export default SearchPageModal;

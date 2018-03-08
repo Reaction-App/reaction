@@ -1,0 +1,99 @@
+.authorDiv {
+  padding-top: 120px;
+  text-align: center;
+}
+
+.infoDiv {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.authorContainer {
+  display: inline;
+}
+
+
+.author {
+  width: 25% !important;
+  /*height: '800px',*/
+  margin: 10px !important;
+  margin-top: 20 !important;
+  display: inline-block !important;
+}
+
+.infoPaper {
+  width: 50% !important;
+  /*height: '800px',*/
+  margin: 10px !important;
+  margin-top: 20 !important;
+  display: inline-block !important;
+  padding: 0 10px;
+  font-size: 20px;
+}
+
+
+
+.headlineStyle {
+    width: 400px;
+    font-size: 30px !important;
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px;
+    background-color: #5A66E3;
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.authorInfo {
+  padding: 2px 16px;
+  text-align: center;
+}
+
+.rule {
+  width: 80%;
+  height: 2px;
+  background-color: #5A66E3;
+}
+.authorImage {
+  border-radius: 5px;
+}
+
+.authorImage {
+  width: 100%;
+}
+
+.myIcon {
+  font-size: 30px;
+  position: relative;
+  top: 5px;
+  right: 5px;
+}
+
+
+.email span {
+    display: inline-block;
+
+    &::before {
+      content: "\A";
+      white-space: pre;
+    }
+}
+
+
+
+a, a:visited {
+  color: #5A66E3;
+}
+
+@media only screen and (max-width: 701px) {
+
+  .author {
+  width: 80% !important;
+  text-align: center;
+  }
+
+  .infoPaper {
+  width: 80% !important;
+  }
+
+}
+

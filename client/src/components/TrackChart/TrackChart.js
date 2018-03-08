@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-// import $ from "jquery";
 const ReactHighcharts = require('react-highcharts');
 
 class Chart extends Component {
