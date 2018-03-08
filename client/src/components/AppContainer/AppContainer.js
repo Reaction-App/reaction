@@ -420,7 +420,7 @@ class AppContainer extends Component {
           this.setState({ savedTracks: newTracks });
           this.getGraphData();
         })
-        .then(console.log(this.savedTracks))
+        // .then(console.log(this.savedTracks))
         .catch(err => console.log(err));
   }
 
