@@ -12,7 +12,6 @@ import {
 
 // Material-UI
 // MuiThemeProvider provides a couple of basic themes e.g. color scheme
-// MyAwesomeReactComponent is an example component
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';

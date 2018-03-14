@@ -13,6 +13,10 @@ import sortFunction from  '../../utils/SortFunctions';
 let parsed = querystring.parse(window.location.hash);
 let accessToken = parsed['#access_token'];
 
+/* Comment out lines 20-24 in development. 
+This will keep access token in URL to ease development.
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
 // function removeHash () {
 //     window.history.pushState("", document.title, window.location.pathname + window.location.search);
 // }
@@ -22,55 +26,61 @@ let accessToken = parsed['#access_token'];
 
 class AppContainer extends Component {
   state = {
-    // Page state
+    
+    // Current Page
     currentPage: "Home",
+    
     // Access Token
     accessToken: '',
+    
     // User Account Data
     userData: {
         _id: '',
         userName: '',
         userID: ''
     },
-    // Search form
+    
+    // Search Form Data
     searchOption: "title",
     searchHintText: "Search for a song title...",
     query: '',
     noSongFound: false,
-    searchPage: 1,
-    tracks: {
+    searchPage: 1,                // Current search results page
+    tracks: {                     // Search result track info
       trackID: '',
       trackName: '',
       trackURI: '',
       artist: '',
       album: '',
       trackURL: '',
-      energy: 0,
+      energy: 0,                  // Initial value set to zero. True energy & valence found after song is added to playlist.
       valence: 0
     },
-    selected: [],
-    // App Playlist
-    savedTracks: [],
-    selectedPlaylistTrack: [], // the index of the savedTrack that is currently selected
+    selected: [],                 // Selected song to save to playlist
+    
+    // Your Reaction Radio Playlist
+    savedTracks: [],              // Array of saved track info
+    selectedPlaylistTrack: [],    // The index of the saved track that is currently selected
     open: false,
-    sortDropDown: 0, // the current value of the 'sort by' dropdown list
-    moodDropDown: 0, // moodDropDown is the current value of the 'mood' dropdown list
-    currentSort: "Recently Added",
-    trackName: { type: String, required: true },
-    artist: "",
+    sortDropDown: 0,              // The current value of the 'sort by' dropdown list
+    moodDropDown: 0,              // The current value of the 'mood' dropdown list
+    currentSort: "Recently Added",  // Initially, your playlist is sorted by recently added
+    trackName: {      
+      type: String, 
+      required: true 
+    },
+
+    // Chart 
     highlightSongOnGraph: null,
-    album: "",
-    trackID: "",
-    trackURL: "",
-    trackURI: "",
-    valence: 0,
-    energy: 0,
     chartData: [],
+
+    // Audio Player
     songPlaying: false,
     currentSongPlayingID: "",
     currentSongPlayingAudio: null,
     currentSongPlayingTrack: "",
-    // Spotify Playlist
+    
+    // Export to Spotify Playlist
     playlistID: '',
     playlistUrl: '',
     playlistDescription: 'My Reaction Radio Playlist',
@@ -80,7 +90,7 @@ class AppContainer extends Component {
   }
 
   componentDidMount() {
-    // Redirect user who accesses /home without access token
+    // Redirect user who accesses /home without an access token
     if (accessToken === undefined) {
       document.location.href="/"
     } else {
@@ -89,6 +99,7 @@ class AppContainer extends Component {
     }
   }
 
+  // State updates on page change
   handlePageChange = page => {
     this.setState({
       currentPage: page,
@@ -96,9 +107,12 @@ class AppContainer extends Component {
       tracks:{},
       query: ''
     });
+    // Close modal
     this.handleClose();
   }
 
+/* Functions and states to pass into page components
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
   renderPage = () => {
     if (this.state.currentPage === "Home") {
       return <Home
@@ -166,63 +180,96 @@ class AppContainer extends Component {
     } else {
       return <LoginPage />;
     }
-  };
+  }
 
+/* Spotify API Functions
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 
-  // API call for user data
-  loadSpotifyUserData() {
+  // API call for user's Spotify account data
+  loadSpotifyUserData = () => {
 
-    // URL constructor for user data
-    const BASE_URL = 'https://api.spotify.com/v1/me';
-    const FETCH_URL = `${BASE_URL}`;
-    const request_params = {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`
-      },
-      mode: 'cors',
-      cache: 'default'
-    };
-
-    // API call with header
-    fetch(FETCH_URL, request_params)
+    Spotify.getUserInfo(accessToken)
       .then(response => {
-        switch (response.status) {
-          case 500: console.error('Some server error'); break;
-          case 400: console.error('Missing token'); document.location.href="/"; break;
-          case 401: console.error('Unauthorized'); document.location.href="/"; break;
-          default: break;
-        }
-        if (response.ok) {
-          response.json()
-          .then(data => {
-            this.setState({
-              userData: {
-                userName: data.display_name,
-                userID: data.id
-              }
-            });
+        // If response OK, set user data
+        if (response.statusText === "OK") {
+          this.setState({
+            userData: {
+              userName: response.data.display_name,
+              userID: response.data.id
+            }
+          })
 
           // check if user record exists in DB and update
-          // if not exist, create one
+          // if it does not exist, create one
           // then add DB _id to state.userData
           // Uses object.assign to get current userData object then add _id to the object
           API
           .upsertUser({
-            userName: data.display_name,
-            userID: data.id})
+            userName: response.data.display_name,
+            userID: response.data.id
+          })
           .then(res => {
               this.setState(
                 { userData: Object.assign({}, this.state.userData, {_id: res.data._id}) }
               )
+              // Load any tracks already saved by user
               this.loadTracks();
           })
+        }
+      })
+    }
+
+  // API call for finding a track
+  searchSpotify(searchOption, query) {
+
+    this.setState({ noSongFound: false })
+
+    // Set query type
+    if (searchOption === 'artist' && query !== '') { query = `artist:${query}` }
+    if (searchOption === 'album' && query !== '') { query = `album:${query}` }
+    
+    // Dummy data for blank request (blank search causes 400 error)
+    // if (query === "") {
+    //   query = "zyzyzyz";
+    // }
+
+    // Search page results handling
+    let offset;
+    switch(this.state.searchPage) {
+      case 2: offset ="10"; break;
+      case 3: offset ="20"; break;
+      default: offset ="0"; break;
+    }
+
+    Spotify.searchSpotifyAPI(accessToken, query, offset)
+      .then(response => {
+        if (response.statusText === "OK" && response.data.tracks.items.length > 0) {
+            this.setState({
+              tracks: response.data.tracks.items.map(item => {
+                return {
+                  trackID: item.id,
+                  trackName: item.name,
+                  trackURI: item.uri,
+                  artist: item.artists[0].name,
+                  album: item.album.name,
+                  trackURL: item.preview_url
+                }
+              })
+            })
+        } else {
+          this.setState({
+            noSongFound: true,
+            tracks: {}
+          })
+        }
         })
       }
-    })
-  }
 
-  // handle dialog open and close
+
+/* Search Functions
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+  // Handle dialog open and close
   handleOpen = () => {
     this.setState({open: true});
   }
@@ -234,7 +281,7 @@ class AppContainer extends Component {
     });
   }
 
-  // handle search form on home page
+  // Handle search form on home page
   handleSearchOption = (event, index, value) => {
 
       this.setState({ searchOption: value });
@@ -271,78 +318,7 @@ class AppContainer extends Component {
   }
 
 
-  // API call for finding a track
-  searchSpotify(searchOption, query) {
-
-    this.setState({ noSongFound: false })
-
-    if (searchOption === 'artist' && query !== '') { query = `artist:${query}` }
-    if (searchOption === 'album' && query !== '') { query = `album:${query}` }
-    
-    // Dummy data for blank request
-    if (query === "") {
-      query = "zyzyzyz";
-    }
-
-    let offset;
-
-    switch(this.state.searchPage) {
-      case 2:
-        offset ="10";
-        break;
-      case 3:
-        offset ="20";
-        break;
-      default:
-        offset ="0";    
-        break;
-    }
-
-    // URL constructor for search
-    const BASE_URL = 'https://api.spotify.com/v1/search';
-    const FETCH_URL = `${BASE_URL}?q=${query}&type=track&limit=10&offset=${offset}`;
-    const request_params = {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`
-      },
-      mode: 'cors',
-      cache: 'default'
-    };
-
-    // API call with header
-    fetch(FETCH_URL, request_params)
-      .then(response => {
-        switch (response.status) {
-          case 500: console.error('Some server error'); break;
-          case 400: console.error('Missing token'); document.location.href="/"; break;
-          case 401: console.error('Unauthorized'); document.location.href="/"; break;
-          default: break;
-        }
-        if (response.ok) {
-          response.json()
-        .then(data =>
-          {data.tracks.items.length > 0 ? (
-          this.setState({
-          tracks: data.tracks.items.map(item => {
-            return {
-              trackID: item.id,
-              trackName: item.name,
-              trackURI: item.uri,
-              artist: item.artists[0].name,
-              album: item.album.name,
-              trackURL: item.preview_url
-            }
-          })
-        })):(
-          this.setState({
-            noSongFound: true,
-            tracks: {}
-          }))}
-        )
-      }
-    })
-  }
+  
 
   findAudioFeatures(trackID) {
 

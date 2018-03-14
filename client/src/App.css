@@ -1,22 +1,23 @@
-
-  .tooltip {
-    position: relative;
-    display: inline-block;
+/* Global CSS Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.tooltip {
+  position: relative;
+  display: inline-block;
 }
 
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 100px;
-    background-color: rgba(97,97,97,.9);
-    color: white;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 0px;
-    font-size: 10px;
-    position: absolute;
-    z-index: 1;
-  }
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  background-color: rgba(97,97,97,.9);
+  color: white;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 0px;
+  font-size: 10px;
+  position: absolute;
+  z-index: 1;
+}
 
-  .tooltip:hover .tooltiptext {
-      visibility: visible;
-  }
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
