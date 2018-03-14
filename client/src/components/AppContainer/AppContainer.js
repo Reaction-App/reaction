@@ -190,13 +190,6 @@ class AppContainer extends Component {
 
     Spotify.getUserInfo(accessToken)
       .then(response => {
-        // Check for errors
-        switch (response.status) {
-          case 500: console.error('Some server error'); break;
-          case 400: console.error('Missing token'); document.location.href="/"; break;
-          case 401: console.error('Unauthorized'); document.location.href="/"; break;
-          default: break;
-        }
         // If response OK, set user data
         if (response.statusText === "OK") {
           this.setState({
@@ -273,7 +266,7 @@ class AppContainer extends Component {
       })
     }
 
-/* Functions
+/* Search Functions
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
   // Handle dialog open and close

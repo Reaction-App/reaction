@@ -3,20 +3,16 @@ import axios from 'axios';
 export default {
 
 	getUserInfo: (access_token) => {
-  		const config = { headers: { 'Authorization': 'Bearer ' + access_token } };
+		const config = { headers: { 'Authorization': 'Bearer ' + access_token } };
   		return axios.get('https://api.spotify.com/v1/me', config)
   			.catch(function (error) {
 	    		if (error.response) {
-		      		// The request was made and the server responded with a status code
-		      		// that falls out of the range of 2xx
-		      		console.log(error.response.data);
-		      		console.log(error.response.status);
-		      		console.log(error.response.headers);
-	    		} else if (error.request) {
-		      		// The request was made but no response was received
-		      		// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-		      		// http.ClientRequest in node.js
-		      		console.log(error.request);
+			        switch (error.response.status) {
+			          case 500: console.error('Some server error'); break;
+			          case 400: console.error('Missing token'); document.location.href="/"; break;
+			          case 401: console.error('Unauthorized'); document.location.href="/"; break;
+			          default: break;
+			        }
 		    	} else {
 	      			// Something happened in setting up the request that triggered an Error
 	      			console.log('Error', error.message);
@@ -30,16 +26,12 @@ export default {
   		return axios.get(`https://api.spotify.com/v1/search?q=${query}&type=track&limit=10&offset=${offset}`, config)
   			.catch(function (error) {
 	    		if (error.response) {
-		      		// The request was made and the server responded with a status code
-		      		// that falls out of the range of 2xx
-		      		console.log(error.response.data);
-		      		console.log(error.response.status);
-		      		console.log(error.response.headers);
-	    		} else if (error.request) {
-		      		// The request was made but no response was received
-		      		// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-		      		// http.ClientRequest in node.js
-		      		console.log(error.request);
+			        switch (error.response.status) {
+			          case 500: console.error('Some server error'); break;
+			          case 400: console.error('Missing token'); document.location.href="/"; break;
+			          case 401: console.error('Unauthorized'); document.location.href="/"; break;
+			          default: break;
+			        }
 		    	} else {
 	      			// Something happened in setting up the request that triggered an Error
 	      			console.log('Error', error.message);
@@ -53,16 +45,12 @@ export default {
 		return axios.post(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, data, config)
   			.catch(function (error) {
 	    		if (error.response) {
-		      		// The request was made and the server responded with a status code
-		      		// that falls out of the range of 2xx
-		      		console.log(error.response.data);
-		      		console.log(error.response.status);
-		      		console.log(error.response.headers);
-	    		} else if (error.request) {
-		      		// The request was made but no response was received
-		      		// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-		      		// http.ClientRequest in node.js
-		      		console.log(error.request);
+			        switch (error.response.status) {
+			          case 500: console.error('Some server error'); break;
+			          case 400: console.error('Missing token'); document.location.href="/"; break;
+			          case 401: console.error('Unauthorized'); document.location.href="/"; break;
+			          default: break;
+			        }
 		    	} else {
 	      			// Something happened in setting up the request that triggered an Error
 	      			console.log('Error', error.message);
@@ -76,23 +64,19 @@ export default {
   		return axios.post(`https://api.spotify.com/v1/users/${userID}/playlists`, data, config)
   			.catch(function (error) {
 	    		if (error.response) {
-		      		// The request was made and the server responded with a status code
-		      		// that falls out of the range of 2xx
-		      		console.log(error.response.data);
-		      		console.log(error.response.status);
-		      		console.log(error.response.headers);
-	    		} else if (error.request) {
-		      		// The request was made but no response was received
-		      		// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-		      		// http.ClientRequest in node.js
-		      		console.log(error.request);
+			        switch (error.response.status) {
+			          case 500: console.error('Some server error'); break;
+			          case 400: console.error('Missing token'); document.location.href="/"; break;
+			          case 401: console.error('Unauthorized'); document.location.href="/"; break;
+			          default: break;
+			        }
 		    	} else {
 	      			// Something happened in setting up the request that triggered an Error
 	      			console.log('Error', error.message);
 	    		}
 	    		console.log(error.config);
   			});
-	},
+	}
 }
 
 
