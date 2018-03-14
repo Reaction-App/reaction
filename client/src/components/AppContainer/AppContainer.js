@@ -190,6 +190,13 @@ class AppContainer extends Component {
 
     Spotify.getUserInfo(accessToken)
       .then(response => {
+        // Check for errors
+        switch (response.status) {
+          case 500: console.error('Some server error'); break;
+          case 400: console.error('Missing token'); document.location.href="/"; break;
+          case 401: console.error('Unauthorized'); document.location.href="/"; break;
+          default: break;
+        }
         // If response OK, set user data
         if (response.statusText === "OK") {
           this.setState({
@@ -228,10 +235,10 @@ class AppContainer extends Component {
     if (searchOption === 'artist' && query !== '') { query = `artist:${query}` }
     if (searchOption === 'album' && query !== '') { query = `album:${query}` }
     
-    // Dummy data for blank request (blank search causes 400 error)
-    // if (query === "") {
-    //   query = "zyzyzyz";
-    // }
+    // Dummy data for blank request to trigger no results found message
+    if (query === "") {
+      query = "zyzyzyz";
+    }
 
     // Search page results handling
     let offset;
@@ -241,32 +248,32 @@ class AppContainer extends Component {
       default: offset ="0"; break;
     }
 
+    // API call with header
     Spotify.searchSpotifyAPI(accessToken, query, offset)
       .then(response => {
         if (response.statusText === "OK" && response.data.tracks.items.length > 0) {
-            this.setState({
-              tracks: response.data.tracks.items.map(item => {
-                return {
-                  trackID: item.id,
-                  trackName: item.name,
-                  trackURI: item.uri,
-                  artist: item.artists[0].name,
-                  album: item.album.name,
-                  trackURL: item.preview_url
-                }
-              })
+          this.setState({
+            tracks: response.data.tracks.items.map(item => {
+              return {
+                trackID: item.id,
+                trackName: item.name,
+                trackURI: item.uri,
+                artist: item.artists[0].name,
+                album: item.album.name,
+                trackURL: item.preview_url
+              }
             })
+          })
         } else {
           this.setState({
             noSongFound: true,
             tracks: {}
           })
         }
-        })
-      }
+      })
+    }
 
-
-/* Search Functions
+/* Functions
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
   // Handle dialog open and close
