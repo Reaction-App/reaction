@@ -40,6 +40,26 @@ export default {
   			});
 	},
 
+
+	getSongInfo: (access_token, trackID) => {
+  		const config = { headers: { 'Authorization': 'Bearer ' + access_token } };
+  		return axios.get(`https://api.spotify.com/v1/audio-features/${trackID}`, config)
+  			.catch(function (error) {
+	    		if (error.response) {
+			        switch (error.response.status) {
+			          case 500: console.error('Some server error'); break;
+			          case 400: console.error('Missing token'); document.location.href="/"; break;
+			          case 401: console.error('Unauthorized'); document.location.href="/"; break;
+			          default: break;
+			        }
+		    	} else {
+	      			// Something happened in setting up the request that triggered an Error
+	      			console.log('Error', error.message);
+	    		}
+	    		console.log(error.config);
+  			});
+	},
+
 	addTracksToPlaylist: (access_token, userID, playlistID, data) => {
 		const config = { headers: { 'Authorization': 'Bearer ' + access_token } };
 		return axios.post(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, data, config)
