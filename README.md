@@ -12,7 +12,7 @@ Reaction Radio allows you create a playlist of songs, see how they fall on a moo
 
 ### Live Example
 
-[https://reaction-music.herokuapp.com/](https://reaction-music.herokuapp.com/)
+[https://reaction-radio.herokuapp.com/](https://reaction-radio.herokuapp.com/)
 
 > Since the app is hosted on a free [Heroku](https://www.heroku.com/) instance, it may need some time to boot up.
 
@@ -104,7 +104,7 @@ You can easily deploy this application to a platform such as Heroku.
 	const REDIRECT_URI = encodeURIComponent('http://localhost:3000/home');
 	
 	// IF USING HEORKU, USE THIS URL
-	// const REDIRECT_URI = encodeURIComponent('https://reaction-music.herokuapp.com/home/');
+	// const REDIRECT_URI = encodeURIComponent('https://reaction-radio.herokuapp.com/home/');
 	```
 3. Run ```yarn build``` and deploy!
 
