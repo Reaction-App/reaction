@@ -1,4 +1,4 @@
-# Reaction Music App 🎵🙂😢😡😌🎵
+# Reaction Radio 🎵🙂😢😡😌🎵
 
 Create Spotify playlists that can be sorted by mood.
 
@@ -6,7 +6,7 @@ Create Spotify playlists that can be sorted by mood.
 
 [Spotify’s API](https://developer.spotify.com/web-api/) provides a multitude of information about their library of songs, including measures of audio features, such as song valence (or as we like to call it, "positivity") and song energy. These features can correlate with mood. A song high on the valence and energy scales is going to be happy! 
 
-Reaction Music App allows you create a playlist of songs, see how they fall on a mood chart, and then lets you edit and sort by mood. Once you have a playlist that you are satisfied with, you can easily export it to your Spotify account.
+Reaction Radio allows you create a playlist of songs, see how they fall on a mood chart, and then lets you edit and sort by mood. Once you have a playlist that you are satisfied with, you can easily export it to your Spotify account.
 
 ## Getting Started
 
