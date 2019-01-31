@@ -3,7 +3,7 @@ import AppBar from 'material-ui/AppBar';
 
 const NavClean = props => (
   <AppBar
-    iconElementLeft = {<img src='https://s17.postimg.org/xgsvell33/logo2.png' alt="Logo"
+    iconElementLeft = {<img src='https://s17.postimg.cc/xgsvell33/logo2.png' alt="Logo"
       style={{
         height: '80px',
         marginTop: '-8px',

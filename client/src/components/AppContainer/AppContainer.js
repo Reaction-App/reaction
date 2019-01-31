@@ -221,7 +221,7 @@ class AppContainer extends Component {
     Spotify.getUserInfo(accessToken)
       .then(response => {
         // If response OK, set user data
-        if (response.statusText === "OK") {
+        if (response.status === 200) {
           this.setState({
             userData: {
               userName: response.data.display_name,
@@ -274,7 +274,7 @@ class AppContainer extends Component {
     // API call with header
     Spotify.searchSpotifyAPI(this.state.accessToken, query, offset)
       .then(response => {
-        if (response.statusText === "OK" && response.data.tracks.items.length > 0) {
+        if (response.status === 200 && response.data.tracks.items.length > 0) {
           this.setState({
             tracks: response.data.tracks.items.map(item => {
               return {
@@ -528,10 +528,10 @@ class AppContainer extends Component {
 
   // Display emoji on playlist
   showEmotion = (valence, energy) => {
-    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} alt="happy" src="https://s17.postimg.org/sx0jyqekv/happy.png" /><span className="tooltiptext">This song is happy!</span></div>)};
-    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="sad" src="https://s17.postimg.org/5pav3pnhb/sad.png" /><span className="tooltiptext">This song is sad..</span></div>)};
-    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} alt="angry" src="https://s17.postimg.org/mptrcfatb/angry.png" /><span className="tooltiptext">This song is angry!</span></div>)};
-    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="relaxed" src="https://s17.postimg.org/4zs2res3j/relaxed.png" /><span className="tooltiptext">This song is relaxing.</span></div>)};
+    if (valence>=50 && energy>=50) {return (<div><img style={{width: 15, height: 15}} alt="happy" src="https://s17.postimg.cc/sx0jyqekv/happy.png" /><span className="tooltiptext">This song is happy!</span></div>)};
+    if (valence<50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="sad" src="https://s17.postimg.cc/5pav3pnhb/sad.png" /><span className="tooltiptext">This song is sad..</span></div>)};
+    if (valence<50 && energy>50) {return (<div><img style={{width: 15, height: 15}} alt="angry" src="https://s17.postimg.cc/mptrcfatb/angry.png" /><span className="tooltiptext">This song is angry!</span></div>)};
+    if (valence>50 && energy<50) {return (<div><img style={{width: 15, height: 15}} alt="relaxed" src="https://s17.postimg.cc/4zs2res3j/relaxed.png" /><span className="tooltiptext">This song is relaxing.</span></div>)};
   }
 
   handleDeleteTrack = id => {

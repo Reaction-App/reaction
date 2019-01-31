@@ -31,7 +31,7 @@ class LoginPage extends React.Component {
 	    			<h1>search music and curate your own playlist based on your mood</h1>
 	    			<button className="login-button" onClick={ () => window.location=REDIRECT_URL}>Log In</button>
 	    			<span className="spotify-callout">
-	    				<p>Powered by</p> <img src="https://s17.postimg.org/rjpi4vcv3/Spotify_logo_with_text.svg.png" alt="Spotify" />
+	    				<p>Powered by</p> <img src="https://s17.postimg.cc/rjpi4vcv3/Spotify_logo_with_text.svg.png" alt="Spotify" />
 	    			</span>
 	  			</div>
 			</div>
