@@ -11,7 +11,7 @@ const Home = props => {
     <div>
 
       <div style={{
-        backgroundImage: 'url(https://s10.postimg.org/hvq64sq1l/search-background.jpg)',
+        backgroundImage: 'url(https://s10.postimg.cc/hvq64sq1l/search-background.jpg)',
         width: "100%",
         backgroundSize: 'cover',
         marginBottom: 50,
@@ -39,7 +39,7 @@ const Home = props => {
           <SearchResults {...props}/>
         ) : ( 
           <div style={{ margin: '0 auto', marginTop: 80, display: 'block', textAlign: 'center', maxWidth: 650, color: '#454448' }}>
-            <img style={{ width: 150 }} src='https://s17.postimg.org/vobidfu3z/start-searaching.png' alt="Start Searching" />
+            <img style={{ width: 150 }} src='https://s17.postimg.cc/vobidfu3z/start-searaching.png' alt="Start Searching" />
             {props.noSongFound ? (
               <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, no results found! Please try another search.</h2>
             ):
