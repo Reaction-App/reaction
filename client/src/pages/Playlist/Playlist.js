@@ -28,7 +28,7 @@ const Playlist = props => {
           <MyPlaylist {...props}/>
         ) : (
           <div style={{ margin: '0 auto', paddingTop: '340px', display: 'block', textAlign: 'center', maxWidth: 650, color: '#454448' }}>
-            <img style={{ width: 150 }} src='https://s17.postimg.org/twc8xm1an/playlist-empty-state.png' alt="Start Searching" />
+            <img style={{ width: 150 }} src='https://s17.postimg.cc/twc8xm1an/playlist-empty-state.png' alt="Start Searching" />
             {props.noSongFound ? (
               <h2 style={{ fontFamily: 'Montserrat' }}>Sorry, no results found! Please try another search.</h2>
             ):
